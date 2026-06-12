@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UW Triage Platform — 张卓伊</title>
+  <title>UW Triage Platform — Zhuoyi Zhang</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #F5F5F7;
-      --surface:   #FFFFFF;
-      --ink:       #1D1D1F;
-      --ink-mid:   #6E6E73;
-      --ink-soft:  #86868B;
-      --rule:      #D2D2D7;
+      --bg:        #FFFFFF;
+      --surface:   #F7F7F6;
+      --ink:       #1A1A17;
+      --ink-mid:   #6B6661;
+      --ink-soft:  #9B9590;
+      --rule:      hsl(43, 15%, 87%);
       --green:     #1A7A5E;
       --green-bg:  #EAF4F0;
       --green-mid: #A8CEC3;
       --amber:     #BF6000;
       --amber-bg:  #FDF4E7;
-      --w-text:    720px;
-      --w-wide:    1080px;
-      --r:         16px;
+      --dark-bg:   hsl(260, 48%, 35%);
+      --sidebar-w: 240px;
+      --r:         14px;
     }
 
     html { scroll-behavior: smooth; }
@@ -33,894 +33,868 @@
     body {
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       font-size: 16px;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(245,245,247,0.82);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--rule);
-      padding: 0 32px;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 48px;
-    }
-    nav a { text-decoration: none; color: var(--ink); font-size: 13px; font-weight: 500; }
-    nav .nav-name { font-family: 'Fraunces', serif; font-weight: 400; font-style: italic; font-size: 15px; letter-spacing: -.01em; }
-    nav .nav-links { display: flex; gap: 28px; }
-    nav .nav-links a { color: var(--ink-mid); transition: color .15s; font-weight: 400; }
-    nav .nav-links a:hover { color: var(--ink); }
-
     /* ── LAYOUT ── */
-    .wrap      { max-width: var(--w-text); margin: 0 auto; padding: 0 24px; }
-    .wrap-wide { max-width: var(--w-wide); margin: 0 auto; padding: 0 24px; }
+    .layout { display: flex; align-items: flex-start; padding-left: clamp(0px, calc(100vw - 1100px), 380px); }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar-inner {
+      padding: 40px 24px 40px 32px;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+    .sidebar-name {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 15px; color: var(--ink); text-decoration: none;
+      display: block; margin-bottom: 20px; letter-spacing: -.01em;
+    }
+    .sidebar-sitenav { display: flex; flex-direction: column; gap: 2px; margin-bottom: 36px; }
+    .sidebar-sitenav a { font-size: 13px; color: var(--ink-mid); text-decoration: none; padding: 3px 0; transition: color .15s; }
+    .sidebar-sitenav a:hover { color: var(--ink); }
+    .toc-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 1px; }
+    .toc-link { font-size: 12px; color: var(--ink-soft); text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid transparent; line-height: 1.4; transition: color .15s, border-color .15s; }
+    .toc-link:hover { color: var(--ink-mid); }
+    .toc-link.active { color: var(--ink); border-left-color: var(--green); font-weight: 500; }
+    .sidebar-back { margin-top: auto; padding-top: 32px; }
+    .sidebar-back a { font-size: 12px; color: var(--ink-soft); text-decoration: none; transition: color .15s; }
+    .sidebar-back a:hover { color: var(--ink-mid); }
+
+    /* ── MAIN ── */
+    .main { flex: 1; min-width: 0; }
+    .wrap      { max-width: 760px; margin: 0 auto; padding: 0 56px; }
+    .wrap-wide { max-width: 1100px; margin: 0 auto; padding: 0 56px; }
 
     /* ── HERO ── */
-    .hero {
-      padding: 96px 0 80px;
-      border-bottom: 1px solid var(--rule);
-    }
-    .hero-eyebrow {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
-    }
-    .tag {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      background: rgba(0,0,0,0.06);
-      color: var(--ink-mid);
-    }
+    .hero { padding: 80px 0 72px; border-bottom: 1px solid var(--rule); }
+    .hero-eyebrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; background: rgba(0,0,0,0.06); color: var(--ink-mid); }
     .tag.green { background: var(--green-bg); color: var(--green); }
     .tag.amber { background: var(--amber-bg); color: var(--amber); }
-
-    .hero h1 {
-      font-family: 'Fraunces', serif;
-      font-weight: 300;
-      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
-      line-height: 1.15;
-      letter-spacing: -.025em;
-      margin-bottom: 28px;
-      max-width: 860px;
-    }
+    .hero h1 { font-family: 'Lora', serif; font-weight: 500; font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1.2; letter-spacing: -.02em; margin-bottom: 20px; }
     .hero h1 em { font-style: italic; color: var(--green); }
-
-    .hero-sub {
-      font-size: 17px;
-      color: var(--ink-mid);
-      max-width: 560px;
-      line-height: 1.65;
-      margin-bottom: 56px;
-      font-weight: 300;
-    }
-
-    /* meta grid */
-    .meta-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-      border-radius: var(--r);
-      overflow: hidden;
-    }
-    .meta-cell {
-      background: var(--surface);
-      padding: 20px 22px;
-    }
-    .meta-label {
-      font-size: 11px; font-weight: 600; letter-spacing: .06em;
-      text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px;
-    }
-    .meta-value {
-      font-size: 13px; color: var(--ink); line-height: 1.5; font-weight: 500;
-    }
+    .hero-sub { font-size: 16px; color: var(--ink-mid); max-width: 540px; line-height: 1.75; margin-bottom: 44px; font-weight: 300; }
+    .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+    .meta-cell { background: var(--surface); padding: 18px 20px; }
+    .meta-label { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 5px; }
+    .meta-value { font-size: 13px; color: var(--ink); line-height: 1.5; font-weight: 500; }
     .meta-value small { font-weight: 400; color: var(--ink-mid); display: block; font-size: 12px; margin-top: 2px; }
 
     /* ── STATS BAR ── */
-    .stats-bar {
-      background: var(--ink);
-      color: #F5F5F7;
-      padding: 0;
-    }
-    .stats-inner {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-    .stat-item {
-      padding: 48px 32px;
-      text-align: center;
-      border-right: 1px solid rgba(255,255,255,.08);
-    }
+    .stats-bar { background: var(--dark-bg); color: #F5F5F7; }
+    .stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat-item { padding: 44px 28px; text-align: center; border-right: 1px solid rgba(255,255,255,.08); }
     .stat-item:last-child { border-right: none; }
-    .stat-num {
-      font-family: 'Fraunces', serif;
-      font-weight: 300;
-      font-size: 2.8rem;
-      line-height: 1;
-      margin-bottom: 10px;
-      color: #F5F5F7;
-      letter-spacing: -.02em;
-    }
-    .stat-label {
-      font-size: 12px;
-      color: rgba(255,255,255,.45);
-      line-height: 1.5;
-      font-weight: 400;
-    }
+    .stat-num { font-family: 'Lora', serif; font-size: 2.6rem; line-height: 1; margin-bottom: 8px; letter-spacing: -.02em; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.5; }
 
-    /* ── SECTION ── */
-    section { padding: 96px 0; border-bottom: 1px solid var(--rule); }
-    section:last-of-type { border-bottom: none; }
+    /* ── SECTIONS ── */
+    section { padding: 80px 0; }
 
-    .eyebrow {
-      font-size: 11px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--ink-soft);
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      font-family: 'Fraunces', serif;
-      font-weight: 300;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      line-height: 1.25;
-      margin-bottom: 20px;
-      letter-spacing: -.02em;
-    }
-    h3 {
-      font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--ink);
-    }
-    p { color: var(--ink-mid); margin-bottom: 16px; font-size: 15px; line-height: 1.75; font-weight: 300; }
+    .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
+    h2 { font-family: 'Lora', serif; font-weight: 500; font-size: clamp(1.5rem, 2.2vw, 2rem); line-height: 1.3; margin-bottom: 16px; letter-spacing: -.015em; }
+    h3 { font-size: 14px; font-weight: 600; margin-bottom: 7px; color: var(--ink); }
+    p { color: var(--ink-mid); margin-bottom: 14px; font-size: 15px; line-height: 1.8; font-weight: 300; }
     p:last-child { margin-bottom: 0; }
     strong { color: var(--ink); font-weight: 500; }
 
     /* ── QUOTE ── */
-    .quote-block {
-      border-left: 2px solid var(--green);
-      padding: 20px 28px;
-      margin: 36px 0;
-      background: var(--green-bg);
-      border-radius: 0 12px 12px 0;
+    .opening-quote {
+      border-left: 3px solid var(--green);
+      padding: 20px 28px; margin-bottom: 36px;
+      background: var(--green-bg); border-radius: 0 14px 14px 0;
     }
-    .quote-text {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--ink);
-      margin-bottom: 10px !important;
+    .opening-quote .q-text {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 17px; line-height: 1.65; color: var(--ink); margin-bottom: 10px;
     }
-    .quote-attr { font-size: 12px; color: var(--ink-soft); margin-bottom: 0 !important; }
+    .opening-quote .q-attr { font-size: 12px; color: var(--ink-soft); }
 
-    /* ── METHODS GRID ── */
-    .methods-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 12px; margin-top: 36px;
-    }
-    .method-card {
-      border-radius: 12px; padding: 22px;
-      background: var(--surface);
-    }
-    .method-card .m-icon { font-size: 20px; margin-bottom: 12px; display: block; }
-    .method-card .m-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
-    .method-card .m-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
-    .method-card.hl { background: var(--green-bg); }
-    .method-card.hl .m-title { color: var(--green); }
+    /* ── PERSONA GRID ── */
+    .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 28px 0; }
+    .persona-card { border-radius: 14px; padding: 22px; background: var(--surface); }
+    .persona-card.researcher { border-top: 3px solid var(--green); }
+    .persona-card.admin-c { border-top: 3px solid var(--amber); }
+    .persona-role { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+    .persona-card.researcher .persona-role { color: var(--green); }
+    .persona-card.admin-c .persona-role { color: var(--amber); }
+    .persona-card p { font-size: 13px; margin-bottom: 10px; line-height: 1.6; }
+    .persona-quote { font-family: 'Lora', serif; font-style: italic; font-size: 13px; color: var(--ink); line-height: 1.6; padding-top: 10px; border-top: 1px solid var(--rule); margin: 0; }
 
-    /* AI callout */
-    .ai-callout {
-      margin-top: 28px;
-      padding: 24px 28px;
-      background: var(--surface);
-      border: 1px solid var(--green-mid);
-      border-radius: 14px;
-      display: flex; gap: 18px; align-items: flex-start;
-    }
-    .ai-callout .cc-icon {
-      width: 38px; height: 38px; flex-shrink: 0;
-      background: var(--green); border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 15px; font-weight: 700;
-      font-family: 'Fraunces', serif; letter-spacing: -.01em;
-    }
-    .ai-callout .cc-body h3 { color: var(--green); margin-bottom: 6px; font-size: 13px; }
-    .ai-callout .cc-body p { font-size: 13px; margin: 0; color: var(--ink-mid); }
-
-    /* ── THEMES GRID ── */
-    .themes-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; margin: 32px 0;
-    }
-    .theme-card {
-      border-radius: 14px; padding: 26px;
-      background: var(--surface);
-    }
-    .theme-letter {
-      font-family: 'Fraunces', serif; font-weight: 200; font-style: italic;
-      font-size: 2.2rem; color: var(--rule); margin-bottom: 8px; line-height: 1;
-    }
-    .theme-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-    .theme-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.6; margin: 0; }
-
-    /* Insight cards */
-    .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
-    .insight-card {
-      padding: 28px; border-radius: 14px;
-      background: var(--ink); color: #F5F5F7;
-    }
-    .insight-num {
-      font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 200;
-      font-style: italic; color: rgba(255,255,255,.2); margin-bottom: 14px; line-height: 1;
-    }
-    .insight-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #F5F5F7; }
-    .insight-desc { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.6; margin: 0; }
+    /* ── ROOT CAUSE CARDS ── */
+    .cause-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
+    .cause-card { background: var(--surface); border-radius: 14px; padding: 22px; }
+    .cause-letter { font-family: 'Lora', serif; font-style: italic; font-size: 2rem; color: var(--rule); line-height: 1; margin-bottom: 8px; }
+    .cause-name { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .cause-desc { font-size: 12px; color: var(--ink-mid); line-height: 1.6; margin: 0; }
 
     /* ── PORTAL DIAGRAM ── */
-    .portal-diagram {
-      display: flex; border-radius: 16px; overflow: hidden;
-      border: 1px solid var(--rule); margin: 36px 0;
-    }
-    .portal-side { flex: 1; padding: 28px 24px; }
-    .portal-side.admin { background: var(--ink); color: #F5F5F7; }
-    .portal-side.shared {
-      flex: 0 0 100px; background: var(--bg);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 16px;
-      border-left: 1px solid var(--rule);
-      border-right: 1px solid var(--rule);
-    }
+    .portal-diagram { display: flex; border-radius: 16px; overflow: hidden; border: 1px solid var(--rule); margin: 28px 0; }
+    .portal-side { flex: 1; padding: 24px 20px; }
+    .portal-side.admin { background: var(--dark-bg); color: #F5F5F7; }
+    .portal-side.shared { flex: 0 0 88px; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); }
     .portal-side.user { background: var(--surface); }
-    .portal-label {
-      font-size: 10px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; margin-bottom: 14px;
-    }
+    .portal-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
     .portal-side.admin .portal-label { color: rgba(255,255,255,.4); }
     .portal-side.shared .portal-label { color: var(--ink-soft); font-size: 9px; }
     .portal-side.user .portal-label { color: var(--ink-soft); }
-    .portal-module {
-      padding: 8px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 8px;
-    }
+    .portal-module { padding: 7px 10px; border-radius: 7px; font-size: 12px; margin-bottom: 7px; }
     .portal-side.admin .portal-module { background: rgba(255,255,255,.07); color: rgba(255,255,255,.7); }
     .portal-side.admin .portal-module.core { background: var(--green); color: #fff; font-weight: 500; }
     .portal-side.user .portal-module { background: var(--bg); color: var(--ink-mid); }
     .portal-side.user .portal-module.core { background: var(--green-bg); color: var(--green); font-weight: 500; border: 1px solid var(--green-mid); }
     .portal-side.shared .shared-lib { font-size: 11px; color: var(--ink-soft); line-height: 1.4; }
-    .arrow-icon { font-size: 18px; color: var(--ink-soft); margin: 8px 0; }
+    .arrow-icon { font-size: 16px; color: var(--ink-soft); margin: 8px 0; }
 
-    /* Stages */
-    .stages-list { display: flex; flex-direction: column; gap: 8px; margin-top: 28px; }
-    .stage-item {
-      display: flex; align-items: flex-start; gap: 16px;
-      padding: 16px 20px; border-radius: 10px;
-      background: var(--surface);
-    }
+    /* ── STAGES ── */
+    .stages-list { display: flex; flex-direction: column; gap: 6px; margin-top: 24px; }
+    .stage-item { display: flex; align-items: flex-start; gap: 14px; padding: 13px 16px; border-radius: 10px; background: var(--surface); }
     .stage-item.done { background: var(--green-bg); }
-    .stage-item.todo { opacity: .55; }
-    .stage-badge {
-      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; margin-top: 2px;
-    }
+    .stage-item.todo { opacity: .5; }
+    .stage-badge { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; margin-top: 2px; }
     .stage-item.done .stage-badge { background: var(--green); color: #fff; }
     .stage-item.todo .stage-badge { background: var(--rule); color: var(--ink-soft); }
-    .stage-body h3 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+    .stage-body h3 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
     .stage-body p { font-size: 12px; margin: 0; color: var(--ink-soft); }
 
+    /* ── METHODS ── */
+    .methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 24px 0; }
+    .method-card { border-radius: 10px; padding: 16px 18px; background: var(--surface); }
+    .method-card .m-icon { font-size: 16px; margin-bottom: 8px; display: block; }
+    .method-card .m-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+    .method-card .m-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
+
+    /* ── INSIGHTS ── */
+    .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 24px 0; }
+    .insight-card { padding: 24px; border-radius: 14px; background: var(--dark-bg); color: #F5F5F7; }
+    .insight-num { font-family: 'Lora', serif; font-size: 1.6rem; font-style: italic; color: rgba(255,255,255,.35); margin-bottom: 10px; line-height: 1; }
+    .insight-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #fff; }
+    .insight-desc { font-size: 12px; color: rgba(255,255,255,.8); line-height: 1.6; margin: 0; }
+
+    /* ── AI CALLOUT ── */
+    .ai-callout { margin-top: 24px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--green-mid); border-radius: 14px; display: flex; gap: 16px; align-items: flex-start; }
+    .ai-callout .cc-icon { width: 34px; height: 34px; flex-shrink: 0; background: var(--green); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; font-family: 'Lora', serif; }
+    .ai-callout .cc-body h3 { color: var(--green); margin-bottom: 4px; font-size: 13px; }
+    .ai-callout .cc-body p { font-size: 13px; margin: 0; color: var(--ink-mid); }
+
+    /* ── PRINCIPLES ── */
+    .principles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 24px 0; }
+    .principle-card { background: var(--surface); border-radius: 14px; padding: 22px; }
+    .principle-num { font-family: 'Lora', serif; font-style: italic; font-size: 1.4rem; color: var(--rule); line-height: 1; margin-bottom: 8px; }
+    .principle-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .principle-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.6; margin: 0; }
+
+    /* ── DECISION BANNER ── */
+    .decision-banner { background: var(--surface); border-radius: 14px; padding: 24px 28px; margin: 24px 0; border-left: 3px solid var(--amber); }
+    .decision-banner h3 { font-size: 13px; font-weight: 600; color: var(--amber); margin-bottom: 8px; }
+    .decision-banner p { font-size: 14px; color: var(--ink-mid); line-height: 1.75; margin: 0; }
+
     /* ── NODE TYPES ── */
-    .nodes-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 12px; margin: 28px 0;
-    }
-    .node-card {
-      padding: 20px 22px; border-radius: 12px;
-      background: var(--surface); display: flex; gap: 14px; align-items: flex-start;
-    }
-    .node-icon {
-      width: 34px; height: 34px; flex-shrink: 0; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center; font-size: 14px;
-    }
+    .nodes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 20px 0; }
+    .node-card { padding: 16px 18px; border-radius: 12px; background: var(--surface); display: flex; gap: 12px; align-items: flex-start; }
+    .node-icon { width: 30px; height: 30px; flex-shrink: 0; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
     .node-icon.def { background: #EEF2FF; }
     .node-icon.dec { background: #FEF9EE; }
     .node-icon.act { background: var(--green-bg); }
     .node-icon.han { background: #FFF0EE; }
-    .node-card h3 { font-size: 13px; margin-bottom: 4px; }
+    .node-card h3 { font-size: 13px; margin-bottom: 3px; }
     .node-card p { font-size: 12px; margin: 0; color: var(--ink-soft); line-height: 1.55; }
 
-    /* AI state chips */
-    .ai-states { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
-    .ai-state-chip {
-      padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
-      background: var(--surface); color: var(--ink-mid);
-    }
-    .ai-state-chip.active { background: var(--amber-bg); color: var(--amber); }
+    /* ── FILE2FLOW ── */
+    .f2f-pipeline { display: flex; align-items: stretch; margin: 20px 0 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .f2f-step { flex: 1; min-width: 120px; flex-shrink: 0; background: var(--surface); border-radius: 10px; padding: 16px 12px; }
+    .f2f-step.hl { background: var(--green-bg); }
+    .f2f-step-num { font-size: 9px; font-weight: 700; letter-spacing: .1em; color: var(--ink-soft); margin-bottom: 6px; }
+    .f2f-step-icon { font-size: 15px; margin-bottom: 6px; display: block; }
+    .f2f-step-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .f2f-step.hl .f2f-step-title { color: var(--green); }
+    .f2f-step-desc { font-size: 10px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
+    .f2f-arrow { display: flex; align-items: center; padding: 0 5px; color: var(--rule); font-size: 14px; flex-shrink: 0; }
 
-    /* Decision cards */
-    .decision-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
-    .decision-card {
-      padding: 20px 22px; border-left: 2px solid var(--rule);
-      background: var(--surface); border-radius: 0 10px 10px 0;
-    }
-    .decision-card h3 { font-size: 13px; margin-bottom: 6px; color: var(--ink); }
-    .decision-card p { font-size: 13px; margin: 0; color: var(--ink-mid); line-height: 1.65; }
-    .decision-card.key { border-left-color: var(--green); background: var(--green-bg); }
+    /* ── FEATURE CARDS ── */
+    .feature-grid { display: flex; flex-direction: column; gap: 8px; margin: 24px 0; }
+    .feature-card { padding: 20px 22px; background: var(--surface); border-radius: 12px; border-left: 2px solid var(--rule); }
+    .feature-card.key { border-left-color: var(--green); background: var(--green-bg); }
+    .feature-card h3 { font-size: 14px; margin-bottom: 5px; }
+    .feature-card p { font-size: 13px; margin: 0; color: var(--ink-mid); line-height: 1.65; }
 
-    /* ── OUTCOMES ── */
-    .outcomes-list { display: flex; flex-direction: column; gap: 8px; margin-top: 28px; }
-    .outcome-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 14px 18px; background: var(--surface);
-      border-radius: 10px; font-size: 14px;
-    }
-    .outcome-icon { font-size: 15px; flex-shrink: 0; margin-top: 2px; }
-    .outcome-text { color: var(--ink-mid); }
-    .outcome-text strong { color: var(--ink); }
+    /* ── TEST CARDS ── */
+    .test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0; }
+    .test-card { background: var(--surface); border-radius: 14px; padding: 24px; }
+    .test-label { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
+    .test-n { font-family: 'Lora', serif; font-size: 2rem; font-style: italic; color: var(--rule); line-height: 1; margin-bottom: 14px; }
+    .test-findings { display: flex; flex-direction: column; gap: 6px; }
+    .finding { font-size: 13px; color: var(--ink-mid); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+    .finding-icon { flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+
+    /* ── INSIGHT STRIP ── */
+    .insight-strip { background: var(--dark-bg); border-radius: 14px; padding: 24px 28px; margin: 24px 0; }
+    .insight-strip h3 { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.5); margin-bottom: 10px; letter-spacing: .06em; text-transform: uppercase; }
+    .insight-strip ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .insight-strip li { font-size: 14px; color: rgba(255,255,255,.85); line-height: 1.55; display: flex; gap: 10px; }
+    .insight-strip li::before { content: "→"; color: var(--green-mid); flex-shrink: 0; }
+
+    /* ── REFLECTION CARDS ── */
+    .reflection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 24px 0; }
+    .reflection-card { background: var(--surface); border-radius: 14px; padding: 22px; }
+    .reflection-icon { font-size: 20px; margin-bottom: 12px; display: block; }
+    .reflection-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .reflection-desc { font-size: 12px; color: var(--ink-mid); line-height: 1.6; margin: 0; }
 
     /* ── IMAGE PLACEHOLDER ── */
     .img-placeholder {
-      background: var(--surface);
-      border-radius: var(--r);
+      background: var(--surface); border-radius: var(--r);
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 10px;
-      padding: 56px 24px;
-      color: var(--ink-soft);
-      font-size: 13px; text-align: center;
-      margin: 32px 0;
-      border: 1.5px dashed var(--rule);
+      flex-direction: column; gap: 8px; padding: 48px 24px;
+      border: 1.5px dashed var(--rule); margin: 24px 0; text-align: center;
     }
-    .img-placeholder .ph-icon { font-size: 22px; opacity: .35; }
-    .img-placeholder span { opacity: .55; font-size: 12px; }
+    .img-placeholder .ph-label { font-size: 13px; font-weight: 500; color: var(--ink-mid); }
+    .img-placeholder .ph-hint { font-size: 11px; color: var(--ink-soft); }
 
     /* ── DIVIDER ── */
-    hr { border: none; border-top: 1px solid var(--rule); margin: 48px 0; }
+    hr { border: none; border-top: 1px solid var(--rule); margin: 36px 0; }
 
     /* ── FOOTER ── */
-    footer { padding: 48px 0; border-top: 1px solid var(--rule); }
+    footer { padding: 40px 0; border-top: 1px solid var(--rule); }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; }
     .footer-copy { font-size: 12px; color: var(--ink-soft); }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a {
-      font-size: 12px; color: var(--ink-soft); text-decoration: none; transition: color .15s;
-    }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { font-size: 12px; color: var(--ink-soft); text-decoration: none; transition: color .15s; }
     .footer-links a:hover { color: var(--ink); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 760px) {
-      .meta-grid { grid-template-columns: 1fr 1fr; }
-      .methods-grid { grid-template-columns: 1fr 1fr; }
-      .themes-grid { grid-template-columns: 1fr; }
-      .insights-grid { grid-template-columns: 1fr; }
-      .nodes-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .portal-diagram { flex-direction: column; }
-      .portal-side.shared { flex: 0 0 auto; padding: 16px; border: none; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-      nav { padding: 0 16px; }
-      .footer-inner { flex-direction: column; gap: 16px; }
-      .hero { padding: 72px 0 60px; }
-    }
-    @media (max-width: 480px) {
-      .methods-grid { grid-template-columns: 1fr; }
-      .meta-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: 1fr 1fr; }
+    /* ── INTERACTIONS ── */
+    @media (hover: hover) {
+      /* Universal card lift */
+      .persona-card, .cause-card, .principle-card, .method-card,
+      .node-card, .reflection-card, .feature-card, .test-card {
+        transition: transform 0.22s ease-out, box-shadow 0.22s ease;
+        will-change: transform;
+      }
+      .persona-card:hover, .cause-card:hover, .principle-card:hover,
+      .method-card:hover, .node-card:hover, .reflection-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 44px rgba(0,0,0,0.09);
+      }
+      .feature-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.07);
+      }
+      .feature-card.key:hover { box-shadow: 0 10px 28px rgba(26,122,94,0.12); }
+      .test-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+
+      /* Dark insight cards — teal glow */
+      .insight-card { transition: transform 0.22s ease-out, box-shadow 0.22s ease; will-change: transform; }
+      .insight-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(26,122,94,0.24); }
+
+      /* AI callout lift */
+      .ai-callout { transition: transform 0.22s ease-out, box-shadow 0.22s ease; }
+      .ai-callout:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,122,94,0.14); }
+
+      /* Stage items slide */
+      .stage-item { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+      .stage-item.done:hover { transform: translateX(5px); box-shadow: 0 4px 16px rgba(26,122,94,0.1); }
+
+      /* Color accent shifts */
+      .cause-letter { transition: color 0.2s ease; }
+      .cause-card:hover .cause-letter { color: var(--green); }
+      .principle-num { transition: color 0.2s ease; }
+      .principle-card:hover .principle-num { color: var(--green-mid); }
+
+      /* F2F pipeline step */
+      .f2f-step { transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease; }
+      .f2f-step:not(.hl):hover { background: var(--green-bg); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.07); }
+      .f2f-step.hl:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(26,122,94,0.2); }
+
+      /* Portal modules */
+      .portal-module { transition: transform 0.15s ease; }
+      .portal-module:hover { transform: translateX(4px); }
     }
 
+    /* AI callout ambient pulse */
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(26,122,94,0); }
+      50%       { box-shadow: 0 0 0 5px rgba(26,122,94,0.07); }
+    }
+    .ai-callout { animation: pulse-glow 4s ease-in-out infinite; }
+
     /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
     .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .layout { flex-direction: column; padding-left: 0; }
+      .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--rule); }
+      .sidebar-inner { min-height: auto; padding: 20px 24px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px; }
+      .sidebar-back { margin-top: 0; padding-top: 0; }
+      .sidebar-toc { display: none; }
+      .wrap, .wrap-wide { padding: 0 24px; }
+    }
+    @media (max-width: 700px) {
+      .meta-grid, .cause-grid, .principles-grid, .test-grid, .reflection-grid { grid-template-columns: 1fr 1fr; }
+      .methods-grid, .insights-grid, .nodes-grid { grid-template-columns: 1fr 1fr; }
+      .persona-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .portal-diagram { flex-direction: column; }
+      .f2f-pipeline { flex-direction: column; }
+      .f2f-arrow { justify-content: center; padding: 3px 0; }
+      .footer-inner { flex-direction: column; gap: 14px; }
+    }
+    @media (max-width: 480px) {
+      .meta-grid, .cause-grid, .principles-grid, .methods-grid, .insights-grid, .nodes-grid, .reflection-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav>
-  <a href="https://zhuoyiz.framer.website" class="nav-name">张卓伊</a>
-  <div class="nav-links">
-    <a href="https://zhuoyiz.framer.website/projects">项目</a>
-    <a href="https://zhuoyiz.framer.website/artifacts">Artifacts</a>
-    <a href="https://zhuoyiz.framer.website/aboutme">关于我</a>
-  </div>
-</nav>
+<div class="layout">
 
-
-<!-- ── HERO ── -->
-<div class="hero">
-  <div class="wrap">
-    <div class="hero-eyebrow reveal">
-      <span class="tag">UW HCDE Capstone</span>
-      <span class="tag green">Internal Platform · AI Agent</span>
-      <span class="tag amber">2025.12 — 2026.6</span>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <div>
+        <a href="https://zhuoyiz.framer.website" class="sidebar-name">Zhuoyi Zhang</a>
+        <nav class="sidebar-sitenav">
+          <a href="https://zhuoyiz.framer.website/projects">Projects</a>
+          <a href="https://zhuoyiz.framer.website/artifacts">Artifacts</a>
+          <a href="https://zhuoyiz.framer.website/aboutme">About</a>
+        </nav>
+      </div>
+      <div class="sidebar-toc">
+        <div class="toc-label">On this page</div>
+        <nav class="toc-nav">
+          <a href="#overview" class="toc-link" data-target="overview">Overview</a>
+          <a href="#s01" class="toc-link" data-target="s01">01 · The Problem</a>
+          <a href="#s02" class="toc-link" data-target="s02">02 · Our Solution</a>
+          <a href="#s03" class="toc-link" data-target="s03">03 · Research</a>
+          <a href="#s04" class="toc-link" data-target="s04">04 · Design</a>
+          <a href="#s05" class="toc-link" data-target="s05">05 · Admin Portal</a>
+          <a href="#s06" class="toc-link" data-target="s06">06 · Researcher Portal</a>
+          <a href="#s07" class="toc-link" data-target="s07">07 · Testing</a>
+          <a href="#s08" class="toc-link" data-target="s08">08 · Reflections</a>
+        </nav>
+      </div>
+      <div class="sidebar-back">
+        <a href="https://zhuoyiz.framer.website/projects">← Back to Projects</a>
+      </div>
     </div>
+  </aside>
 
-    <h1 class="reveal">
-      用 AI 重建大学协议审批的<br>
-      <em>路由判断逻辑</em>与<em>信息流转系统</em>
-    </h1>
+  <!-- ── MAIN ── -->
+  <div class="main">
 
-    <p class="hero-sub reveal">
-      UW CoMotion 每年处理数百份 MTA、NDA、Data Use Agreement——
-      但没有人知道谁负责、为什么、或者现在走到哪一步了。
-    </p>
-
-    <div class="meta-grid reveal">
-      <div class="meta-cell">
-        <div class="meta-label">角色</div>
-        <div class="meta-value">Product Manager
-          <small>Admin Portal 设计负责人 · AI Assistant 功能</small>
+    <!-- HERO -->
+    <div class="hero" id="overview">
+      <div class="wrap">
+        <div class="hero-eyebrow reveal">
+          <span class="tag">UW HCDE Capstone</span>
+          <span class="tag green">Internal Platform · AI Agent</span>
+          <span class="tag amber">Dec 2025 – Jun 2026</span>
         </div>
-      </div>
-      <div class="meta-cell">
-        <div class="meta-label">团队 / 机构</div>
-        <div class="meta-value">Team JXYZ（4人）
-          <small>UW HCDE · CoMotion 赞助</small>
-        </div>
-      </div>
-      <div class="meta-cell">
-        <div class="meta-label">技术栈</div>
-        <div class="meta-value">React · Node.js · Claude API
-          <small>Supabase · Netlify · Render</small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ── STATS BAR ── -->
-<div class="stats-bar">
-  <div class="wrap-wide">
-    <div class="stats-inner">
-      <div class="stat-item reveal">
-        <div class="stat-num">$1.74B</div>
-        <div class="stat-label">FY2025 UW 研究经费</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">11+</div>
-        <div class="stat-label">访谈参与者<br>利益相关者 + 研究者</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">4</div>
-        <div class="stat-label">识别出的<br>结构性障碍</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-num">3 / 6</div>
-        <div class="stat-label">产品阶段<br>已在原型中实现</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ── SECTION 01: 问题背景 ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">01 &nbsp;·&nbsp; 问题背景</div>
-    <h2 class="reveal">协议在邮件线程里消失，然后要求从头再来</h2>
-
-    <p class="reveal">
-      UW 每年处理的协议体量庞大：6,700+ 教职员工、23,000 名工作人员，FY2025 研究经费总额 <strong>$1.74 亿美元</strong>。CoMotion 与 OSP、CoE、SoM 组建了跨职能分流小组，也有一份草稿分流表单——但问题的根源是<strong>整个系统依赖个别员工脑子里的隐性经验</strong>，而不是任何可以被传递的文档。
-    </p>
-
-    <div class="quote-block reveal">
-      <p class="quote-text">"The messy part is when an agreement is not getting to the right unit. An agreement that belongs at CoMotion has been sent to OSP and nobody can figure out where it should belong."</p>
-      <p class="quote-attr">— OSP 利益相关者访谈</p>
-    </div>
-
-    <p class="reveal">
-      研究者不知道从哪里开始，工作人员不确定谁负责什么。<strong>核心问题不是单一步骤的失效，而是整个系统结构性地不透明。</strong>
-    </p>
-
-    <div class="img-placeholder reveal">
-      <div class="ph-icon">📊</div>
-      <strong>用户旅程图 / 痛点热力图</strong>
-      <span>可放 Figma 导出的用户旅程图截图</span>
-    </div>
-  </div>
-</section>
-
-
-<!-- ── SECTION 02: 研究方法 ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">02 &nbsp;·&nbsp; 研究方法</div>
-    <h2 class="reveal">六种方法，构建全景理解</h2>
-    <p class="reveal">混合研究方法，从机构文档、专家访谈到真实邮件案例，多角度验证问题边界。</p>
-
-    <div class="methods-grid reveal">
-      <div class="method-card">
-        <span class="m-icon">📄</span>
-        <div class="m-title">桌面研究</div>
-        <p class="m-desc">分析 10+ 个 UW 官方网站，绘制 CoMotion、OSP、CoE、SoM 的标准操作流程图，建立统一词汇与视觉语言。</p>
-      </div>
-      <div class="method-card">
-        <span class="m-icon">🎙️</span>
-        <div class="m-title">利益相关者访谈</div>
-        <p class="m-desc">4 位域内专家：CoMotion Director、OSP Assistant VP、SoM Senior Director、CoE Director of Research。验证流程图，识别核心瓶颈。</p>
-      </div>
-      <div class="method-card">
-        <span class="m-icon">📧</span>
-        <div class="m-title">邮件案例分析</div>
-        <p class="m-desc">分析 10+ 份真实协议路由邮件线程，观察混乱如何在实际沟通中显现，建立研究者访谈的基线情境。</p>
-      </div>
-      <div class="method-card">
-        <span class="m-icon">👥</span>
-        <div class="m-title">用户访谈</div>
-        <p class="m-desc">7 位 PI 及 PI 行政助理（均来自 School of Medicine），结构化访谈，聚焦初始分流阶段的真实体验与困惑来源。</p>
-      </div>
-      <div class="method-card">
-        <span class="m-icon">🔍</span>
-        <div class="m-title">滚雪球抽样</div>
-        <p class="m-desc">由 CoMotion Licensing Associate 协助筛选招募，标准包括：近期提交过请求、经历过路由困惑、与目标办公室有交集。</p>
-      </div>
-      <div class="method-card hl">
-        <span class="m-icon">🧩</span>
-        <div class="m-title">主题聚类分析</div>
-        <p class="m-desc">跨访谈记录与邮件案例，开发统一 Codebook，定性编码与主题归纳，识别结构性障碍模式。</p>
-      </div>
-    </div>
-
-    <div class="ai-callout reveal">
-      <div class="cc-icon">C</div>
-      <div class="cc-body">
-        <h3>自建分析工具加速主题聚类</h3>
-        <p>我们基于 Claude 搭建了一套自定义标注工具（Claude Artifact），支持将访谈记录和邮件文本按 Codebook 进行结构化编码——比手动操作快 3–4 倍，且保持跨成员的编码一致性。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ── SECTION 03: 研究洞察 ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">03 &nbsp;·&nbsp; 研究洞察</div>
-    <h2 class="reveal">四个结构性障碍，三条设计方向</h2>
-    <p class="reveal">主题分析跨越所有访谈记录与邮件案例，识别出四个相互关联的障碍，解释了为什么用户普遍体验到"慢、不透明、混乱"。</p>
-
-    <div class="themes-grid reveal">
-      <div class="theme-card">
-        <div class="theme-letter">A</div>
-        <div class="theme-name">分流标准模糊</div>
-        <p class="theme-desc">协议类型判断没有统一规则。"什么算研究、什么算服务"这条核心边界完全依赖人工判断——只有有经验的工作人员才知道"忽略外部标签看实质"。</p>
-      </div>
-      <div class="theme-card">
-        <div class="theme-letter">B</div>
-        <div class="theme-name">流转过程不透明</div>
-        <p class="theme-desc">用户提交后进入"黑盒"：协议在哪里、为什么被转手、下一步需要什么——一概不知。工作人员自己有时也无法解释路由决策，因为那是被前任做出的，没有记录。</p>
-      </div>
-      <div class="theme-card">
-        <div class="theme-letter">C</div>
-        <div class="theme-name">机构知识碎片化</div>
-        <p class="theme-desc">处理一份协议所需的信息分散在 PI、行政助理、法务、财务等角色手中。有经验的用户在自建私人路由图，但这无法被共享或传承。</p>
-      </div>
-      <div class="theme-card">
-        <div class="theme-letter">D</div>
-        <div class="theme-name">复杂情境无法处理</div>
-        <p class="theme-desc">重叠的协议历史、多资助方结构（如 HHMI 联合资助）、外部合作方的续约假设——这些情境超出现有流程的预设范围，只能靠个人经验硬撑。</p>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="insights-grid reveal">
-      <div class="insight-card">
-        <div class="insight-num">1</div>
-        <div class="insight-title">在入口处结构化分类</div>
-        <p class="insight-desc">不应期待用户自己判断协议类型。系统应在提交入口通过引导式问题完成初步路由，将分类从用户负担转变为系统支持。</p>
-      </div>
-      <div class="insight-card">
-        <div class="insight-num">2</div>
-        <div class="insight-title">让路由逻辑可见</div>
-        <p class="insight-desc">不只告诉用户去哪里，还要解释为什么。路由判断标准、转手原因、当前状态，都需要被显式呈现，而不是隐藏在邮件线程里。</p>
-      </div>
-      <div class="insight-card">
-        <div class="insight-num">3</div>
-        <div class="insight-title">集中化机构知识</div>
-        <p class="insight-desc">现在的知识活在人脑里，人走了知识就消失了。产品需要提供一个能沉淀路由逻辑、协议记录和联系人信息的持久记录层。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ── SECTION 04: 产品定义 ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">04 &nbsp;·&nbsp; 产品定义</div>
-    <h2 class="reveal">双门户系统：分离定义权与使用权</h2>
-    <p class="reveal">
-      <strong>Admin Portal</strong> 负责定义和维护路由逻辑，<strong>User Portal</strong> 负责消费这套逻辑。两端通过"发布库"单向连接——发布动作是唯一的内容传递机制。
-    </p>
-
-    <div class="portal-diagram reveal">
-      <div class="portal-side admin">
-        <div class="portal-label">Admin Portal — 管理员端</div>
-        <div class="portal-module">文档类型选择</div>
-        <div class="portal-module core">⬡ Workflow Builder（核心）</div>
-        <div class="portal-module">发布 / 版本管理</div>
-      </div>
-      <div class="portal-side shared">
-        <div class="portal-label">发布库</div>
-        <div class="arrow-icon">→</div>
-        <div class="shared-lib">单向<br>只读</div>
-      </div>
-      <div class="portal-side user">
-        <div class="portal-label">User Portal — 研究者端</div>
-        <div class="portal-module">Dashboard</div>
-        <div class="portal-module core">⬡ Guided Intake（核心）</div>
-        <div class="portal-module">Request Tracker</div>
-      </div>
-    </div>
-
-    <h3 class="reveal" style="font-size:13px;font-weight:600;margin-bottom:16px;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase;">六阶段路线图（当前实现状态）</h3>
-
-    <div class="stages-list reveal">
-      <div class="stage-item done">
-        <div class="stage-badge">✓</div>
-        <div class="stage-body">
-          <h3>Stage 1 — 管理员构建 Workflow</h3>
-          <p>可视化 canvas，四种节点类型，支持 AI 从文档生成初始决策树草稿。</p>
-        </div>
-      </div>
-      <div class="stage-item done">
-        <div class="stage-badge">✓</div>
-        <div class="stage-body">
-          <h3>Stage 2 — 发布 Workflow</h3>
-          <p>通过结构校验后发布为 Public（研究者可见）或 Internal（仅内部），下架立即从 User Portal 移除。</p>
-        </div>
-      </div>
-      <div class="stage-item done">
-        <div class="stage-badge">✓</div>
-        <div class="stage-body">
-          <h3>Stage 3 — 已发布 Workflow 驱动 Guided Intake</h3>
-          <p>研究者选择文档类型后触发向导，逐节点跟随发布流程，呈现路由结果、负责办公室和材料清单。</p>
-        </div>
-      </div>
-      <div class="stage-item todo">
-        <div class="stage-badge">4</div>
-        <div class="stage-body">
-          <h3>Stage 4 — 用户提交请求</h3>
-          <p>"立即申请"按钮目前为占位，不创建请求对象，不向任何办公室传送内容。</p>
-        </div>
-      </div>
-      <div class="stage-item todo">
-        <div class="stage-badge">5</div>
-        <div class="stage-body">
-          <h3>Stage 5 — 请求随 Workflow 节点流转</h3>
-          <p>运行时路由引擎尚未构建；Workflow 目前仅作静态决策树使用。</p>
-        </div>
-      </div>
-      <div class="stage-item todo">
-        <div class="stage-badge">6</div>
-        <div class="stage-body">
-          <h3>Stage 6 — Dashboard 反映实时状态</h3>
-          <p>研究者状态追踪与管理员活动概览均为占位页面。</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="img-placeholder reveal">
-      <div class="ph-icon">🖥️</div>
-      <strong>系统架构图 / 双端 Portal 截图对比</strong>
-      <span>可截取 Figma 的 Information Architecture 图</span>
-    </div>
-  </div>
-</section>
-
-
-<!-- ── SECTION 05: WORKFLOW BUILDER ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">05 &nbsp;·&nbsp; Admin Portal — Workflow Builder</div>
-    <h2 class="reveal">把隐性经验变成可编辑的 Canvas</h2>
-    <p class="reveal">
-      Workflow Builder 是整个产品的设计核心。它的命题是：<strong>AI 给出可编辑的第一步，人来完成细化和校正</strong>。一个空白画布让人无从下手，完全由 AI 决定的流程图没有人会信任——Workflow Builder 设计的是这两者之间的协作界面。
-    </p>
-
-    <div class="nodes-grid reveal">
-      <div class="node-card">
-        <div class="node-icon def">📋</div>
-        <div>
-          <h3>Definition Node</h3>
-          <p>每个 Workflow 有且仅有一个，描述协议类型的基本定义与适用范围，是整棵决策树的入口。</p>
-        </div>
-      </div>
-      <div class="node-card">
-        <div class="node-icon dec">◇</div>
-        <div>
-          <h3>Decision Node</h3>
-          <p>包含判断问题与多条件分支，是路由决策的实际执行单元，支持内联编辑问题文本和分支选项。</p>
-        </div>
-      </div>
-      <div class="node-card">
-        <div class="node-icon act">→</div>
-        <div>
-          <h3>Action Node</h3>
-          <p>指定研究者在每个路由结果下需要执行的具体步骤，对应实际操作指引。Approval Chain 作为子类型合并入此。</p>
-        </div>
-      </div>
-      <div class="node-card">
-        <div class="node-icon han">🏢</div>
-        <div>
-          <h3>Handler Node</h3>
-          <p>命名负责该路径的内部办公室或具体联系人，可由管理员设置是否对研究者可见。</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="img-placeholder reveal">
-      <div class="ph-icon">⬡</div>
-      <strong>Workflow Builder Canvas 截图</strong>
-      <span>建议选一个包含 4 种节点类型的 MTA 示例 flow</span>
-    </div>
-
-    <hr>
-
-    <h3 class="reveal">AI Suggestion Panel — 五种状态</h3>
-    <p class="reveal">管理员可上传政策文件或输入 URL，由 Claude API 解析并生成可编辑的初始决策树草稿。面板在五种明确状态之间流转，每种状态对应不同的操作语境。</p>
-
-    <div class="ai-states reveal">
-      <span class="ai-state-chip">Idle 待机</span>
-      <span class="ai-state-chip active">Reviewing 审阅输入中</span>
-      <span class="ai-state-chip">Generating 生成中</span>
-      <span class="ai-state-chip">Confirming 二次确认</span>
-      <span class="ai-state-chip">Applied 已应用到 Canvas</span>
-    </div>
-
-    <div class="ai-callout reveal">
-      <div class="cc-icon">C</div>
-      <div class="cc-body">
-        <h3>AI Assistant 功能迭代（第一批，由我负责）</h3>
-        <p>
-          <strong>① URL 抓取 + 多模态图片理解：</strong>AI 可抓取外部链接的文字与图片内容作为生成上下文。<br>
-          <strong>② 两阶段确认流程：</strong>AI 先复述对修改意图的理解，用户确认后才执行 canvas 变更，防止误操作。<br>
-          <strong>③ 结构化操作展示：</strong>每条操作以「类型标签 + 受影响节点 + AI 推理说明」格式呈现，让管理员清楚知道 AI 在做什么，以及为什么。
+        <h1 class="reveal">
+          From 0 to 1 — <em>AI-Enhanced</em><br>
+          Agreement Routing for<br>
+          University Administration
+        </h1>
+        <p class="hero-sub reveal">
+          UW CoMotion handles hundreds of MTAs, NDAs, and Data Use Agreements annually. Routing them to the right office depended entirely on institutional memory — invisible, fragile, and gone when people left.
         </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ── SECTION 06: USER PORTAL ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">06 &nbsp;·&nbsp; User Portal — 研究者端</div>
-    <h2 class="reveal">从"发邮件猜谁负责"到"按向导走完流程"</h2>
-    <p class="reveal">
-      User Portal 消费 Admin Portal 发布的路由逻辑，始终与管理员最新发布版本同步——这是两端分离架构的核心价值。
-    </p>
-
-    <div class="decision-grid reveal">
-      <div class="decision-card">
-        <h3>Dashboard</h3>
-        <p>展示进行中的协议请求、需要注意的事项，以及进入新请求流程的入口。设计原则是"高频信息优先"，减少导航层级。</p>
-      </div>
-      <div class="decision-card key">
-        <h3>Guided Intake（核心）</h3>
-        <p>引导式向导，逐节点跟随已发布的 Workflow 决策树。研究者在每个 Decision Node 选择答案，系统沿路由路径前进，最终呈现路由结果、负责办公室与联系人、需要准备的材料清单。加入"不确定"选项处理边界情况，显式确认步骤降低误报率。</p>
-      </div>
-      <div class="decision-card">
-        <h3>Knowledge Database</h3>
-        <p>按文档类型组织的协议知识库，展示各类协议的定义、涉及办公室、处理时限参考及常见问题。Phase 1 由管理员维护，Phase 2 开放研究者侧浏览与搜索。</p>
+        <div class="meta-grid reveal">
+          <div class="meta-cell">
+            <div class="meta-label">My Role</div>
+            <div class="meta-value">Product Manager
+              <small>Admin Portal Design Lead · AI Features</small>
+            </div>
+          </div>
+          <div class="meta-cell">
+            <div class="meta-label">Team / Sponsor</div>
+            <div class="meta-value">Team JXYZ (4 members)
+              <small>UW HCDE · CoMotion Sponsored</small>
+            </div>
+          </div>
+          <div class="meta-cell">
+            <div class="meta-label">Stack</div>
+            <div class="meta-value">React · Node.js · Claude API
+              <small>Supabase · Netlify · Render</small>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="img-placeholder reveal">
-      <div class="ph-icon">📱</div>
-      <strong>Guided Intake 向导流程截图</strong>
-      <span>建议选一个 MTA 的完整路由结果页</span>
-    </div>
-  </div>
-</section>
 
 
-<!-- ── SECTION 07: 设计决策 ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">07 &nbsp;·&nbsp; 设计决策与取舍</div>
-    <h2 class="reveal">几个关键的 Scoping 决策</h2>
+    <!-- ── 01 THE PROBLEM ── -->
+    <section id="s01">
+      <div class="wrap">
+        <div class="eyebrow reveal">01 · The Problem</div>
+        <h2 class="reveal">Agreement routing at UW runs on institutional memory. That memory is invisible, fragile, and disappears when people leave.</h2>
 
-    <div class="decision-grid reveal">
-      <div class="decision-card key">
-        <h3>Approval Chain 并入 Workflow Builder</h3>
-        <p>原计划作为独立模块，评审后发现它本质上是 Action Node 的延伸。合并节省了导航层级，避免管理员在两处维护重复信息。</p>
-      </div>
-      <div class="decision-card key">
-        <h3>Review &amp; Approve 推迟到 Phase 2</h3>
-        <p>日常协议操作界面需与现有邮件系统深度集成，本学期资源不足以做好。决策是：聚焦路由逻辑定义侧，明确划定边界，不做半成品。</p>
-      </div>
-      <div class="decision-card">
-        <h3>Knowledge Base 作为不可压缩的前置条件</h3>
-        <p>依赖链是 KB → Workflow Builder → Guided Intake → Review &amp; Approve。AI 生成质量和 Intake 内容准确性都直接依赖 KB 的数据质量，它不能被跳过。</p>
-      </div>
-      <div class="decision-card">
-        <h3>用户测试采用远程桌面模式</h3>
-        <p>为让参与者使用带真实 AI 功能的原型（而非 mock），我们让参与者远程接入我们的电脑操作——避免了要求参与者在本地配置 API Key 的摩擦。</p>
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="opening-quote reveal">
+          <p class="q-text">"The messy part is when an agreement is not getting to the right unit. An agreement that belongs at CoMotion has been sent to OSP and nobody can figure out where it should belong."</p>
+          <p class="q-attr">— CoMotion Staff, Stakeholder Interview</p>
+        </div>
 
+        <p class="reveal">UW's research operation generates hundreds of cross-institutional agreements each year — MTAs, NDAs, Data Use Agreements — each reviewed by different offices. CoMotion, OSP, CoE, and SoM all have distinct scopes, but no shared rulebook. The routing logic lives in a few people's heads and a patchwork of outdated email threads.</p>
 
-<!-- ── SECTION 08: 成果 ── -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">08 &nbsp;·&nbsp; 成果与现状</div>
-    <h2 class="reveal">从研究到可测试的 AI 产品</h2>
+        <div class="persona-grid reveal">
+          <div class="persona-card researcher">
+            <div class="persona-role">👩‍🔬 Researcher</div>
+            <p>Gets bounced between offices. Forced to self-learn each institution's rules. Four months in and still doesn't know who signs what.</p>
+            <p class="persona-quote">"Three offices later, I still didn't know who was supposed to sign it."</p>
+          </div>
+          <div class="persona-card admin-c">
+            <div class="persona-role">🏢 Administrator</div>
+            <p>Half the day spent redirecting requests that landed in the wrong inbox. No contact map. No shared routing guide.</p>
+            <p class="persona-quote">"Half my day is telling people they're in the wrong place."</p>
+          </div>
+        </div>
 
-    <div class="outcomes-list reveal">
-      <div class="outcome-item">
-        <span class="outcome-icon">✅</span>
-        <div class="outcome-text"><strong>双端完整部署</strong>：Admin Portal + User Portal（Netlify + Render + Supabase）</div>
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-icon">✅</span>
-        <div class="outcome-text"><strong>Workflow Builder Canvas</strong>：AI 生成、4 种节点类型、内联编辑、发布管理</div>
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-icon">✅</span>
-        <div class="outcome-text"><strong>集成真实 Claude API（claude-sonnet-4-6）</strong>，非 mock，支持文档上传与 URL 输入</div>
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-icon">✅</span>
-        <div class="outcome-text"><strong>Guided Intake 向导</strong>，与 Admin 发布逻辑实时同步</div>
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-icon">🔄</span>
-        <div class="outcome-text"><strong>Admin 端可用性测试进行中</strong>：通过 CoMotion 招募真实工作人员，远程桌面模式，每次约 45–60 分钟</div>
-      </div>
-      <div class="outcome-item">
-        <span class="outcome-icon">📄</span>
-        <div class="outcome-text"><strong>Stakeholder Report（~20 页）</strong>：覆盖所有模块的功能、交互逻辑、设计依据</div>
-      </div>
-    </div>
+        <p class="reveal" style="margin-bottom:20px;">After 11 interviews and 11 email case analyses, we traced the chaos to three structural root causes:</p>
 
-    <div class="quote-block reveal" style="margin-top:48px">
-      <p class="quote-text">最难的不是设计，是让 AI 做出"合理的第一步"——Workflow Builder 的本质，是在 AI 的判断和人的经验之间设计一个协作界面。</p>
-      <p class="quote-attr">— 个人反思</p>
-    </div>
-  </div>
-</section>
+        <div class="cause-grid reveal">
+          <div class="cause-card">
+            <div class="cause-letter">A</div>
+            <div class="cause-name">Unclear Triage Criteria</div>
+            <p class="cause-desc">No unified classification rules. "What counts as research vs. service" relies entirely on tacit expertise — only experienced staff know to look past the external label.</p>
+          </div>
+          <div class="cause-card">
+            <div class="cause-letter">B</div>
+            <div class="cause-name">Lack of Transparency</div>
+            <p class="cause-desc">After submission, the agreement enters a black box. Staff sometimes can't explain routing decisions made by predecessors — because nothing was ever documented.</p>
+          </div>
+          <div class="cause-card">
+            <div class="cause-letter">C</div>
+            <div class="cause-name">Fractured Information</div>
+            <p class="cause-desc">Experienced users build private routing maps. When they leave, the knowledge leaves with them. There's no shared, updateable record anywhere.</p>
+          </div>
+        </div>
+
+        <img src="images/uw-triage-system/chaos-illustration.png" alt="Routing confusion diagram" class="reveal" style="width:100%;border-radius:var(--r);display:block;margin-top:8px;">
+
+        <div class="reveal" style="margin-top:28px;border-radius:var(--r);overflow:hidden;aspect-ratio:16/9;background:#000;">
+          <iframe src="https://www.youtube.com/embed/rd_qx8QYvcc" title="UW Triage Platform Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;display:block;"></iframe>
+        </div>
+      </div>
+    </section>
 
 
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="wrap">
-    <div class="footer-inner">
-      <span class="footer-copy">© 2026 Zhuoyi Zhang · Built with Heart and Bubble Tea 🩵</span>
-      <div class="footer-links">
-        <a href="mailto:zhuoyiz.design@gmail.com">Email</a>
-        <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
-        <a href="https://zhuoyiz.framer.website/projects">← 返回项目列表</a>
-      </div>
-    </div>
-  </div>
-</footer>
+    <!-- ── 02 OUR SOLUTION ── -->
+    <section id="s02">
+      <div class="wrap">
+        <div class="eyebrow reveal">02 · Our Solution</div>
+        <h2 class="reveal">A two-portal system that separates defining the rules from following them.</h2>
+        <p class="reveal">Admins build and maintain routing logic in a visual, node-based canvas. Researchers follow it through a guided intake wizard. The two sides connect through a one-way publish library — admins control what researchers see, and changes sync immediately. Routing logic finally becomes a shared institutional asset, not a private cheat sheet.</p>
 
+        <div class="portal-diagram reveal">
+          <div class="portal-side admin">
+            <div class="portal-label">Admin Portal</div>
+            <div class="portal-module">Document Type Selection</div>
+            <div class="portal-module core">⬡ Workflow Builder</div>
+            <div class="portal-module">Publish / Version Control</div>
+          </div>
+          <div class="portal-side shared">
+            <div class="portal-label">Publish Library</div>
+            <div class="arrow-icon">→</div>
+            <div class="shared-lib">One-way<br>Read-only</div>
+          </div>
+          <div class="portal-side user">
+            <div class="portal-label">Researcher Portal</div>
+            <div class="portal-module">Knowledge Library</div>
+            <div class="portal-module core">⬡ Guided Intake</div>
+            <div class="portal-module">Request Tracker</div>
+          </div>
+        </div>
+
+        <p class="reveal" style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;font-weight:400;">We scoped to 3 of 6 planned stages for the capstone prototype:</p>
+
+        <div class="stages-list reveal">
+          <div class="stage-item done"><div class="stage-badge">✓</div><div class="stage-body"><h3>Stage 1 — Admin Builds Workflow</h3><p>Visual canvas, 4 node types, AI-generated first draft from uploaded documents.</p></div></div>
+          <div class="stage-item done"><div class="stage-badge">✓</div><div class="stage-body"><h3>Stage 2 — Publish Workflow</h3><p>Structural validation → publish as Public or Internal. Unpublish removes it from researcher view immediately.</p></div></div>
+          <div class="stage-item done"><div class="stage-badge">✓</div><div class="stage-body"><h3>Stage 3 — Published Workflow Drives Guided Intake</h3><p>Researchers follow the published flow node-by-node, get routing result + responsible office + materials checklist.</p></div></div>
+          <div class="stage-item todo"><div class="stage-badge">4</div><div class="stage-body"><h3>Stage 4 — Request Submission</h3><p>Submit button is a placeholder. No request object created yet.</p></div></div>
+          <div class="stage-item todo"><div class="stage-badge">5</div><div class="stage-body"><h3>Stage 5 — Runtime Routing Engine</h3><p>Workflow currently operates as a static decision tree only.</p></div></div>
+          <div class="stage-item todo"><div class="stage-badge">6</div><div class="stage-body"><h3>Stage 6 — Live Status Dashboard</h3><p>Tracker and activity overview are placeholder pages.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 03 RESEARCH ── -->
+    <section id="s03">
+      <div class="wrap">
+        <div class="eyebrow reveal">03 · Research</div>
+        <h2 class="reveal">Three months of field research — four offices, eleven interviews, eleven email cases.</h2>
+
+        <div class="methods-grid reveal">
+          <div class="method-card">
+            <span class="m-icon">📄</span>
+            <div class="m-title">Desk Research</div>
+            <p class="m-desc">Mapped routing flows for CoMotion, OSP, CoE, SoM from official sources. Found each office documents its own rules in isolation.</p>
+          </div>
+          <div class="method-card">
+            <span class="m-icon">🎙️</span>
+            <div class="m-title">Stakeholder Interviews</div>
+            <p class="m-desc">4 staff members (CoMotion Director, OSP Asst VP, SoM Sr. Director, CoE Research Director) — validated flows, surfaced pain points.</p>
+          </div>
+          <div class="method-card">
+            <span class="m-icon">👥</span>
+            <div class="m-title">User Interviews</div>
+            <p class="m-desc">7 PIs and PI assistants from School of Medicine — focused on the initial triage moment and where confusion first appears.</p>
+          </div>
+          <div class="method-card">
+            <span class="m-icon">📧</span>
+            <div class="m-title">Email Case Analysis</div>
+            <p class="m-desc">11 real routing email threads shared by stakeholders — triangulated interview findings with evidence of confusion in the wild.</p>
+          </div>
+          <div class="method-card">
+            <span class="m-icon">🔍</span>
+            <div class="m-title">Snowball Sampling</div>
+            <p class="m-desc">Recruited through CoMotion Licensing Associate. Criteria: recent submission, routing confusion, cross-office contact.</p>
+          </div>
+          <div class="method-card">
+            <span class="m-icon">🧩</span>
+            <div class="m-title">Thematic Analysis</div>
+            <p class="m-desc">Developed a shared Codebook across interview transcripts and email records. Qualitative coding identified recurring structural patterns.</p>
+          </div>
+        </div>
+
+        <div class="ai-callout reveal">
+          <div class="cc-icon">C</div>
+          <div class="cc-body">
+            <h3>We built a Claude Artifact to accelerate thematic coding</h3>
+            <p>Custom annotation tool that runs Codebook-based coding on interview transcripts and email text — 3–4× faster than manual, consistent across team members. <a href="https://claude.ai/public/artifacts/c08ec7da-6d5c-43ec-b405-38a54ac739a5" target="_blank" style="color:var(--green);text-decoration:none;font-weight:500;margin-left:4px;">View Artifact →</a></p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;" class="reveal">
+          <img src="images/uw-triage-system/ux-analyzer.png" alt="Claude Artifact — semantic analysis tool" style="width:100%;border-radius:var(--r);display:block;border:1px solid var(--rule);">
+          <img src="images/uw-triage-system/thematic-analysis.png" alt="Thematic analysis board" style="width:100%;border-radius:var(--r);display:block;border:1px solid var(--rule);">
+        </div>
+
+        <hr>
+
+        <p class="reveal" style="margin-bottom:16px;">Research confirmed the three root causes — and pointed to three design directions:</p>
+
+        <div class="insights-grid reveal">
+          <div class="insight-card">
+            <div class="insight-num">1</div>
+            <div class="insight-title">Support Sensemaking</div>
+            <p class="insight-desc">Help users understand their situation before they act. Move classification decisions off the user and onto the system.</p>
+          </div>
+          <div class="insight-card">
+            <div class="insight-num">2</div>
+            <div class="insight-title">Orchestrate Handoffs</div>
+            <p class="insight-desc">Make ownership explicit at every stage. Status should be visible without anyone needing to follow up.</p>
+          </div>
+          <div class="insight-card">
+            <div class="insight-num">3</div>
+            <div class="insight-title">Centralize Knowledge</div>
+            <p class="insight-desc">Turn routing rules into a shared, updatable record that survives personnel change.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 04 DESIGN ── -->
+    <section id="s04">
+      <div class="wrap">
+        <div class="eyebrow reveal">04 · Design</div>
+        <h2 class="reveal">Four principles. One decision that shaped everything.</h2>
+
+        <div class="principles-grid reveal">
+          <div class="principle-card">
+            <div class="principle-num">01</div>
+            <div class="principle-name">Transparency over black boxes</div>
+            <p class="principle-desc">Show users where their agreement is, why it went there, and what comes next — not just a status update.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-num">02</div>
+            <div class="principle-name">System absorbs complexity</div>
+            <p class="principle-desc">Minimize the classification decisions users have to make. Surface the right information at the right moment — don't dump everything upfront.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-num">03</div>
+            <div class="principle-name">Centralize for resilience</div>
+            <p class="principle-desc">Routing rules live in a shared workspace, owned by the team — not in individual inboxes or one expert's memory.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-num">04</div>
+            <div class="principle-name">Designed to be updated</div>
+            <p class="principle-desc">Static forms and PDF guides break the moment agreement types change. Admins need to revise and republish logic continuously.</p>
+          </div>
+        </div>
+
+        <div class="decision-banner reveal">
+          <h3>Why a node-based canvas — not an AI chatbot, not a PDF guide</h3>
+          <p>We evaluated five approaches: email plugin, interactive flowchart, knowledge base, agent conversation, and an all-in-one platform. The node-based canvas won because it's the only approach that (1) works for non-technical admins without code, (2) captures tacit knowledge in a form that survives staff turnover, and (3) decouples rule-authoring from real-time AI inference cost — the canvas is always available, even offline.</p>
+        </div>
+
+        <div class="img-placeholder reveal">
+          <span class="ph-label">Ideation — 5 Concepts & Prioritization</span>
+          <span class="ph-hint">PDF p.18 — screenshot or export from Process Book</span>
+        </div>
+
+        <div class="img-placeholder reveal">
+          <span class="ph-label">System Map — Admin Portal ↔ Knowledge Store ↔ Researcher Portal</span>
+          <span class="ph-hint">PDF p.19 — screenshot or export from Process Book</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 05 ADMIN PORTAL ── -->
+    <section id="s05">
+      <div class="wrap">
+        <div class="eyebrow reveal">05 · Admin Portal</div>
+        <h2 class="reveal">Turning private cheat sheets into a shared, editable institutional asset.</h2>
+        <p class="reveal">Nearly every experienced admin had drawn their own routing map — and it vanished when they left. The Admin Portal makes that map versionable, collaborative, and publishable.</p>
+
+        <h3 class="reveal" style="margin-top:28px;margin-bottom:12px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);">File2Flow — AI drafts the canvas from a document or URL</h3>
+
+        <div class="f2f-pipeline reveal">
+          <div class="f2f-step">
+            <span class="f2f-step-num">STEP 01</span>
+            <span class="f2f-step-icon">📥</span>
+            <div class="f2f-step-title">Document Input</div>
+            <p class="f2f-step-desc">PDF / URL, multimodal image extraction → sourceText</p>
+          </div>
+          <div class="f2f-arrow">→</div>
+          <div class="f2f-step">
+            <span class="f2f-step-num">STEP 02</span>
+            <span class="f2f-step-icon">📝</span>
+            <div class="f2f-step-title">AI Restatement</div>
+            <p class="f2f-step-desc">Extract definition + signing process; force-expand all branches</p>
+          </div>
+          <div class="f2f-arrow">→</div>
+          <div class="f2f-step">
+            <span class="f2f-step-num">STEP 03</span>
+            <span class="f2f-step-icon">🧩</span>
+            <div class="f2f-step-title">Node Identification</div>
+            <p class="f2f-step-desc">Label each step: DEF / DEC / ACT / PPL</p>
+          </div>
+          <div class="f2f-arrow">→</div>
+          <div class="f2f-step">
+            <span class="f2f-step-num">STEP 04</span>
+            <span class="f2f-step-icon">🔗</span>
+            <div class="f2f-step-title">Relationship Completion</div>
+            <p class="f2f-step-desc">Fill predecessorId for each node from source text</p>
+          </div>
+          <div class="f2f-arrow">→</div>
+          <div class="f2f-step hl">
+            <span class="f2f-step-num">STEP 05</span>
+            <span class="f2f-step-icon">⬡</span>
+            <div class="f2f-step-title">Graph Output</div>
+            <p class="f2f-step-desc">Strict JSON → normalizeAiGraph → editable canvas</p>
+          </div>
+        </div>
+
+        <img src="images/uw-triage-system/workflow-builder.png" alt="Workflow Builder Canvas" class="reveal" style="width:100%;border-radius:var(--r);margin:20px 0;display:block;border:1px solid var(--rule);">
+
+        <h3 class="reveal" style="margin-bottom:12px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);">Four node types make routing logic readable</h3>
+
+        <div class="nodes-grid reveal">
+          <div class="node-card">
+            <div class="node-icon def">📋</div>
+            <div><h3>Definition Node</h3><p>One per workflow. Sets the agreement type's scope — the entry point for the entire decision tree.</p></div>
+          </div>
+          <div class="node-card">
+            <div class="node-icon dec">◇</div>
+            <div><h3>Decision Node</h3><p>Judgment question + multi-condition branches. The core routing logic unit — inline-editable.</p></div>
+          </div>
+          <div class="node-card">
+            <div class="node-icon act">→</div>
+            <div><h3>Action Node</h3><p>Specific next steps for each routing outcome: forms to submit, offices to contact, materials needed.</p></div>
+          </div>
+          <div class="node-card">
+            <div class="node-icon han">🏢</div>
+            <div><h3>Handler Node</h3><p>Names the responsible office or contact. Admin controls whether researchers can see this.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 06 RESEARCHER PORTAL ── -->
+    <section id="s06">
+      <div class="wrap">
+        <div class="eyebrow reveal">06 · Researcher Portal</div>
+        <h2 class="reveal">Not just "where to go" — but why, and what to prepare.</h2>
+        <p class="reveal">The Researcher Portal consumes whatever Admins publish. It always reflects the latest routing logic — no manual syncing, no stale guides.</p>
+
+        <div class="feature-grid reveal">
+          <div class="feature-card">
+            <h3>Agreement Knowledge Library</h3>
+            <p>One searchable place for every agreement type's definition, responsible office, typical timeline, and FAQs. The self-serve reference that used to live in a senior staff member's inbox.</p>
+          </div>
+          <div class="feature-card key">
+            <h3>Guided Intake Wizard — Core</h3>
+            <p>Step-by-step questions drawn from the published workflow canvas. Tells researchers not just <em>where</em> to go, but <em>why</em> — shifting classification off the user and onto the system. "Unsure" options prevent dead ends for edge cases.</p>
+          </div>
+        </div>
+
+        <img src="images/uw-triage-system/user-portal.png" alt="User Portal — Guided Intake" class="reveal" style="width:100%;border-radius:var(--r);margin-top:8px;display:block;border:1px solid var(--rule);">
+      </div>
+    </section>
+
+
+    <!-- ── 07 TESTING ── -->
+    <section id="s07">
+      <div class="wrap">
+        <div class="eyebrow reveal">07 · Usability Testing</div>
+        <h2 class="reveal">Core value validated. Onboarding is the real barrier — not the concept.</h2>
+
+        <div class="test-grid reveal">
+          <div class="test-card">
+            <div class="test-label">Admin Test</div>
+            <div class="test-n">n=2</div>
+            <div class="test-findings">
+              <div class="finding"><span class="finding-icon">✓</span><span>Canvas format immediately intuitive — better than current email-based workflows</span></div>
+              <div class="finding"><span class="finding-icon">✓</span><span>Strong perceived value <em>after</em> seeing the researcher-facing output</span></div>
+              <div class="finding"><span class="finding-icon" style="color:var(--amber)">△</span><span>Needed earlier, clearer preview of how routing appears to researchers</span></div>
+              <div class="finding"><span class="finding-icon" style="color:var(--amber)">△</span><span>AI entry point needed more guidance — users unsure how to start</span></div>
+            </div>
+          </div>
+          <div class="test-card">
+            <div class="test-label">Researcher Test</div>
+            <div class="test-n">n=4</div>
+            <div class="test-findings">
+              <div class="finding"><span class="finding-icon">✓</span><span>Intake wizard significantly reduced friction for first-time users</span></div>
+              <div class="finding"><span class="finding-icon">✓</span><span>Processing time display highly valued — addresses a core frustration</span></div>
+              <div class="finding"><span class="finding-icon" style="color:var(--amber)">△</span><span>Routing result not visually prominent enough — buried in the flow</span></div>
+              <div class="finding"><span class="finding-icon" style="color:var(--amber)">△</span><span>"Unsure / Other" option missing — needed for ambiguous partner classification</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-strip reveal">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>Both admin and researcher participants validated the tool's core value — the barrier is onboarding, not the concept itself.</li>
+            <li>The true routing failure happens on the admin side: researchers are often confident, but get bounced regardless because routing logic isn't defined.</li>
+            <li>Unexpected finding: the tool has a secondary use case as <strong style="color:rgba(255,255,255,.95)">training material for junior staff</strong> — not just a researcher-facing product.</li>
+          </ul>
+        </div>
+
+        <div class="img-placeholder reveal">
+          <span class="ph-label">Usability Test Session — Admin & Researcher</span>
+          <span class="ph-hint">PDF p.23–25 — screenshots or photos from test sessions</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 08 REFLECTIONS ── -->
+    <section id="s08">
+      <div class="wrap">
+        <div class="eyebrow reveal">08 · Reflections</div>
+        <h2 class="reveal">What we shipped, what we learned.</h2>
+
+        <div class="reflection-grid reveal">
+          <div class="reflection-card">
+            <span class="reflection-icon">🎯</span>
+            <div class="reflection-title">Scoping is the first design decision</div>
+            <p class="reflection-desc">Nearly every stakeholder had a different expectation of what this product should be. Aligning on scope before building — through structured stakeholder interviews — was the most impactful thing we did.</p>
+          </div>
+          <div class="reflection-card">
+            <span class="reflection-icon">⚡</span>
+            <div class="reflection-title">Pull requests are the new design handoff</div>
+            <p class="reflection-desc">Vibe coding with Claude Code and Cursor collapsed the gap between design and development. We shipped polished UIs faster through PR than through Figma iterations — and expanded what designers could own.</p>
+          </div>
+          <div class="reflection-card">
+            <span class="reflection-icon">🧠</span>
+            <div class="reflection-title">AI tools compound research capacity</div>
+            <p class="reflection-desc">A custom Claude Artifact for thematic coding did in 2 hours what would have taken 2 days. This isn't replacing judgment — it clears the path for it.</p>
+          </div>
+        </div>
+
+        <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;">
+          <div>
+            <div style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;">Team JXYZ</div>
+            <img src="images/uw-triage-system/teamphoto.png" alt="Team JXYZ" style="width:100%;height:280px;border-radius:var(--r);display:block;object-fit:cover;">
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;">Award</div>
+            <img src="images/uw-triage-system/certificate.png" alt="Award certificate" style="width:100%;height:280px;border-radius:var(--r);display:block;object-fit:cover;border:1px solid var(--rule);">
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="wrap">
+        <div class="footer-inner">
+          <span class="footer-copy">© 2026 Zhuoyi Zhang · Built with Heart and Bubble Tea 🩵</span>
+          <div class="footer-links">
+            <a href="mailto:zhuoyiz.design@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
+            <a href="https://zhuoyiz.framer.website/projects">← Back to Projects</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /.main -->
+</div><!-- /.layout -->
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.07, rootMargin: '0px 0px -32px 0px' });
+  // Reveal
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = (i % 4) * 55 + 'ms';
-    observer.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('visible');
+    } else {
+      el.style.transitionDelay = (i % 4) * 50 + 'ms';
+      revealObs.observe(el);
+    }
   });
+
+  // TOC active
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const tocObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.toggle('active', l.dataset.target === entry.target.id));
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+
+  ['overview','s01','s02','s03','s04','s05','s06','s07','s08'].forEach(id => {
+    const el = document.getElementById(id); if (el) tocObs.observe(el);
+  });
+
+  // 3D tilt on key cards
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.persona-card, .principle-card, .reflection-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transition = 'none';
+        card.style.transform = `perspective(700px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-5px) scale(1.015)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = '';
+        card.style.transform = '';
+      });
+    });
+  }
 </script>
 
 </body>
