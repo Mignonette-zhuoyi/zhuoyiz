@@ -1,747 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok Search Incentive — Zhuoyi Zhang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:       #fafaf8;
-  --bg2:      #f2f1ee;
-  --white:    #ffffff;
-  --ink:      #111111;
-  --ink2:     #444444;
-  --ink3:     #888888;
-  --accent:   #ff2d55;
-  --accent-bg: rgba(255,45,85,0.06);
-  --accent-bd: rgba(255,45,85,0.18);
-  --border:   rgba(0,0,0,0.08);
-  --border2:  rgba(0,0,0,0.05);
-  --card:     #ffffff;
-}
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:20px 56px;
-  background:rgba(250,250,248,0.9);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-}
-.nav-name{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;letter-spacing:-0.01em}
-.nav-links{display:flex;gap:32px}
-.nav-links a{font-size:14px;color:var(--ink3);text-decoration:none;transition:color 0.2s}
-.nav-links a:hover{color:var(--ink)}
-
-/* ── HERO ── */
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 80px;
-  position:relative;overflow:hidden;
-  opacity:0;transition:opacity 0.9s ease;
-  border-bottom:1px solid var(--border);
-  background: linear-gradient(160deg, #fff 0%, var(--bg) 60%);
-}
-.hero.loaded{opacity:1}
-.hero-eyebrow{
-  font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--ink3);margin-bottom:24px;
-  display:flex;align-items:center;gap:10px;
-}
-.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--ink3)}
-.hero-title{
-  font-family:'Instrument Serif',serif;
-  font-size:clamp(44px,6vw,82px);
-  line-height:1.05;font-weight:400;
-  max-width:820px;margin-bottom:56px;
-  letter-spacing:-0.02em;
-}
-.hero-title em{font-style:italic;color:var(--accent)}
-.hero-meta{
-  display:flex;gap:48px;flex-wrap:wrap;
-  padding-top:32px;
-  border-top:1px solid var(--border);
-}
-.meta-item label{display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;font-weight:500}
-.meta-item span{font-size:14px;font-weight:400;color:var(--ink)}
-
-/* ── LAYOUT ── */
-.wrap{padding:88px 56px;max-width:1100px;margin:0 auto}
-.s-divider{border:none;border-top:1px solid var(--border);margin:0}
-
-/* ── SECTION HEADER ── */
-.s-head{display:flex;align-items:baseline;gap:14px;margin-bottom:48px}
-.s-num{font-size:12px;color:var(--ink3);letter-spacing:0.06em;font-weight:500;font-variant-numeric:tabular-nums}
-.s-title{font-family:'Instrument Serif',serif;font-size:clamp(24px,2.6vw,36px);font-weight:400;letter-spacing:-0.01em}
-
-/* ── PROSE ── */
-.lead{font-family:'Instrument Serif',serif;font-size:21px;font-weight:400;line-height:1.5;color:var(--ink);max-width:660px;margin-bottom:20px;letter-spacing:-0.005em}
-.body-text{font-size:15px;color:var(--ink2);line-height:1.85;max-width:660px;margin-bottom:14px}
-.body-text strong{color:var(--ink);font-weight:600}
-
-/* ── PARADOX CARDS ── */
-.paradox-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:36px 0}
-.p-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;position:relative;overflow:hidden}
-.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.p-card.win::before{background:var(--border)}
-.p-card.fail::before{background:var(--accent)}
-.p-tag{display:inline-block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:16px;font-weight:600}
-.p-tag.win-tag{background:var(--bg2);color:var(--ink3)}
-.p-tag.fail-tag{background:var(--accent-bg);color:var(--accent)}
-.p-card h3{font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:10px;letter-spacing:-0.005em}
-.p-card p{font-size:13px;color:var(--ink2);line-height:1.75;margin-bottom:22px}
-.kpis{display:flex;gap:24px;flex-wrap:wrap}
-.kpi-num{display:block;font-family:'Instrument Serif',serif;font-size:36px;line-height:1;color:var(--ink)}
-.kpi-num.red{color:var(--accent)}
-.kpi-label{font-size:11px;color:var(--ink3);margin-top:4px;display:block}
-
-/* ── CALLOUT ── */
-.callout{
-  border-left:2px solid var(--ink);
-  background:var(--bg2);
-  border-radius:0 12px 12px 0;
-  padding:24px 28px;margin:28px 0;
-}
-.callout-eyebrow{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:block;font-weight:500}
-.callout p{font-size:15px;color:var(--ink2);line-height:1.75}
-.callout p strong{color:var(--ink);font-weight:600}
-
-/* ── FUNNEL ── */
-.funnel-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;margin:32px 0}
-.funnel-eyebrow{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:28px;font-weight:500}
-.funnel-row{display:flex;align-items:center;gap:14px;margin-bottom:6px}
-.f-bar{height:36px;border-radius:6px;display:flex;align-items:center;padding:0 14px;min-width:36px}
-.f-bar.full{width:100%;background:var(--bg2);border:1px solid var(--border)}
-.f-bar.bad{width:14%;background:rgba(255,45,85,0.12);border:1px solid var(--accent-bd)}
-.f-bar.worse{width:7%;background:rgba(255,45,85,0.22);border:1px solid var(--accent-bd)}
-.f-bar-label{font-size:12px;white-space:nowrap;color:var(--ink);font-weight:500}
-.f-note{font-size:13px;color:var(--ink3);flex:1}
-.f-note strong{color:var(--ink);font-weight:600}
-.f-connector{width:2px;height:16px;background:var(--border);margin-left:18px}
-.funnel-conclusion{margin-top:24px;padding:18px 22px;background:var(--accent-bg);border:1px solid var(--accent-bd);border-radius:10px;font-size:14px;color:var(--ink2);line-height:1.7}
-.funnel-conclusion strong{color:var(--accent);font-weight:600}
-
-/* ── PROBLEM CARDS ── */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px}
-
-/* ── DECISIONS ── */
-.decisions{display:flex;flex-direction:column;gap:8px}
-.decision{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--card);transition:border-color 0.25s}
-.decision:hover{border-color:rgba(0,0,0,0.15)}
-.decision.open{border-color:rgba(0,0,0,0.18)}
-.d-header{display:flex;align-items:center;gap:20px;padding:28px 32px;cursor:pointer;user-select:none}
-.d-num{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink3);min-width:28px;font-weight:400}
-.d-title{flex:1;font-size:15px;font-weight:500;color:var(--ink);letter-spacing:-0.005em;line-height:1.4}
-.d-chip{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;font-weight:600;white-space:nowrap}
-.d-chip.exposure{background:rgba(59,130,246,0.08);color:rgb(59,130,246)}
-.d-chip.conversion{background:var(--accent-bg);color:var(--accent)}
-.d-toggle{
-  width:26px;height:26px;border-radius:50%;
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;flex-shrink:0;color:var(--ink3);
-  transition:transform 0.3s,border-color 0.3s,background 0.3s;
-}
-.decision.open .d-toggle{transform:rotate(45deg);border-color:var(--ink);background:var(--ink);color:white}
-.d-body{display:none;padding:0 32px 32px}
-.decision.open .d-body{display:block}
-.d-divider{height:1px;background:var(--border);margin-bottom:26px}
-
-/* ── RATIONALE ── */
-.rationale-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
-.r-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:22px}
-.r-box.chosen{background:var(--accent-bg);border-color:var(--accent-bd)}
-.r-box label{display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;font-weight:500}
-.r-box.chosen label{color:var(--accent)}
-.r-box p{font-size:14px;color:var(--ink2);line-height:1.75}
-.impact-pill{display:inline-block;margin-top:12px;padding:4px 11px;border-radius:20px;background:var(--accent-bg);color:var(--accent);font-size:11px;font-weight:600}
-
-/* ── BEFORE / AFTER ── */
-.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:12px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
-.ba-pane{background:var(--bg);padding:24px 26px}
-.ba-pane:last-child{background:rgba(255,45,85,0.03)}
-.ba-tag{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:7px;font-weight:500}
-.ba-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
-.ba-tag.after{color:var(--accent)}
-.ba-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.ba-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);line-height:1.5}
-.ba-list li::before{
-  content:attr(data-n);min-width:19px;height:19px;border-radius:50%;
-  background:rgba(0,0,0,0.06);display:flex;align-items:center;
-  justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;font-weight:600;color:var(--ink3)
-}
-.ba-list.after li::before{background:var(--accent-bg);color:var(--accent)}
-.ba-list li.struck{text-decoration:line-through;opacity:0.4}
-.d-note{font-size:14px;color:var(--ink2);line-height:1.8;margin-top:18px}
-.d-note strong{color:var(--ink);font-weight:600}
-
-/* ── IMG SLOT ── */
-.img-slot{
-  width:100%;aspect-ratio:16/8;
-  background:var(--bg2);border:1.5px dashed rgba(0,0,0,0.12);
-  border-radius:14px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:10px;color:var(--ink3);font-size:13px;margin:20px 0;
-}
-.img-slot svg{opacity:0.3}
-.img-slot span{font-size:11px;opacity:0.6;letter-spacing:0.06em}
-
-/* ── OUTCOME ── */
-.outcome-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:36px 0}
-.o-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;text-align:center;position:relative;overflow:hidden}
-.o-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent)}
-.o-num{font-family:'Instrument Serif',serif;font-size:44px;color:var(--ink);line-height:1.1;margin-bottom:8px;letter-spacing:-0.02em}
-.o-num .arrow{font-size:26px;color:var(--accent)}
-.o-label{font-size:12px;color:var(--ink3);line-height:1.5}
-
-.reflection{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:16px;padding:48px;border-left:3px solid var(--accent);
-}
-.reflection p{
-  font-family:'Instrument Serif',serif;
-  font-size:21px;font-weight:400;line-height:1.58;
-  color:var(--ink);max-width:680px;letter-spacing:-0.005em;
-}
-.reflection cite{display:block;margin-top:18px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);font-style:normal;font-weight:500}
-
-/* ── LEARNINGS ── */
-.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.l-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;transition:border-color 0.25s,box-shadow 0.25s}
-.l-card:hover{border-color:rgba(0,0,0,0.14);box-shadow:0 4px 24px rgba(0,0,0,0.04)}
-.l-num{font-family:'Instrument Serif',serif;font-size:30px;color:var(--border);line-height:1;margin-bottom:14px}
-.l-card h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--ink);letter-spacing:-0.005em}
-.l-card p{font-size:13px;color:var(--ink2);line-height:1.75}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--border);padding:44px 56px;display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
-footer p{font-size:13px;color:var(--ink3)}
-.back-top{font-size:13px;color:var(--ink3);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s}
-.back-top:hover{color:var(--ink)}
-
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease}
-.reveal.visible{opacity:1;transform:none}
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  nav{padding:16px 22px}
-  .hero{padding:100px 22px 56px}
-  .hero-meta{gap:24px}
-  .wrap{padding:56px 22px}
-  .paradox-grid,.two-col,.rationale-grid,.outcome-strip,.learn-grid,.ba-wrap{grid-template-columns:1fr}
-  footer{padding:32px 22px;flex-direction:column;gap:14px;text-align:center}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Search Incentive — Zhuoyi Zhang</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/portfolio.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="https://zhuoyi.framer.website" class="nav-name">Zhuoyi Zhang</a>
-  <div class="nav-links">
-    <a href="https://zhuoyi.framer.website/projects">Projects</a>
-    <a href="https://zhuoyi.framer.website/aboutme">About me</a>
-  </div>
-</nav>
+  <div class="top-fade"></div>
 
-<!-- HERO -->
-<div class="hero" id="hero">
-  <div class="hero-eyebrow">TikTok · Search User Growth · Product Manager Intern · 2025</div>
-  <h1 class="hero-title">
-    Diagnosing why a validated<br>
-    growth mechanic <em>wasn't working</em> —<br>
-    and defining what to fix first
-  </h1>
-  <div class="hero-meta">
-    <div class="meta-item"><label>Role</label><span>Product Manager Intern</span></div>
-    <div class="meta-item"><label>Timeline</label><span>10-day sprint</span></div>
-    <div class="meta-item"><label>Platform</label><span>iOS · Android</span></div>
-    <div class="meta-item"><label>Market</label><span>United States</span></div>
-    <div class="meta-item"><label>Team</label><span>1 PM · 1 DA · 1 CD · 2 Eng · 1 QA</span></div>
-  </div>
-  <div style="display:flex; gap:40px; margin-top:32px; padding-top:32px; border-top:1px solid var(--border); flex-wrap:wrap;">
-    <div>
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;font-weight:500;">Exposure rate</div>
-      <div style="display:flex;align-items:baseline;gap:8px;">
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink3);line-height:1;text-decoration:line-through;opacity:0.5;">14%</span>
-        <span style="font-size:18px;color:var(--ink3);opacity:0.4;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--accent);line-height:1;">67%</span>
-      </div>
-    </div>
-    <div style="width:1px;background:var(--border);align-self:stretch;"></div>
-    <div>
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;font-weight:500;">Authorization rate</div>
-      <div style="display:flex;align-items:baseline;gap:8px;">
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink3);line-height:1;text-decoration:line-through;opacity:0.5;">49%</span>
-        <span style="font-size:18px;color:var(--ink3);opacity:0.4;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--accent);line-height:1;">60%</span>
-      </div>
-    </div>
-    <div style="width:1px;background:var(--border);align-self:stretch;"></div>
-    <div>
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;font-weight:500;">Sprint to ship</div>
-      <div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink);line-height:1;">10 days</div>
-    </div>
-  </div>
-</div>
+  <nav class="nav">
+    <span class="nav-dot"></span>
+    <a href="https://zhuoyiz.framer.website">Zhuoyi Zhang</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-current">TikTok Search Incentive</span>
+  </nav>
 
-<hr class="s-divider">
+  <aside class="toc" id="toc">
+    <a href="https://zhuoyiz.framer.website/projects" class="toc-home">Home</a>
+    <a href="#overview" class="toc-link">Overview</a>
+    <a href="#s01" class="toc-link">01 · Context</a>
+    <a href="#s02" class="toc-link">02 · Diagnosis</a>
+    <a href="#s03" class="toc-link">03 · Decisions</a>
+    <a href="#s04" class="toc-link">04 · Didn't ship</a>
+    <a href="#s05" class="toc-link">05 · Reflections</a>
+  </aside>
 
-<!-- 01 CONTEXT -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">01</span>
-    <h2 class="s-title">The setup — and the surprise</h2>
-  </div>
+  <main class="content">
 
-  <p class="lead reveal">Search incentives had already worked in Japan. The question wasn't whether the mechanic was sound — it was why the US rollout wasn't producing the same result.</p>
-  <p class="body-text reveal">In Japan, adding a search task incentive moved core metrics significantly: overall manual search grew <strong>+4.2%</strong>, with new search users up <strong>+9.3%</strong> and low-activity users up <strong>+14.3%</strong>. The mechanic made sense — reward users for building a search habit, and they keep searching even after the incentive ends.</p>
-  <p class="body-text reveal">Phase 1 in the US was a controlled test, limited to existing TikTok Shop users. Users who completed 6 daily searches earned a $5 TikTok Shop voucher. Q4 2024 results came back with a paradox.</p>
+    <!-- ── HERO ── -->
+    <section id="overview">
+      <div class="hero-thumb"></div>
 
-  <div class="paradox-grid reveal">
-    <div class="p-card win">
-      <span class="p-tag win-tag">✓ Working</span>
-      <h3>E-commerce impact</h3>
-      <p>The voucher drove real purchasing behavior. Among users who did authorize, the mechanic worked exactly as designed.</p>
-      <div class="kpis">
-        <div><span class="kpi-num">+8%</span><span class="kpi-label">PayU / DAU</span></div>
-        <div><span class="kpi-num">+10%</span><span class="kpi-label">nOrder / DAU</span></div>
-      </div>
-    </div>
-    <div class="p-card fail">
-      <span class="p-tag fail-tag">✗ Not moving</span>
-      <h3>Core search growth</h3>
-      <p>Despite Japan's validation, US manual search showed no meaningful lift. The original goal of growing search behavior wasn't being achieved.</p>
-      <div class="kpis">
-        <div><span class="kpi-num" style="color:var(--ink3)">~0</span><span class="kpi-label">Active search growth</span></div>
-        <div><span class="kpi-num red">0.2%</span><span class="kpi-label">Auth rate / DAU</span></div>
-      </div>
-    </div>
-  </div>
-
-  <p class="body-text reveal">Phase 2 expanded eligibility from existing TikTok Shop users to <strong>all US users</strong> (~70M DAU, excluding minors and unsafe accounts). That unlocked a much larger potential audience — and surfaced the harder question: with the right audience now in scope, why was participation still near zero?</p>
-
-  <div class="callout reveal">
-    <span class="callout-eyebrow">How I framed the problem</span>
-    <p>Before proposing any solution, I pushed to map the full authorization funnel as a diagnostic step. The instinct on the team was to improve the banner design — I argued that we first needed to know <strong>where users were actually dropping, and why</strong>, before deciding what to build. That framing shaped everything that followed.</p>
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 02 PROBLEM -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">02</span>
-    <h2 class="s-title">Diagnosing the funnel</h2>
-  </div>
-
-  <p class="lead reveal">0.2% isn't a design problem. It's a product problem hiding inside a math equation.</p>
-  <p class="body-text reveal">I proposed breaking the authorization funnel into two sequential, independent conversion events: exposure and authorization. This was a deliberate framing choice — it separated what was a reach problem from what was a friction problem, and made it possible to prioritize one before the other. The data confirmed that exposure was the bigger lever: fixing conversion without fixing exposure would still leave 86% of users untouched.</p>
-
-  <div class="funnel-box reveal">
-    <div class="funnel-eyebrow">Authorization funnel — Phase 1 baseline</div>
-    <div style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
-
-      <!-- SVG Funnel -->
-      <div style="flex-shrink:0; width:240px;">
-        <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
-          <!-- Stage 1: 100% -->
-          <polygon points="10,0 230,0 210,60 30,60" fill="rgba(0,0,0,0.07)" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
-          <text x="120" y="35" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="#444">~70M eligible users</text>
-          <text x="120" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#888">100% DAU</text>
-          <!-- connector -->
-          <line x1="120" y1="60" x2="120" y2="72" stroke="rgba(0,0,0,0.1)" stroke-width="1.5" stroke-dasharray="3,2"/>
-          <!-- Stage 2: 14% -->
-          <polygon points="70,72 170,72 158,132 82,132" fill="rgba(255,45,85,0.18)" stroke="rgba(255,45,85,0.35)" stroke-width="1.5"/>
-          <text x="120" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#ff2d55">14%</text>
-          <text x="120" y="113" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#ff2d55">saw the campaign</text>
-          <!-- connector -->
-          <line x1="120" y1="132" x2="120" y2="144" stroke="rgba(255,45,85,0.2)" stroke-width="1.5" stroke-dasharray="3,2"/>
-          <!-- Stage 3: ~7% of total -->
-          <polygon points="95,144 145,144 138,196 102,196" fill="rgba(255,45,85,0.35)" stroke="rgba(255,45,85,0.5)" stroke-width="1.5"/>
-          <text x="120" y="165" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#cc0033">0.2%</text>
-          <text x="120" y="181" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#cc0033">authorized</text>
-        </svg>
-      </div>
-
-      <!-- Side annotations -->
-      <div style="flex:1; min-width:200px; display:flex; flex-direction:column; gap:0; padding-top:4px;">
-        <div style="padding:16px 0; border-bottom:1px solid var(--border);">
-          <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink3); margin-bottom:6px; font-weight:500;">Eligible audience</div>
-          <div style="font-family:'Instrument Serif',serif; font-size:28px; color:var(--ink); line-height:1;">~70M</div>
-          <div style="font-size:13px; color:var(--ink3); margin-top:2px;">US DAU after Phase 2 expansion</div>
+      <div class="hero-cols">
+        <div class="hero-left">
+          <h1>TikTok Search Incentive</h1>
+          <p class="ph" style="margin-top:16px;">A validated growth mechanic from Japan wasn't producing results in the US — Product Manager Intern · 10-day sprint · 2025</p>
+          <p class="ph">US coin incentive strategy · Phase 2</p>
         </div>
-        <div style="padding:16px 0; border-bottom:1px solid var(--border);">
-          <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; font-weight:500;">Bottleneck 1 — Exposure</div>
-          <div style="font-family:'Instrument Serif',serif; font-size:28px; color:var(--accent); line-height:1;" class="count-up" data-target="14">14%</div>
-          <div style="font-size:13px; color:var(--ink3); margin-top:2px;">T&amp;C pop-up trigger rate<br><strong style="color:var(--ink);">86% never saw the campaign</strong></div>
-        </div>
-        <div style="padding:16px 0;">
-          <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; font-weight:500;">Bottleneck 2 — Conversion</div>
-          <div style="font-family:'Instrument Serif',serif; font-size:28px; color:var(--accent); line-height:1;">49%</div>
-          <div style="font-size:13px; color:var(--ink3); margin-top:2px;">of exposed users authorized<br>→ effective rate: <strong style="color:var(--accent);">0.2% of DAU</strong></div>
+        <div class="hero-right">
+          <div class="hero-tags">
+            <span class="hero-tag">Growth PM</span>
+            <span class="hero-tag">Funnel Diagnosis</span>
+            <span class="hero-tag">Search</span>
+          </div>
+          <div class="hero-date">Summer 2025</div>
         </div>
       </div>
-    </div>
-    <div class="funnel-conclusion" style="margin-top:20px;">
-      At 0.2% of DAU participating, no search metric could move — regardless of how well the voucher was designed. The program needed to fix <strong>exposure first</strong>, then <strong>conversion</strong>.
-    </div>
-  </div>
 
-  <div class="two-col reveal" style="margin-top:12px">
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">Problem 1 — Exposure</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-0.005em">The campaign had a structural ceiling</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:0">The T&amp;C pop-up only triggered when a user completed a search and <em>returned</em> to the middle page — catching only already-active searchers. Users who entered search casually, or stayed on the results page, never saw it. The trigger logic guaranteed a low exposure ceiling regardless of campaign quality.</p>
-      <span style="font-family:'Instrument Serif',serif;font-size:40px;color:var(--accent);line-height:1;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);display:block">14%</span>
-      <span style="font-size:12px;color:var(--ink3);margin-top:4px;display:block">T&amp;C pop-up trigger rate</span>
-    </div>
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">Problem 2 — Conversion</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-0.005em">Authorization required a detour</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:0">Users who saw the banner couldn't authorize directly. Tapping the CTA routed them to a separate activity detail page — a context switch that introduced hesitation and extra steps. Nearly half dropped before completing. That 49% wasn't disinterest; it was recoverable friction.</p>
-      <span style="font-family:'Instrument Serif',serif;font-size:40px;color:var(--accent);line-height:1;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);display:block">49%</span>
-      <span style="font-size:12px;color:var(--ink3);margin-top:4px;display:block">Click-agree rate among exposed users</span>
-    </div>
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 03 DECISIONS -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">03</span>
-    <h2 class="s-title">Product decisions</h2>
-  </div>
-  <p class="body-text reveal" style="margin-bottom:32px">Three initiatives, each mapped to a specific, measured gap in the funnel. My role was to define the problem framing, align the team on priority order, and contribute to scoping each solution — working closely with design and engineering to validate feasibility.</p>
-
-  <div class="decisions reveal">
-
-    <!-- D1 -->
-    <div class="decision open" onclick="toggle(this)">
-      <div class="d-header">
-        <span class="d-num">01</span>
-        <span class="d-title">Identify and unlock a new exposure surface — the search results page</span>
-        <span class="d-chip exposure">Exposure</span>
-        <span class="d-toggle">+</span>
+      <div class="meta-grid">
+        <div class="meta-cell">
+          <span class="label">Role</span>
+          <h3>Product Manager Intern</h3>
+        </div>
+        <div class="meta-cell">
+          <span class="label">Team</span>
+          <h3>1 PM · 1 DA · 1 CD · 2 Eng · 1 QA</h3>
+        </div>
+        <div class="meta-cell">
+          <span class="label">Platform</span>
+          <h3>iOS · Android · United States</h3>
+        </div>
       </div>
-      <div class="d-body">
-        <div class="d-divider"></div>
-        <div class="rationale-grid">
-          <div class="r-box">
-            <label>Default assumption on the team</label>
-            <p>Optimize the existing banner on the suggestion page. The assumption was that better visual design would improve performance.</p>
+
+      <div class="img-ph" style="margin-top:56px;"></div>
+    </section>
+
+
+    <!-- ── 01 CONTEXT ── -->
+    <section id="s01">
+      <div class="sec-label">01 · Context</div>
+      <h2>Search incentives had already worked in Japan. The question was why the US rollout wasn't producing the same result.</h2>
+
+      <p class="ph">In Japan, a search task incentive moved core metrics significantly — overall manual search up +4.2%, new search users up +9.3%, low-activity users up +14.3%.</p>
+
+      <p class="ph" style="color:var(--ink);">Phase 1 in the US limited participation to existing TikTok Shop users: complete 6 daily searches to earn a $5 voucher. Q4 2024 results returned a paradox.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Working — E-commerce impact</span>
+          <p class="ph-sm">The voucher drove real purchasing behavior among authorized users, exactly as designed.</p>
+          <p class="ph-sm" style="margin-top:8px;color:var(--ink);">+8% PayU/DAU · +10% nOrder/DAU</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Not moving — Core search growth</span>
+          <p class="ph-sm">Active search growth was ~0. The original goal — growing search behavior — was not being achieved.</p>
+          <p class="ph-sm" style="margin-top:8px;color:var(--ink);">~0 active search growth · ~9% auth rate among eligible users</p>
+        </div>
+      </div>
+
+      <p class="ph" style="margin-top:32px;">Phase 2 expanded eligibility to all US users (~70M DAU). The right audience was now in scope — so why was participation still near zero?</p>
+
+      <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;margin-top:8px;">
+        <span class="label" style="display:block;margin-bottom:8px;">How I framed the problem</span>
+        <p class="ph-sm">Before proposing any solution, I pushed to map the full authorization funnel first. The team's instinct was to improve the banner — my argument was: understand where users are dropping, and why, before deciding what to build.</p>
+      </div>
+    </section>
+
+
+    <!-- ── 02 DIAGNOSIS ── -->
+    <section id="s02">
+      <div class="sec-label">02 · Diagnosis</div>
+      <h2>Only ~9% of eligible Phase 1 users authorized — this was a reach problem, not a conversion problem.</h2>
+
+      <p class="ph">I framed the funnel as two independent events: exposure and authorization. Data confirmed exposure was the bigger lever — without fixing it, 86% of users would never see the campaign.</p>
+
+      <div class="grid-2" style="margin-top:32px;">
+        <div>
+          <span class="label" style="display:block;margin-bottom:8px;">Authorization funnel — current state</span>
+          <div class="img-ph"></div>
+        </div>
+        <div>
+          <span class="label" style="display:block;margin-bottom:8px;">Authorization funnel — target state</span>
+          <div class="img-ph"></div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:8px;">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Problem 1 — Exposure</span>
+          <h3 style="margin-bottom:8px;">The campaign had a structural ceiling</h3>
+          <p class="ph-sm">The T&amp;C pop-up only triggered when users returned to the search middle page after searching — missing everyone who entered fresh or stayed on the results page. 14% exposure rate, regardless of campaign quality.</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Problem 2 — Conversion</span>
+          <h3 style="margin-bottom:8px;">Authorization required a detour</h3>
+          <p class="ph-sm">Users who saw the banner couldn't authorize directly — they had to navigate to a separate detail page. That context switch introduced hesitation. 49% dropped — not disinterest, but recoverable friction.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 03 DECISIONS ── -->
+    <section id="s03">
+      <div class="sec-label">03 · Decisions</div>
+      <h2>Three initiatives, each mapped to a specific gap in the funnel.</h2>
+
+      <p class="ph" style="color:var(--ink-mid);">Ordered by funnel position: D01–D02 fixed reach. D03 removed authorization friction.</p>
+
+      <div class="img-ph"></div>
+
+      <hr class="divider">
+
+      <div class="decision-block">
+        <span class="label">D01</span>
+        <h3>Add a campaign widget to the search results page</h3>
+        <p class="ph" style="color:var(--ink-mid);">Default team assumption: optimize the existing middle-page banner.</p>
+        <p class="ph">The middle page wasn't underperforming — it was structurally limited. Optimizing within a surface reaching 14% of users would never move the aggregate metric. The results page captures users who have already searched — a larger, higher-intent audience. New touchpoint for ~25M passive search users without interrupting the search flow.</p>
+        <img src="images/tiktok-search-incentive/result-page-widget.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
+      </div>
+
+      <hr class="divider">
+
+      <div class="decision-block">
+        <span class="label">D02</span>
+        <h3>Expand trigger logic — entry + return, not return-only</h3>
+        <p class="ph" style="color:var(--ink-mid);">The trigger was tied to returning from search — intuitive, but creating a blind spot for first-entry users.</p>
+        <p class="ph">This was a logic fix, not a design change. Eligibility wasn't conditional on having searched before, so the trigger shouldn't be. Expanding to entry + return doubled exposure opportunities per session at near-zero engineering cost. Frequency cap prevents overexposure: step back for 3 days after X impressions with no clicks.</p>
+        <p class="decision-tradeoff">More exposure per session risks feeling intrusive — the frequency cap is the minimum viable constraint, calibrated not eliminated.</p>
+        <div class="img-ph"></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="decision-block">
+        <span class="label">D03</span>
+        <h3>Consolidate authorization into the T&amp;C bottom sheet — 4 steps to 1</h3>
+        <p class="ph" style="color:var(--ink-mid);">Original flow: tap banner → navigate to detail page → read landing page → tap "Join now." Four steps, breaking search context entirely.</p>
+        <p class="ph">Consolidate into the T&amp;C bottom sheet: rewritten copy, inline T&amp;C link, and a direct "Join now" button. Users authorize without leaving search. "Learn more" stays — but is no longer required.</p>
+
+        <div class="grid-2" style="margin-top:0;">
+          <div class="card">
+            <span class="label" style="display:block;margin-bottom:8px;">Before — 4 steps</span>
+            <p class="ph-sm">Tap banner → navigate to detail page → read landing page → tap "Join now"</p>
           </div>
-          <div class="r-box chosen">
-            <label>My framing ✓</label>
-            <p>The suggestion page wasn't underperforming — it was structurally limited. I argued that optimizing within a surface reaching only 14% of users would never move the aggregate metric. The real opportunity was identifying untapped surfaces, starting with the results page where post-search users were already expressing intent.</p>
-            <span class="impact-pill">New touchpoint for ~25M passive search users</span>
+          <div class="card">
+            <span class="label" style="display:block;margin-bottom:8px;">After — 1 step</span>
+            <p class="ph-sm">Tap banner → bottom sheet (copy + T&amp;C link + Join now) → authorized</p>
           </div>
         </div>
-        <p class="d-note">The suggestion page only catches users mid-type. The results page catches users who have already searched — behaviorally different, and far more numerous. Adding the widget here means the campaign finds users at the moment they're most primed to engage, without interrupting the search flow itself.</p>
-<img src="images/tiktok-search-incentive/result-page-widget.png" style="width:100%;border-radius:14px;display:block;">
-      </div>
-    </div>
 
-    <!-- D2 -->
-    <div class="decision" onclick="toggle(this)">
-      <div class="d-header">
-        <span class="d-num">02</span>
-        <span class="d-title">Redefine the trigger logic — expand from return-only to entry + return</span>
-        <span class="d-chip exposure">Exposure</span>
-        <span class="d-toggle">+</span>
+        <img src="images/tiktok-search-incentive/bottom-sheet.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
       </div>
-      <div class="d-body">
-        <div class="d-divider"></div>
-        <div class="rationale-grid">
-          <div class="r-box">
-            <label>Original product logic</label>
-            <p>The trigger was tied to a specific user action — returning from search — which seemed intuitive but created a structural blind spot for first-time entry users.</p>
-          </div>
-          <div class="r-box chosen">
-            <label>Decision ✓</label>
-            <p>I questioned why the trigger was return-only when eligibility wasn't conditional on having searched before. Expanding to entry + return was a logic fix, not a design change — and it doubled the exposure opportunity per session at zero engineering cost.</p>
-            <span class="impact-pill">Doubles trigger opportunities per session</span>
-          </div>
+    </section>
+
+
+    <!-- ── 04 DIDN'T SHIP ── -->
+    <section id="s04">
+      <div class="sec-label">04 · A decision that didn't ship</div>
+      <h2>Targeting high-value e-commerce users wasn't an upside — it was more interruption.</h2>
+
+      <p class="ph">I identified an additional exposure surface: a campaign banner at the top of e-commerce search results, mixed into the feed. E-commerce intent users are exactly the TikTok Shop voucher audience.</p>
+
+      <p class="ph" style="color:var(--ink);">The proposal was rejected in cross-functional review.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Reason 1 — Redundancy</span>
+          <h3 style="margin-bottom:8px;">These users already see the widget</h3>
+          <p class="ph-sm">The results page widget from D01 already reached this audience. A top banner added duplicate exposure without incremental reach — more noise, no new coverage.</p>
         </div>
-        <div class="ba-wrap">
-          <div class="ba-pane">
-            <div class="ba-tag">Before</div>
-            <ul class="ba-list">
-              <li data-n="1">User opens search (middle page) — no banner shown</li>
-              <li data-n="2">User types query, browses results</li>
-              <li data-n="3">User returns to middle page → banner + pop-up appear</li>
-            </ul>
-          </div>
-          <div class="ba-pane">
-            <div class="ba-tag after">After</div>
-            <ul class="ba-list after">
-              <li data-n="1">User opens search → banner appears immediately on entry</li>
-              <li data-n="2">User types query, browses results</li>
-              <li data-n="3">User returns to middle page → banner + pop-up also appear (retained)</li>
-            </ul>
-          </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Reason 2 — UX cost</span>
+          <h3 style="margin-bottom:8px;">Interrupting a high-intent shopping moment</h3>
+          <p class="ph-sm">Inserting a campaign into active purchase intent breaks the moment of highest conversion likelihood. The disruption cost likely outweighed the authorization upside.</p>
         </div>
-        <p class="d-note">To prevent overexposure: if a user sees the banner X times within 3 days with zero clicks, it steps back for 3 days before reappearing. This keeps the experience from feeling intrusive while ensuring eligible users eventually encounter the campaign.</p>
       </div>
-    </div>
 
-    <!-- D3 -->
-    <div class="decision" onclick="toggle(this)">
-      <div class="d-header">
-        <span class="d-num">03</span>
-        <span class="d-title">Reduce authorization from 3 steps to 1 — eliminate the detour to the detail page</span>
-        <span class="d-chip conversion">Conversion</span>
-        <span class="d-toggle">+</span>
+      <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;margin-top:8px;">
+        <span class="label" style="display:block;margin-bottom:8px;">What I took from this</span>
+        <p class="ph-sm">Good product judgment isn't only knowing what to build — it's recognizing when a logically sound idea creates a worse trade-off than the problem it solves. Exposure maximization has a user-experience cost that compounds.</p>
       </div>
-      <div class="d-body">
-        <div class="d-divider"></div>
-        <div class="rationale-grid">
-          <div class="r-box">
-            <label>Original flow</label>
-            <p>Tapping the banner routed users to a separate activity detail page. Authorization required reading that page then tapping "Join now" there — a multi-step detour that broke search context entirely.</p>
-          </div>
-          <div class="r-box chosen">
-            <label>Decision ✓</label>
-            <p>Consolidate everything into the T&amp;C bottom sheet: rewritten copy, a direct "Join now" button, and an inline T&amp;C link. Users authorize without leaving search. "Learn more" remains for those who want the full detail page.</p>
-            <span class="impact-pill">Authorization in 1 tap — no page navigation required</span>
-          </div>
+    </section>
+
+
+    <!-- ── 05 REFLECTIONS ── -->
+    <section id="s05">
+      <div class="sec-label">05 · Outcome &amp; Reflections</div>
+      <h2>Exposure rate 14% → 67%. Authorization rate 49% → 60%. Shipped in 10 days.</h2>
+
+      <div class="grid-3">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">01</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">Diagnose before you design</h3>
+          <p class="ph-sm">Separating exposure from conversion as two distinct, measurable problems determined what got built and in what order.</p>
         </div>
-        <!-- BEFORE flow -->
-        <div style="margin:20px 0 8px;">
-          <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;font-weight:500;display:flex;align-items:center;gap:8px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--ink3);display:inline-block;flex-shrink:0;"></span>Before — 3 steps
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:8px;">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.06);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink3);">1</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">Tap banner CTA</div>
-            </div>
-            <div style="color:rgba(255,45,85,0.3);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,45,85,0.1);border:1.5px solid var(--accent-bd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);">2</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">Navigate to detail page</div>
-            </div>
-            <div style="color:rgba(255,45,85,0.3);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,45,85,0.1);border:1.5px solid var(--accent-bd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);">3</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">Read full landing page</div>
-            </div>
-            <div style="color:rgba(255,45,85,0.3);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,45,85,0.1);border:1.5px solid var(--accent-bd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);">4</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">Tap "Join now"</div>
-            </div>
-            <div style="color:rgba(0,0,0,0.2);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgb(22,163,74);">✓</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">Authorized</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:var(--ink3);margin-top:10px;">T&C link only accessible from the detail page. No direct authorization from banner.</div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">02</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">Logic changes can outperform design changes</h3>
+          <p class="ph-sm">The entry-trigger fix was a logic change, not a redesign. Zero UI cost, double the exposure opportunities. The highest-leverage decisions are often invisible on screen.</p>
         </div>
-
-        <div style="border-top:1px dashed var(--border);margin:20px 0;"></div>
-
-        <!-- AFTER flow -->
-        <div style="margin-bottom:8px;">
-          <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:500;display:flex;align-items:center;gap:8px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>After — 1 step
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:0;">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.06);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink3);">1</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">Tap banner CTA</div>
-            </div>
-            <div style="color:rgba(0,0,0,0.2);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:100px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">📋</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:96px;">Bottom sheet: copy + T&C + Join now</div>
-            </div>
-            <div style="color:rgba(0,0,0,0.2);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgb(22,163,74);">✓</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">Authorized</div>
-            </div>
-            <div style="margin-left:20px;display:flex;flex-direction:column;gap:4px;padding-top:4px;">
-              <div style="font-size:11px;text-decoration:line-through;opacity:0.3;color:var(--ink3);">Detail page removed</div>
-              <div style="font-size:11px;text-decoration:line-through;opacity:0.3;color:var(--ink3);">2nd confirmation removed</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:var(--accent);margin-top:10px;">"Learn more" still available — but no longer required to authorize.</div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">03</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">Know when to kill a good idea</h3>
+          <p class="ph-sm">The rejected e-commerce banner was logically sound but made a worse trade-off. Recognizing that is a core PM skill I developed on this project.</p>
         </div>
-
-        <p class="d-note">The copy rewrite focused on three things: <strong>what you get</strong> (voucher value, no minimum spend), <strong>what you do</strong> (type a search, browse 15 seconds), and <strong>what you're agreeing to</strong> (T&amp;C link inline). Surfacing the T&amp;C link directly in the bottom sheet removed the last blocker for users who were ready to join but needed a legal reference point.</p>
-<img src="images/tiktok-search-incentive/bottom-sheet.png" style="width:100%;border-radius:14px;display:block;">
       </div>
-    </div>
 
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 04b PRODUCT JUDGMENT -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">04</span>
-    <h2 class="s-title">A decision that didn't ship — and why that mattered</h2>
-  </div>
-
-  <p class="lead reveal">The most valuable product judgment I exercised on this project was knowing when to stop pushing.</p>
-  <p class="body-text reveal">During scoping, I identified an additional exposure opportunity: adding a campaign banner to the top of e-commerce search results pages, mixed into the results feed. On paper, the logic was sound — e-commerce intent users are exactly the audience for a TikTok Shop voucher, and the results page already had high engagement.</p>
-  <p class="body-text reveal">I brought the proposal into a cross-functional review. It was rejected on two grounds:</p>
-
-  <div class="two-col reveal" style="margin-top: 8px;">
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">Reason 1 — Redundancy</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-.005em">Users would already see the widget</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8">The results page widget (Decision 01) would already be visible to these users. Adding a top banner created duplicate exposure without incremental reach — increasing noise without increasing coverage.</p>
-    </div>
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">Reason 2 — User experience cost</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-.005em">Disrupting a high-intent shopping moment</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8">Inserting a campaign banner into e-commerce search results interrupts users at a moment of active purchase intent. The conversion cost of that disruption likely outweighed the authorization upside.</p>
-    </div>
-  </div>
-
-  <div class="callout reveal" style="margin-top: 24px;">
-    <span class="callout-eyebrow">What I took from this</span>
-    <p>Good product judgment isn't just knowing what to build — it's recognizing when a seemingly logical idea creates a worse trade-off than the problem it solves. The rejection made the final scope tighter and more defensible. I updated my mental model: <strong>exposure maximization has a user experience cost that compounds</strong>, and the right question isn't "where else can we show this?" but "where does showing this create genuine value?"</p>
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 05 OUTCOME -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">05</span>
-    <h2 class="s-title">Outcome</h2>
-  </div>
-
-  <div class="outcome-strip reveal">
-    <div class="o-card">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;font-weight:500;">T&amp;C Exposure</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">
-        <span style="font-family:'Instrument Serif',serif;font-size:36px;color:var(--ink3);opacity:0.45;text-decoration:line-through;">14%</span>
-        <span style="color:var(--ink3);opacity:0.35;font-size:16px;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:48px;color:var(--accent);line-height:1;">67%</span>
+      <div class="gap"></div>
+      <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;">
+        <p class="ph" style="font-style:italic;margin-bottom:6px;">"The most important decision happened before any solution was proposed — the decision to map the funnel first, and resist the instinct to redesign before diagnosing."</p>
+        <span class="label">— Project retrospective</span>
       </div>
-    </div>
-    <div class="o-card">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;font-weight:500;">Auth Rate</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">
-        <span style="font-family:'Instrument Serif',serif;font-size:36px;color:var(--ink3);opacity:0.45;text-decoration:line-through;">49%</span>
-        <span style="color:var(--ink3);opacity:0.35;font-size:16px;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:48px;color:var(--accent);line-height:1;">60%</span>
+    </section>
+
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <span class="label">© 2026 Zhuoyi Zhang</span>
+      <div class="footer-links">
+        <a href="mailto:zhuoyiz.design@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
+        <a href="https://zhuoyiz.framer.website/projects">← Projects</a>
       </div>
-    </div>
-    <div class="o-card">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;font-weight:500;">Sprint to Ship</div>
-      <div style="font-family:'Instrument Serif',serif;font-size:64px;color:var(--ink);line-height:1;">10<span style="font-size:28px;color:var(--ink3);margin-left:4px;">days</span></div>
-    </div>
-  </div>
+    </footer>
 
-  <div class="reflection reveal">
-    <p>"The most important decision in this project happened before any solution was proposed — the decision to map the funnel first, and resist the instinct to redesign before diagnosing. Framing the problem correctly made every subsequent decision easier to defend."</p>
-    <cite>— Reflection on the project</cite>
-  </div>
-</div>
+  </main>
 
-<hr class="s-divider">
+  <script src="js/portfolio.js"></script>
 
-<!-- 06 LEARNINGS -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">06</span>
-    <h2 class="s-title">What I learned</h2>
-  </div>
-
-  <div class="learn-grid reveal">
-    <div class="l-card">
-      <div class="l-num">01</div>
-      <h3>Diagnosis before solution</h3>
-      <p>The team's instinct was to improve the banner. I pushed to map the funnel first. That single framing decision — separating exposure from conversion as two distinct problems — determined what got built and in what order.</p>
-    </div>
-    <div class="l-card">
-      <div class="l-num">02</div>
-      <h3>Product logic changes can outperform design changes</h3>
-      <p>The entry-trigger fix wasn't a design change — it was a logic change. Zero visual redesign, double the exposure opportunities. The highest-leverage product decisions are often invisible on a screen.</p>
-    </div>
-    <div class="l-card">
-      <div class="l-num">03</div>
-      <h3>Know when to kill a good idea</h3>
-      <p>The rejected e-commerce top banner was logically sound but created a worse trade-off than the problem it solved. Learning to recognize when a seemingly right idea has the wrong cost is a core PM skill I developed on this project.</p>
-    </div>
-    <div class="l-card">
-      <div class="l-num">04</div>
-      <h3>Metrics only move when the denominator is right</h3>
-      <p>0.2% authorization rate looked like a conversion problem. It was actually a coverage problem. Getting the denominator right — who is actually eligible, and who is actually being reached — changes everything about how you read product metrics.</p>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <p>© 2025 by Zhuoyi with Heart and Bubble Tea 🩵</p>
-  <a href="#" class="back-top">Back to top ↑</a>
-</footer>
-
-<script>
-  window.addEventListener('load', () => document.getElementById('hero').classList.add('loaded'));
-  function toggle(el) { el.classList.toggle('open'); }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 60);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(r => io.observe(r));
-
-  // Animate hero stats on load
-  function animateValue(el, start, end, suffix, duration) {
-    let startTime = null;
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(start + (end - start) * eased) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  // Subtle entrance animation for hero stats
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.querySelectorAll('.hero-stat-num').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(8px)';
-        el.style.transition = `opacity 0.5s ease ${i * 0.1 + 0.8}s, transform 0.5s ease ${i * 0.1 + 0.8}s`;
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'none';
-        }, 50);
-      });
-    }, 100);
-  });
-</script>
 </body>
 </html>

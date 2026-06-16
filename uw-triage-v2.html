@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UW Triage Platform — Zhuoyi Zhang</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/portfolio.css">
+</head>
+<body>
+
+  <!-- TOP FADE -->
+  <div class="top-fade"></div>
+
+  <!-- NAV (centered) -->
+  <nav class="nav">
+    <span class="nav-dot"></span>
+    <a href="https://zhuoyiz.framer.website">Zhuoyi Zhang</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-current">UW Triage Platform</span>
+  </nav>
+
+  <!-- LEFT TOC (appears after first screen) -->
+  <aside class="toc" id="toc">
+    <a href="https://zhuoyiz.framer.website/projects" class="toc-home">Home</a>
+    <a href="#overview" class="toc-link">Overview</a>
+    <a href="#s01" class="toc-link">01 · Problem</a>
+    <a href="#s02" class="toc-link">02 · Overview</a>
+    <a href="#s03" class="toc-link">03 · User Research</a>
+    <a href="#s04" class="toc-link">04 · Decisions</a>
+    <a href="#s05" class="toc-link">05 · Showcase</a>
+    <a href="#s06" class="toc-link">06 · Testing</a>
+    <a href="#s07" class="toc-link">07 · Reflections</a>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- ── HERO ── -->
+    <section id="overview">
+      <div class="hero-thumb"></div>
+
+      <div class="hero-cols">
+        <div class="hero-left">
+          <h1>UW Agreement Triage Platform</h1>
+          <p class="ph" style="margin-top:16px;">UW CoMotion routes hundreds of MTAs, NDAs, and Data Use Agreements each year — across four offices, by four different rules, documented nowhere.</p>
+          <p class="ph" style="margin-top:12px;">We built the infrastructure to turn routing logic from institutional memory into an institutional asset: a node canvas for admins to author workflows, and a guided wizard for researchers to follow them.</p>
+        </div>
+        <div class="hero-right">
+          <div class="hero-tags">
+            <span class="hero-tag">ToB</span>
+            <span class="hero-tag">0 → 1</span>
+            <span class="hero-tag">AI Agent</span>
+          </div>
+          <div class="hero-date">Jan – Jun 2026</div>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-cell">
+          <span class="label">My Role</span>
+          <h3>Product Manager · Admin Portal Design Lead</h3>
+        </div>
+        <div class="meta-cell">
+          <span class="label">Team / Sponsor</span>
+          <h3>Team JXYZ (4) · UW HCDE · CoMotion</h3>
+        </div>
+        <div class="meta-cell">
+          <span class="label">Stack</span>
+          <h3>React · Node.js · Claude API · Supabase</h3>
+        </div>
+      </div>
+
+      <div class="img-ph" style="margin-top:56px;"></div>
+    </section>
+
+
+    <!-- ── 01 THE PROBLEM ── -->
+    <section id="s01">
+      <div class="sec-label">01 · The Problem</div>
+      <h2>Agreement routing at UW runs on institutional memory — invisible, fragile, and gone when people leave.</h2>
+
+      <div class="card" style="margin-bottom:32px;border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;">
+        <p class="ph" style="font-style:italic;margin-bottom:6px;">"The messy part is when an agreement is not getting to the right unit. Nobody can figure out where it should belong."</p>
+        <span class="label">— CoMotion Staff, Stakeholder Interview</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Researcher</h3>
+          <p class="ph-sm" style="margin-top:8px;">Bounced between three offices. No explanation why. Four months in and still didn't know who was supposed to sign it.</p>
+        </div>
+        <div class="card">
+          <h3>Administrator</h3>
+          <p class="ph-sm" style="margin-top:8px;">Half the day redirecting misdirected requests. No contact map, no shared routing guide.</p>
+        </div>
+      </div>
+
+      <div class="gap"></div>
+      <h3>Three structural root causes</h3>
+      <div class="grid-3">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">A</span>
+          <h3 style="font-size:16px;margin-bottom:6px;">Unclear Triage Criteria</h3>
+          <p class="ph-sm">The "research vs. service" distinction lives only in a few experienced staff members' heads — no way to transfer it.</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">B</span>
+          <h3 style="font-size:16px;margin-bottom:6px;">No Transparency</h3>
+          <p class="ph-sm">Routing decisions leave no trace. Predecessors' choices can't be explained, audited, or handed off.</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">C</span>
+          <h3 style="font-size:16px;margin-bottom:6px;">Fragmented Knowledge</h3>
+          <p class="ph-sm">The same rules exist on a website, in a PDF, and in someone's head — none of them match.</p>
+        </div>
+      </div>
+
+      <div class="img-ph"></div>
+    </section>
+
+
+    <!-- ── 02 OVERVIEW ── -->
+    <section id="s02">
+      <div class="sec-label">02 · Overview</div>
+      <h2>The problem isn't that researchers are confused — routing rules have never been written down in a maintainable format.</h2>
+      <p class="ph">We built two connected portals with one-way logic flow. Admins author routing logic in a visual canvas and publish it. Researchers follow it through a guided wizard. The two sides connect through a read-only publish library — admins control what researchers see, and changes sync immediately.</p>
+
+      <div class="grid-2" style="margin-top:32px;">
+        <div class="card">
+          <h3>Admin Portal</h3>
+          <p class="ph-sm" style="margin-top:8px;">Build, version, and publish routing workflows via a visual node canvas. Changes propagate to researchers immediately.</p>
+        </div>
+        <div class="card">
+          <h3>Researcher Portal</h3>
+          <p class="ph-sm" style="margin-top:8px;">Read published logic through a step-by-step guided wizard. Always reflects the latest routing rules — no manual sync.</p>
+        </div>
+      </div>
+
+      <div class="gap"></div>
+      <p class="ph-sm" style="color:var(--ink-warm);">Stages 1–3 of 6 shipped: workflow builder · File2Flow AI import · guided intake wizard. Stages 4–6 (request submission, runtime engine, live dashboard) scoped for next phase.</p>
+    </section>
+
+
+    <!-- ── 03 USER RESEARCH ── -->
+    <section id="s03">
+      <div class="sec-label">03 · User Research</div>
+      <h2>3 months · 4 offices · 11 interviews · 11 email cases</h2>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Desk Research</h3>
+          <p class="ph-sm">Mapped routing flows for CoMotion, OSP, CoE, SoM — found four isolated, inconsistent rule sets.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Stakeholder Interviews</h3>
+          <p class="ph-sm">4 Director/VP-level interviews. Validated flows, surfaced institutional constraints and political boundaries.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">User Interviews</h3>
+          <p class="ph-sm">7 PIs and PI assistants at SoM. Focused on the first moment of confusion — when and why they got lost.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Email Case Analysis</h3>
+          <p class="ph-sm">11 real routing threads. Triangulated interview findings with evidence of confusion in the wild.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Snowball Sampling</h3>
+          <p class="ph-sm">Recruited via CoMotion Licensing Associate. Criteria: recent submission, routing confusion, cross-office contact.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Thematic Analysis</h3>
+          <p class="ph-sm">Shared codebook across all transcripts and email records. Built a custom Claude Artifact for annotation — 3–4× faster than manual.</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:32px;">
+        <div class="img-ph" style="aspect-ratio:4/3;margin-top:0;"></div>
+        <div class="img-ph" style="aspect-ratio:4/3;margin-top:0;"></div>
+      </div>
+
+      <div class="gap"></div>
+      <h3>What we found</h3>
+      <div class="findings" style="margin-top:16px;">
+        <div class="finding"><strong style="color:var(--ink);font-weight:500;">Routing failure is on the admin side, not the researcher side.</strong> Researchers usually know what they need — they get bounced because routing logic isn't defined, not because they asked wrong.</div>
+        <div class="finding"><strong style="color:var(--ink);font-weight:500;">Three formats, three versions.</strong> The same routing rules exist on a website, in a PDF, and in someone's head. None of them match.</div>
+        <div class="finding"><strong style="color:var(--ink);font-weight:500;">Black box after submission.</strong> Researchers can't track status. Admins sometimes can't explain predecessors' routing decisions.</div>
+      </div>
+
+      <div class="gap"></div>
+      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">Three design directions</h3>
+      <div class="grid-3" style="margin-top:12px;">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Support Sensemaking</h3>
+          <p class="ph-sm">Move classification off the user and onto the system.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Orchestrate Handoffs</h3>
+          <p class="ph-sm">Make ownership explicit at every stage. Status visible without follow-up.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Centralize Knowledge</h3>
+          <p class="ph-sm">Turn routing rules into a shared, updatable record that survives personnel change.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 04 KEY DECISIONS ── -->
+    <section id="s04">
+      <div class="sec-label">04 · Key Decisions</div>
+      <h2>Four decisions that define what we are — and what we are not.</h2>
+
+      <p class="ph" style="margin-top:-8px;">Ordered by architectural dependency: D01 set the structure. D02 made routing auditable. D03 removed the adoption barrier. D04 closed the loop for researchers.</p>
+
+      <div style="margin-top:56px;">
+
+        <div class="decision-block">
+          <span class="label">D01</span>
+          <h3>Two portals, not one unified system</h3>
+          <p class="ph" style="color:var(--ink-mid);">Admin work (authoring branching logic) and researcher work (following guided steps) require fundamentally different interfaces. Combining them would overwhelm one group or constrain the other.</p>
+          <p class="ph">Separate rule-writing from rule-following entirely. Admin Portal authors the logic; Researcher Portal consumes it through a one-way publish layer.</p>
+          <p class="decision-tradeoff">More to build and maintain — but each portal evolves independently without breaking the other.</p>
+          <div class="img-ph"></div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="decision-block">
+          <span class="label">D02</span>
+          <h3>Node canvas, not an AI chatbot</h3>
+          <p class="ph" style="color:var(--ink-mid);">Routing logic is branching and conditional — it can't be reliably inferred at runtime. Non-technical admins need to author and maintain it themselves, with full auditability.</p>
+          <p class="ph">A visual canvas with 4 structured node types — auditable, editable, version-controlled. Routing logic becomes an institutional asset, not a cheat sheet.</p>
+          <p class="decision-tradeoff">Higher admin learning curve — offset by File2Flow's AI-assisted import.</p>
+          <div class="img-ph"></div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="decision-block">
+          <span class="label">D03</span>
+          <h3>File2Flow — AI drafts the canvas, admins refine</h3>
+          <p class="ph" style="color:var(--ink-mid);">Routing knowledge already exists, scattered across websites, PDFs, and people's heads. Starting from scratch is too much friction to get anyone to adopt the tool.</p>
+          <p class="ph">AI reads a URL or PDF → generates a structured first-draft canvas. Admins edit, not author from zero. Cuts initial setup from hours to minutes.</p>
+          <p class="decision-tradeoff">Draft quality depends on source document quality — admin review is always required. That's intentional: admins stay in control of what researchers see.</p>
+          <div class="img-ph"></div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="decision-block">
+          <span class="label">D04</span>
+          <h3>Guided wizard, not a search bar</h3>
+          <p class="ph" style="color:var(--ink-mid);">Researchers don't know the system's vocabulary — you can't search for what you don't know. A FAQ page makes them read and self-classify, when they just need an answer.</p>
+          <p class="ph">A node-by-node wizard derived from the published admin canvas. The system classifies for the user — no routing expertise required.</p>
+          <div class="img-ph"></div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ── 05 PRODUCT SHOWCASE ── -->
+    <section id="s05">
+      <div class="sec-label">05 · Product Showcase</div>
+      <h2>Two portals. One connected system.</h2>
+
+      <!-- Admin Portal -->
+      <div class="gap"></div>
+      <h3>Admin Portal — Build the routing logic</h3>
+      <p class="ph" style="margin-top:8px;">Turn institutional knowledge from a private cheat sheet into a shared, editable, version-controlled asset.</p>
+
+      <div class="gap"></div>
+      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">File2Flow pipeline</h3>
+      <div class="pipeline" style="margin-top:12px;">
+        <div class="pipe-step"><span class="label">01</span><h3>Document Input</h3></div>
+        <div class="pipe-step"><span class="label">02</span><h3>AI Restatement</h3></div>
+        <div class="pipe-step"><span class="label">03</span><h3>Node Identification</h3></div>
+        <div class="pipe-step"><span class="label">04</span><h3>Relationship Completion</h3></div>
+        <div class="pipe-step"><span class="label">05</span><h3>Graph Output</h3></div>
+      </div>
+
+      <div class="img-ph"></div>
+
+      <div class="gap"></div>
+      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">Four node types</h3>
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Definition Node</h3>
+          <p class="ph-sm">Sets the agreement type's scope. Entry point for the entire decision tree.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Decision Node</h3>
+          <p class="ph-sm">Judgment question + multi-condition branches. The core routing logic unit — inline-editable.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Action Node</h3>
+          <p class="ph-sm">Specific next steps for each routing outcome: forms to submit, offices to contact, materials needed.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:6px;">Handler Node</h3>
+          <p class="ph-sm">Names the responsible office or contact. Admin controls whether researchers can see this.</p>
+        </div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(0,0,0,0.07);margin:56px 0;">
+
+      <!-- Researcher Portal -->
+      <h3>Researcher Portal — Follow the routing logic</h3>
+      <p class="ph" style="margin-top:8px;">Consumes whatever admins publish — always reflects the latest routing logic, no manual sync.</p>
+
+      <div class="grid-2" style="margin-top:24px;">
+        <div class="card">
+          <h3 style="margin-bottom:8px;">Agreement Knowledge Library</h3>
+          <p class="ph-sm">Searchable reference for every agreement type: definition, responsible office, typical timeline, FAQs. The self-serve guide that used to live in a senior staff member's inbox.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:8px;">Guided Intake Wizard</h3>
+          <p class="ph-sm">Step-by-step questions drawn from the published canvas. Tells users not just where to go, but why. "Unsure" options prevent dead ends for edge cases.</p>
+        </div>
+      </div>
+
+      <div class="img-ph"></div>
+    </section>
+
+
+    <!-- ── 06 USABILITY TESTING ── -->
+    <section id="s06">
+      <div class="sec-label">06 · Usability Testing</div>
+      <h2>Core value validated. The real barrier is onboarding — not the concept.</h2>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin-bottom:16px;">Admin — n=2</h3>
+          <div class="findings">
+            <div class="finding" style="color:var(--ink);">Canvas format immediately intuitive — better than current email-based workflows</div>
+            <div class="finding" style="color:var(--ink);">Strong perceived value after seeing the researcher-facing output</div>
+            <div class="finding">Needed an earlier preview of how routing appears to researchers</div>
+            <div class="finding">AI entry point needed more guidance to start</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px;">Researcher — n=4</h3>
+          <div class="findings">
+            <div class="finding" style="color:var(--ink);">Intake wizard significantly reduced friction for first-time users</div>
+            <div class="finding" style="color:var(--ink);">Processing time display highly valued — addresses a core pain point</div>
+            <div class="finding">Routing result not visually prominent enough</div>
+            <div class="finding">Missing "Unsure / Other" option for ambiguous cases</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap"></div>
+      <h3>Key Findings</h3>
+      <div class="findings" style="margin-top:16px;">
+        <div class="finding"><strong style="color:var(--ink);font-weight:500;">The routing failure is on the admin side.</strong> Researchers often know what they need — they get bounced because routing logic isn't defined, not because they asked wrong.</div>
+        <div class="finding"><strong style="color:var(--ink);font-weight:500;">Unexpected secondary use case:</strong> both admin participants saw the tool as training material for junior staff — not just a researcher-facing product.</div>
+      </div>
+
+      <div class="img-ph"></div>
+    </section>
+
+
+    <!-- ── 07 REFLECTIONS ── -->
+    <section id="s07">
+      <div class="sec-label">07 · Reflections</div>
+      <h2>What we shipped, what we learned.</h2>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Scoping is the first design decision</h3>
+          <p class="ph-sm">Every stakeholder had a different vision for this product. Structured stakeholder interviews before any building — aligning on scope early — was the highest-leverage activity of the project.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">PRs are the new design handoff</h3>
+          <p class="ph-sm">Vibe coding with Claude Code and Cursor collapsed the design-to-dev gap. We shipped polished UIs faster through PRs than Figma iterations — and expanded what designers can own.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">AI compounds research capacity</h3>
+          <p class="ph-sm">A custom Claude Artifact for thematic coding: 2 hours instead of 2 days. This isn't replacing judgment — it clears the path for it.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <span class="label" style="display:block;margin-bottom:8px;margin-top:32px;">Team JXYZ</span>
+          <div class="img-ph" style="aspect-ratio:1/1;margin-top:0;"></div>
+        </div>
+        <div>
+          <span class="label" style="display:block;margin-bottom:8px;margin-top:32px;">Award</span>
+          <div class="img-ph" style="aspect-ratio:1/1;margin-top:0;"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <span class="label">© 2026 Zhuoyi Zhang</span>
+      <div class="footer-links">
+        <a href="mailto:zhuoyiz.design@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
+        <a href="https://zhuoyiz.framer.website/projects">← Projects</a>
+      </div>
+    </footer>
+
+  </main>
+
+<script src="js/portfolio.js"></script>
+
+</body>
+</html>
