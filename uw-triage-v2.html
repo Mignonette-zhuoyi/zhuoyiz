@@ -27,9 +27,9 @@
     <a href="#s01" class="toc-link">01 · Problem</a>
     <a href="#s02" class="toc-link">02 · User Research</a>
     <a href="#s04" class="toc-link">03 · Decisions</a>
-    <a href="#s05" class="toc-link">05 · Showcase</a>
-    <a href="#s06" class="toc-link">06 · Testing</a>
-    <a href="#s07" class="toc-link">07 · Reflections</a>
+    <a href="#s05" class="toc-link">04 · Showcase</a>
+    <a href="#s06" class="toc-link">05 · Testing</a>
+    <a href="#s07" class="toc-link">06 · Reflections</a>
   </aside>
 
   <!-- CONTENT -->
@@ -37,7 +37,7 @@
 
     <!-- ── HERO ── -->
     <section id="overview">
-      <img src="UW_logo.png" alt="UW Logo" class="hero-thumb" style="object-fit:contain;background:transparent;">
+      <img src="images/uw-triage-system/UW_logo.png" alt="UW Logo" class="hero-thumb" style="object-fit:contain;background:transparent;">
 
       <div class="hero-cols">
         <div class="hero-left">
@@ -98,7 +98,7 @@
         </div>
       </div>
 
-      <img src="illustration_triage_difficulty.png" alt="Triage Difficulty Illustration" style="width:60%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;margin-left:auto;margin-right:auto;">
+      <img src="images/uw-triage-system/illustration_triage_difficulty.png" alt="Triage Difficulty Illustration" style="width:60%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;margin-left:auto;margin-right:auto;">
     </section>
 
 
@@ -136,11 +136,11 @@
 
       <div class="grid-2" style="margin-top:32px;">
         <div style="margin-top:64px;margin-bottom:64px;">
-          <img src="uxr1.png" alt="User Research 1" style="width:100%;border-radius:var(--r-lg,16px);display:block;object-fit:cover;">
+          <img src="images/uw-triage-system/uxr1.png" alt="User Research 1" style="width:100%;border-radius:var(--r-lg,16px);display:block;object-fit:cover;">
           <p style="margin-top:10px;font-size:13px;color:var(--ink-mid,#808080);text-align:center;">Hand-drawn flowcharts from research</p>
         </div>
         <div style="margin-top:64px;margin-bottom:64px;">
-          <img src="uxr2.png" alt="User Research 2" style="width:100%;border-radius:var(--r-lg,16px);display:block;object-fit:cover;">
+          <img src="images/uw-triage-system/uxr2.png" alt="User Research 2" style="width:100%;border-radius:var(--r-lg,16px);display:block;object-fit:cover;">
           <p style="margin-top:10px;font-size:13px;color:var(--ink-mid,#808080);text-align:center;">We vibe coded an analysis tool</p>
         </div>
       </div>
@@ -197,7 +197,7 @@
           <h3>A dedicated admin portal to unify internal workflows.</h3>
           <p class="ph" style="color:var(--ink-mid);">Admin work (authoring branching logic) and researcher work (following guided steps) require fundamentally different interfaces. Combining them would overwhelm one group or constrain the other.</p>
           <p class="ph">Separate rule-writing from rule-following entirely. Admin Portal authors the logic; Researcher Portal consumes it through a one-way publish layer.</p>
-          <img src="2portals.png" alt="Two portals" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+          <img src="images/uw-triage-system/2portals.png" alt="Two portals" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
         </div>
 
         <hr class="divider">
@@ -208,7 +208,8 @@
           <p class="ph" style="color:var(--ink-mid);">Routing logic is branching and conditional — it can't be reliably inferred at runtime. Non-technical admins need to author and maintain it themselves, with full auditability.</p>
           <p class="ph">A visual canvas with 4 structured node types — auditable, editable, version-controlled. Routing logic becomes an institutional asset, not a cheat sheet.</p>
           <p class="decision-tradeoff">Higher admin learning curve — offset by AI-assisted modifications.</p>
-          <img src="canvas.gif" alt="Canvas demo" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+          <img src="images/uw-triage-system/canvas.gif" alt="Canvas demo" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+          <p style="margin-top:10px;font-size:13px;color:var(--ink-mid,#808080);text-align:center;">Showing a functional canvas, allowing editing nodes and connect lines</p>
         </div>
 
         <hr class="divider">
@@ -218,7 +219,8 @@
           <h3>File2Flow - An AI core that draft the flow easily</h3>
           <p class="ph" style="color:var(--ink-mid);">Routing knowledge already exists, scattered across websites, PDFs, and people's heads. Starting from scratch is too much friction to get anyone to adopt the tool.</p>
           <p class="ph">AI reads a URL or PDF → generates a structured first-draft canvas. Admins edit, not author from zero. Cuts initial setup from hours to minutes.</p>
-          <img src="file2flow.gif" alt="File2Flow demo" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+          <img src="images/uw-triage-system/file2flow.gif" alt="File2Flow demo" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+          <p style="margin-top:10px;font-size:13px;color:var(--ink-mid,#808080);text-align:center;">Showing our AI system intakes URL, files and texts, extract and build workflow</p>
         </div>
 
         <hr class="divider">
@@ -228,7 +230,8 @@
           <h3>Guided wizard, not a search bar</h3>
           <p class="ph" style="color:var(--ink-mid);">Researchers don't know the system's vocabulary — you can't search for what you don't know. A FAQ page makes them read and self-classify, when they just need an answer.</p>
           <p class="ph">A node-by-node wizard derived from the published admin canvas. The system classifies for the user — no routing expertise required.</p>
-          <img src="researcher_portal.gif" alt="Researcher portal demo" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+          <img src="images/uw-triage-system/researcher_portal.gif" alt="Researcher portal demo" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+          <p style="margin-top:10px;font-size:13px;color:var(--ink-mid,#808080);text-align:center;">Showing a wizard that asks triage questions first, then lead step by step</p>
         </div>
 
       </div>
@@ -237,7 +240,7 @@
 
     <!-- ── 05 PRODUCT SHOWCASE ── -->
     <section id="s05">
-      <div class="sec-label">05 · Product Showcase</div>
+      <div class="sec-label">04 · Product Showcase</div>
       <h2>Two portals. One connected system.</h2>
 
       <!-- Admin Portal -->
@@ -255,26 +258,30 @@
         <div class="pipe-step"><span class="label">05</span><h3>Graph Output</h3></div>
       </div>
 
-      <div class="img-ph"></div>
+      <img src="images/uw-triage-system/file2flow.gif" alt="File2Flow pipeline demo" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
 
       <div class="gap"></div>
       <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">Four node types</h3>
       <div class="grid-2" style="margin-top:12px;">
-        <div class="card">
+        <div class="card" style="display:flex;flex-direction:column;">
           <h3 style="font-size:16px;margin-bottom:6px;">Definition Node</h3>
-          <p class="ph-sm">Sets the agreement type's scope. Entry point for the entire decision tree.</p>
+          <p class="ph-sm" style="flex:1;">Sets the agreement type's scope. Entry point for the entire decision tree.</p>
+          <img src="images/uw-triage-system/definition_node.png" alt="Definition Node" style="width:100%;border-radius:8px;display:block;margin-top:16px;">
         </div>
-        <div class="card">
+        <div class="card" style="display:flex;flex-direction:column;">
           <h3 style="font-size:16px;margin-bottom:6px;">Decision Node</h3>
-          <p class="ph-sm">Judgment question + multi-condition branches. The core routing logic unit — inline-editable.</p>
+          <p class="ph-sm" style="flex:1;">Judgment question + multi-condition branches. The core routing logic unit — inline-editable.</p>
+          <img src="images/uw-triage-system/decision_node.png" alt="Decision Node" style="width:100%;border-radius:8px;display:block;margin-top:16px;">
         </div>
-        <div class="card">
+        <div class="card" style="display:flex;flex-direction:column;">
           <h3 style="font-size:16px;margin-bottom:6px;">Action Node</h3>
-          <p class="ph-sm">Specific next steps for each routing outcome: forms to submit, offices to contact, materials needed.</p>
+          <p class="ph-sm" style="flex:1;">Specific next steps for each routing outcome: forms to submit, offices to contact, materials needed.</p>
+          <img src="images/uw-triage-system/action_node.png" alt="Action Node" style="width:100%;border-radius:8px;display:block;margin-top:16px;">
         </div>
-        <div class="card">
+        <div class="card" style="display:flex;flex-direction:column;">
           <h3 style="font-size:16px;margin-bottom:6px;">Handler Node</h3>
-          <p class="ph-sm">Names the responsible office or contact. Admin controls whether researchers can see this.</p>
+          <p class="ph-sm" style="flex:1;">Names the responsible office or contact. Admin controls whether researchers can see this.</p>
+          <img src="images/uw-triage-system/handler_node.png" alt="Handler Node" style="width:100%;border-radius:8px;display:block;margin-top:16px;">
         </div>
       </div>
 
@@ -295,13 +302,13 @@
         </div>
       </div>
 
-      <div class="img-ph"></div>
+      <img src="images/uw-triage-system/researcher_all.gif" alt="Researcher portal overview" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
     </section>
 
 
     <!-- ── 06 USABILITY TESTING ── -->
     <section id="s06">
-      <div class="sec-label">06 · Usability Testing</div>
+      <div class="sec-label">05 · Usability Testing</div>
       <h2>Core value validated. The real barrier is onboarding — not the concept.</h2>
 
       <div class="grid-2">
@@ -325,20 +332,20 @@
         </div>
       </div>
 
+      <img src="images/uw-triage-system/ux_test.png" alt="Usability testing" style="width:100%;border-radius:var(--r-lg,16px);display:block;margin-top:32px;">
+
       <div class="gap"></div>
       <h3>Key Findings</h3>
       <div class="findings" style="margin-top:16px;">
         <div class="finding"><strong style="color:var(--ink);font-weight:500;">The routing failure is on the admin side.</strong> Researchers often know what they need — they get bounced because routing logic isn't defined, not because they asked wrong.</div>
         <div class="finding"><strong style="color:var(--ink);font-weight:500;">Unexpected secondary use case:</strong> both admin participants saw the tool as training material for junior staff — not just a researcher-facing product.</div>
       </div>
-
-      <div class="img-ph"></div>
     </section>
 
 
     <!-- ── 07 REFLECTIONS ── -->
     <section id="s07">
-      <div class="sec-label">07 · Reflections</div>
+      <div class="sec-label">06 · Reflections</div>
       <h2>What we shipped, what we learned.</h2>
 
       <div class="grid-3">
@@ -359,11 +366,11 @@
       <div class="grid-2">
         <div>
           <span class="label" style="display:block;margin-bottom:8px;margin-top:32px;">Team JXYZ</span>
-          <div class="img-ph" style="aspect-ratio:1/1;margin-top:0;"></div>
+          <img src="images/uw-triage-system/teamphoto.png" alt="Team JXYZ" style="width:100%;border-radius:var(--r-lg,16px);display:block;">
         </div>
         <div>
           <span class="label" style="display:block;margin-bottom:8px;margin-top:32px;">Award</span>
-          <div class="img-ph" style="aspect-ratio:1/1;margin-top:0;"></div>
+          <img src="images/uw-triage-system/certificate.png" alt="Award certificate" style="width:100%;border-radius:var(--r-lg,16px);display:block;">
         </div>
       </div>
     </section>
