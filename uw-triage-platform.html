@@ -198,6 +198,41 @@
     .decision-banner h3 { font-size: 13px; font-weight: 600; color: var(--amber); margin-bottom: 8px; }
     .decision-banner p { font-size: 14px; color: var(--ink-mid); line-height: 1.75; margin: 0; }
 
+    /* ── DECISION CARDS ── */
+    .decisions-list { display: flex; flex-direction: column; gap: 3px; margin: 28px 0; }
+    .decision-card { background: var(--surface); border-radius: var(--r); padding: 28px 28px 22px; }
+    .dc-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .dc-num { font-family: 'Lora', serif; font-style: italic; font-size: 2rem; line-height: 1; color: var(--rule); flex-shrink: 0; }
+    .dc-title { font-size: 15px; font-weight: 600; color: var(--ink); margin: 0; padding-top: 7px; line-height: 1.4; }
+    .dc-body { display: flex; flex-direction: column; gap: 14px; }
+    .dc-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); display: block; margin-bottom: 5px; }
+    .dc-body p { font-size: 13px; color: var(--ink-mid); line-height: 1.65; margin: 0; }
+    .dc-decision-box { font-size: 13px; color: var(--ink); font-weight: 500; padding: 12px 16px; background: var(--green-bg); border-radius: 10px; border-left: 3px solid var(--green); line-height: 1.6; }
+    .dc-alts { display: flex; flex-direction: column; gap: 5px; }
+    .dc-alt { font-size: 12px; color: var(--ink-mid); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+    .dc-alt-x { flex-shrink: 0; color: #C43A2B; font-weight: 700; font-size: 11px; margin-top: 1px; }
+    .dc-tradeoff { font-size: 12px; color: var(--ink-soft); font-style: italic; padding-top: 12px; border-top: 1px solid var(--rule); line-height: 1.6; margin: 0; }
+
+    /* ── SCOPE NOTE ── */
+    .scope-note { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-soft); padding: 13px 16px; background: var(--surface); border-radius: 10px; margin-top: 20px; line-height: 1.55; }
+    .scope-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── DECISION BLOCKS (open, no card) ── */
+    .decisions-open { margin-top: 48px; }
+    .decision-block { padding: 0 0 4px; }
+    .db-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .db-title { font-family: 'Lora', serif; font-size: 1.35rem; font-weight: 500; color: var(--ink); margin-bottom: 28px; letter-spacing: -.015em; line-height: 1.3; }
+    .db-rows { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
+    .db-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); display: block; margin-bottom: 6px; }
+    .db-rows p { font-size: 14px; color: var(--ink-mid); line-height: 1.75; margin: 0; }
+    .db-decision-box { font-size: 14px; color: var(--ink); font-weight: 500; padding: 14px 18px; background: var(--green-bg); border-radius: 10px; border-left: 3px solid var(--green); line-height: 1.6; }
+    .db-alts { display: flex; flex-direction: column; gap: 7px; }
+    .db-alt { font-size: 13px; color: var(--ink-mid); display: flex; gap: 9px; align-items: flex-start; line-height: 1.55; }
+    .db-alt-x { flex-shrink: 0; color: #C43A2B; font-weight: 700; font-size: 11px; margin-top: 2px; }
+    .db-tradeoff { font-size: 13px; color: var(--ink-soft); font-style: italic; line-height: 1.65; margin: 0; }
+    .db-img-slot { margin: 28px 0 0; }
+    hr.db-divider { border: none; border-top: 1px solid var(--rule); margin: 52px 0; }
+
     /* ── NODE TYPES ── */
     .nodes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 20px 0; }
     .node-card { padding: 16px 18px; border-radius: 12px; background: var(--surface); display: flex; gap: 12px; align-items: flex-start; }
@@ -275,7 +310,7 @@
     @media (hover: hover) {
       /* Universal card lift */
       .persona-card, .cause-card, .principle-card, .method-card,
-      .node-card, .reflection-card, .feature-card, .test-card {
+      .node-card, .reflection-card, .feature-card, .test-card, .decision-card {
         transition: transform 0.22s ease-out, box-shadow 0.22s ease;
         will-change: transform;
       }
@@ -283,6 +318,10 @@
       .method-card:hover, .node-card:hover, .reflection-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 20px 44px rgba(0,0,0,0.09);
+      }
+      .decision-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(0,0,0,0.08);
       }
       .feature-card:hover {
         transform: translateY(-3px);
@@ -376,7 +415,7 @@
           <a href="#s01" class="toc-link" data-target="s01">01 · The Problem</a>
           <a href="#s02" class="toc-link" data-target="s02">02 · Our Solution</a>
           <a href="#s03" class="toc-link" data-target="s03">03 · Research</a>
-          <a href="#s04" class="toc-link" data-target="s04">04 · Design</a>
+          <a href="#s04" class="toc-link" data-target="s04">04 · Key Decisions</a>
           <a href="#s05" class="toc-link" data-target="s05">05 · Admin Portal</a>
           <a href="#s06" class="toc-link" data-target="s06">06 · Researcher Portal</a>
           <a href="#s07" class="toc-link" data-target="s07">07 · Testing</a>
@@ -474,8 +513,8 @@
           </div>
           <div class="cause-card">
             <div class="cause-letter">C</div>
-            <div class="cause-name">Fractured Information</div>
-            <p class="cause-desc">Experienced users build private routing maps. When they leave, the knowledge leaves with them. There's no shared, updateable record anywhere.</p>
+            <div class="cause-name">Fragmented Knowledge Formats</div>
+            <p class="cause-desc">Routing logic exists in three places at once: scattered across office websites, buried in internal policy PDFs, and locked inside senior staff's heads. The knowledge is there — in no format anyone can maintain or hand off.</p>
           </div>
         </div>
 
@@ -515,15 +554,9 @@
           </div>
         </div>
 
-        <p class="reveal" style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;font-weight:400;">We scoped to 3 of 6 planned stages for the capstone prototype:</p>
-
-        <div class="stages-list reveal">
-          <div class="stage-item done"><div class="stage-badge">✓</div><div class="stage-body"><h3>Stage 1 — Admin Builds Workflow</h3><p>Visual canvas, 4 node types, AI-generated first draft from uploaded documents.</p></div></div>
-          <div class="stage-item done"><div class="stage-badge">✓</div><div class="stage-body"><h3>Stage 2 — Publish Workflow</h3><p>Structural validation → publish as Public or Internal. Unpublish removes it from researcher view immediately.</p></div></div>
-          <div class="stage-item done"><div class="stage-badge">✓</div><div class="stage-body"><h3>Stage 3 — Published Workflow Drives Guided Intake</h3><p>Researchers follow the published flow node-by-node, get routing result + responsible office + materials checklist.</p></div></div>
-          <div class="stage-item todo"><div class="stage-badge">4</div><div class="stage-body"><h3>Stage 4 — Request Submission</h3><p>Submit button is a placeholder. No request object created yet.</p></div></div>
-          <div class="stage-item todo"><div class="stage-badge">5</div><div class="stage-body"><h3>Stage 5 — Runtime Routing Engine</h3><p>Workflow currently operates as a static decision tree only.</p></div></div>
-          <div class="stage-item todo"><div class="stage-badge">6</div><div class="stage-body"><h3>Stage 6 — Live Status Dashboard</h3><p>Tracker and activity overview are placeholder pages.</p></div></div>
+        <div class="scope-note reveal">
+          <span class="scope-check">✓</span>
+          <span>Stages 1–3 of 6 shipped for the capstone prototype: admin builds workflow, publishes it, and researchers follow it through guided intake. Stages 4–6 (request submission, runtime engine, live dashboard) are scoped for the next phase.</span>
         </div>
       </div>
     </section>
@@ -606,48 +639,152 @@
     </section>
 
 
-    <!-- ── 04 DESIGN ── -->
+    <!-- ── 04 KEY DECISIONS ── -->
     <section id="s04">
       <div class="wrap">
-        <div class="eyebrow reveal">04 · Design</div>
-        <h2 class="reveal">Four principles. One decision that shaped everything.</h2>
+        <div class="eyebrow reveal">04 · Key Decisions</div>
+        <h2 class="reveal">Four decisions — each one defines what we are and what we are not building.</h2>
 
-        <div class="principles-grid reveal">
-          <div class="principle-card">
-            <div class="principle-num">01</div>
-            <div class="principle-name">Transparency over black boxes</div>
-            <p class="principle-desc">Show users where their agreement is, why it went there, and what comes next — not just a status update.</p>
-          </div>
-          <div class="principle-card">
-            <div class="principle-num">02</div>
-            <div class="principle-name">System absorbs complexity</div>
-            <p class="principle-desc">Minimize the classification decisions users have to make. Surface the right information at the right moment — don't dump everything upfront.</p>
-          </div>
-          <div class="principle-card">
-            <div class="principle-num">03</div>
-            <div class="principle-name">Centralize for resilience</div>
-            <p class="principle-desc">Routing rules live in a shared workspace, owned by the team — not in individual inboxes or one expert's memory.</p>
-          </div>
-          <div class="principle-card">
-            <div class="principle-num">04</div>
-            <div class="principle-name">Designed to be updated</div>
-            <p class="principle-desc">Static forms and PDF guides break the moment agreement types change. Admins need to revise and republish logic continuously.</p>
-          </div>
-        </div>
+        <div class="decisions-open">
 
-        <div class="decision-banner reveal">
-          <h3>Why a node-based canvas — not an AI chatbot, not a PDF guide</h3>
-          <p>We evaluated five approaches: email plugin, interactive flowchart, knowledge base, agent conversation, and an all-in-one platform. The node-based canvas won because it's the only approach that (1) works for non-technical admins without code, (2) captures tacit knowledge in a form that survives staff turnover, and (3) decouples rule-authoring from real-time AI inference cost — the canvas is always available, even offline.</p>
-        </div>
+          <!-- Decision 01 -->
+          <div class="decision-block reveal">
+            <div class="db-eyebrow">Decision 01</div>
+            <h3 class="db-title">Two portals, not one unified system</h3>
+            <div class="db-rows">
+              <div>
+                <span class="db-label">Problem</span>
+                <p>Admins need to author complex branching logic — a rule-writing task. Researchers need a simple, guided step-by-step experience. A single shared system would either overwhelm one group or constrain the other.</p>
+              </div>
+              <div>
+                <span class="db-label">Decision</span>
+                <div class="db-decision-box">Separate rule-writing from rule-following entirely. Admin Portal authors the logic; Researcher Portal consumes it.</div>
+              </div>
+              <div>
+                <span class="db-label">Why not</span>
+                <div class="db-alts">
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>All-in-one platform — every user navigates complexity they don't need</span></div>
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>Single UI with role-switching — confusing; high support overhead</span></div>
+                </div>
+              </div>
+              <div>
+                <span class="db-label">Trade-off</span>
+                <p class="db-tradeoff">More to build and maintain — but each side evolves independently without breaking the other.</p>
+              </div>
+            </div>
+            <div class="db-img-slot">
+              <div class="img-placeholder">
+                <span class="ph-label">Decision 01 — Two-portal architecture</span>
+                <span class="ph-hint">Architecture sketch or annotated diagram</span>
+              </div>
+            </div>
+          </div>
 
-        <div class="img-placeholder reveal">
-          <span class="ph-label">Ideation — 5 Concepts & Prioritization</span>
-          <span class="ph-hint">PDF p.18 — screenshot or export from Process Book</span>
-        </div>
+          <hr class="db-divider reveal">
 
-        <div class="img-placeholder reveal">
-          <span class="ph-label">System Map — Admin Portal ↔ Knowledge Store ↔ Researcher Portal</span>
-          <span class="ph-hint">PDF p.19 — screenshot or export from Process Book</span>
+          <!-- Decision 02 -->
+          <div class="decision-block reveal">
+            <div class="db-eyebrow">Decision 02</div>
+            <h3 class="db-title">Node-based canvas, not an AI chatbot or static form</h3>
+            <div class="db-rows">
+              <div>
+                <span class="db-label">Problem</span>
+                <p>Routing logic is branching, conditional, and contextual — it can't live in a spreadsheet or be reliably reconstructed by AI at runtime. Non-technical admins need to author and edit it themselves.</p>
+              </div>
+              <div>
+                <span class="db-label">Decision</span>
+                <div class="db-decision-box">A visual canvas with 4 structured node types — routing logic becomes auditable, editable, and survives staff turnover.</div>
+              </div>
+              <div>
+                <span class="db-label">Why not</span>
+                <div class="db-alts">
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>AI chatbot at runtime — opaque, can't be audited or edited, expensive and unreliable for edge cases</span></div>
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>Static PDF or form — can't be maintained; admins can't update it as logic changes</span></div>
+                </div>
+              </div>
+              <div>
+                <span class="db-label">Trade-off</span>
+                <p class="db-tradeoff">Higher initial learning curve for admins — offset by guided onboarding and File2Flow.</p>
+              </div>
+            </div>
+            <div class="db-img-slot">
+              <div class="img-placeholder">
+                <span class="ph-label">Decision 02 — Node canvas</span>
+                <span class="ph-hint">Canvas screenshot or concept ideation (PDF p.18)</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="db-divider reveal">
+
+          <!-- Decision 03 -->
+          <div class="decision-block reveal">
+            <div class="db-eyebrow">Decision 03</div>
+            <h3 class="db-title">File2Flow — AI drafts the canvas from existing documents</h3>
+            <div class="db-rows">
+              <div>
+                <span class="db-label">Problem</span>
+                <p>Routing knowledge already exists — scattered across office websites, buried in internal policy PDFs, and locked inside senior staff's heads. Asking admins to recreate it from scratch inside a new tool is too much friction to get started.</p>
+              </div>
+              <div>
+                <span class="db-label">Decision</span>
+                <div class="db-decision-box">AI reads a URL or uploaded PDF and generates a structured first-draft canvas. Admins edit and refine — they don't author from zero.</div>
+              </div>
+              <div>
+                <span class="db-label">Why not</span>
+                <div class="db-alts">
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>Manual entry only — hours of data entry just to get started; most admins would abandon the tool</span></div>
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>Real-time AI inference — creates runtime dependency, opaque routing decisions, no admin edit layer</span></div>
+                </div>
+              </div>
+              <div>
+                <span class="db-label">Trade-off</span>
+                <p class="db-tradeoff">Draft quality depends on source document quality — admin review is always required.</p>
+              </div>
+            </div>
+            <div class="db-img-slot">
+              <div class="img-placeholder">
+                <span class="ph-label">Decision 03 — File2Flow pipeline</span>
+                <span class="ph-hint">AI input → canvas output, before/after or process diagram</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="db-divider reveal">
+
+          <!-- Decision 04 -->
+          <div class="decision-block reveal">
+            <div class="db-eyebrow">Decision 04</div>
+            <h3 class="db-title">Guided wizard, not a search bar or FAQ page</h3>
+            <div class="db-rows">
+              <div>
+                <span class="db-label">Problem</span>
+                <p>Researchers don't know what they don't know — they can't search for a term if they don't know the system's vocabulary. A FAQ page makes them read and self-classify, when they just need an answer.</p>
+              </div>
+              <div>
+                <span class="db-label">Decision</span>
+                <div class="db-decision-box">A node-by-node wizard derived from the published admin canvas — no routing expertise required. The system classifies for the user.</div>
+              </div>
+              <div>
+                <span class="db-label">Why not</span>
+                <div class="db-alts">
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>Knowledge base / FAQ — requires researchers to already know the right category to search</span></div>
+                  <div class="db-alt"><span class="db-alt-x">✗</span><span>AI chatbot — engaging to prototype, but can't give a traceable, auditable routing result</span></div>
+                </div>
+              </div>
+              <div>
+                <span class="db-label">Trade-off</span>
+                <p class="db-tradeoff">No wizard if admins haven't published a workflow for the agreement type yet.</p>
+              </div>
+            </div>
+            <div class="db-img-slot">
+              <div class="img-placeholder">
+                <span class="ph-label">Decision 04 — Guided wizard</span>
+                <span class="ph-hint">Researcher intake wireframe or user journey map</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -881,7 +1018,7 @@
 
   // 3D tilt on key cards
   if (window.matchMedia('(hover: hover)').matches) {
-    document.querySelectorAll('.persona-card, .principle-card, .reflection-card').forEach(card => {
+    document.querySelectorAll('.persona-card, .decision-card, .reflection-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;

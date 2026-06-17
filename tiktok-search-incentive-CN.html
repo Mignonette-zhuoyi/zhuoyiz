@@ -1,747 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok 搜索激励项目 — 张卓伊</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:       #fafaf8;
-  --bg2:      #f2f1ee;
-  --white:    #ffffff;
-  --ink:      #111111;
-  --ink2:     #444444;
-  --ink3:     #888888;
-  --accent:   #ff2d55;
-  --accent-bg: rgba(255,45,85,0.06);
-  --accent-bd: rgba(255,45,85,0.18);
-  --border:   rgba(0,0,0,0.08);
-  --border2:  rgba(0,0,0,0.05);
-  --card:     #ffffff;
-}
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:20px 56px;
-  background:rgba(250,250,248,0.9);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-}
-.nav-name{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;letter-spacing:-0.01em}
-.nav-links{display:flex;gap:32px}
-.nav-links a{font-size:14px;color:var(--ink3);text-decoration:none;transition:color 0.2s}
-.nav-links a:hover{color:var(--ink)}
-
-/* ── HERO ── */
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:130px 56px 80px;
-  position:relative;overflow:hidden;
-  opacity:0;transition:opacity 0.9s ease;
-  border-bottom:1px solid var(--border);
-  background: linear-gradient(160deg, #fff 0%, var(--bg) 60%);
-}
-.hero.loaded{opacity:1}
-.hero-eyebrow{
-  font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--ink3);margin-bottom:24px;
-  display:flex;align-items:center;gap:10px;
-}
-.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--ink3)}
-.hero-title{
-  font-family:'Instrument Serif',serif;
-  font-size:clamp(44px,6vw,82px);
-  line-height:1.05;font-weight:400;
-  max-width:820px;margin-bottom:56px;
-  letter-spacing:-0.02em;
-}
-.hero-title em{font-style:italic;color:var(--accent)}
-.hero-meta{
-  display:flex;gap:48px;flex-wrap:wrap;
-  padding-top:32px;
-  border-top:1px solid var(--border);
-}
-.meta-item label{display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;font-weight:500}
-.meta-item span{font-size:14px;font-weight:400;color:var(--ink)}
-
-/* ── LAYOUT ── */
-.wrap{padding:88px 56px;max-width:1100px;margin:0 auto}
-.s-divider{border:none;border-top:1px solid var(--border);margin:0}
-
-/* ── SECTION HEADER ── */
-.s-head{display:flex;align-items:baseline;gap:14px;margin-bottom:48px}
-.s-num{font-size:12px;color:var(--ink3);letter-spacing:0.06em;font-weight:500;font-variant-numeric:tabular-nums}
-.s-title{font-family:'Instrument Serif',serif;font-size:clamp(24px,2.6vw,36px);font-weight:400;letter-spacing:-0.01em}
-
-/* ── PROSE ── */
-.lead{font-family:'Instrument Serif',serif;font-size:21px;font-weight:400;line-height:1.5;color:var(--ink);max-width:660px;margin-bottom:20px;letter-spacing:-0.005em}
-.body-text{font-size:15px;color:var(--ink2);line-height:1.85;max-width:660px;margin-bottom:14px}
-.body-text strong{color:var(--ink);font-weight:600}
-
-/* ── PARADOX CARDS ── */
-.paradox-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:36px 0}
-.p-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;position:relative;overflow:hidden}
-.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.p-card.win::before{background:var(--border)}
-.p-card.fail::before{background:var(--accent)}
-.p-tag{display:inline-block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:16px;font-weight:600}
-.p-tag.win-tag{background:var(--bg2);color:var(--ink3)}
-.p-tag.fail-tag{background:var(--accent-bg);color:var(--accent)}
-.p-card h3{font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:10px;letter-spacing:-0.005em}
-.p-card p{font-size:13px;color:var(--ink2);line-height:1.75;margin-bottom:22px}
-.kpis{display:flex;gap:24px;flex-wrap:wrap}
-.kpi-num{display:block;font-family:'Instrument Serif',serif;font-size:36px;line-height:1;color:var(--ink)}
-.kpi-num.red{color:var(--accent)}
-.kpi-label{font-size:11px;color:var(--ink3);margin-top:4px;display:block}
-
-/* ── CALLOUT ── */
-.callout{
-  border-left:2px solid var(--ink);
-  background:var(--bg2);
-  border-radius:0 12px 12px 0;
-  padding:24px 28px;margin:28px 0;
-}
-.callout-eyebrow{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:block;font-weight:500}
-.callout p{font-size:15px;color:var(--ink2);line-height:1.75}
-.callout p strong{color:var(--ink);font-weight:600}
-
-/* ── FUNNEL ── */
-.funnel-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;margin:32px 0}
-.funnel-eyebrow{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:28px;font-weight:500}
-.funnel-row{display:flex;align-items:center;gap:14px;margin-bottom:6px}
-.f-bar{height:36px;border-radius:6px;display:flex;align-items:center;padding:0 14px;min-width:36px}
-.f-bar.full{width:100%;background:var(--bg2);border:1px solid var(--border)}
-.f-bar.bad{width:14%;background:rgba(255,45,85,0.12);border:1px solid var(--accent-bd)}
-.f-bar.worse{width:7%;background:rgba(255,45,85,0.22);border:1px solid var(--accent-bd)}
-.f-bar-label{font-size:12px;white-space:nowrap;color:var(--ink);font-weight:500}
-.f-note{font-size:13px;color:var(--ink3);flex:1}
-.f-note strong{color:var(--ink);font-weight:600}
-.f-connector{width:2px;height:16px;background:var(--border);margin-left:18px}
-.funnel-conclusion{margin-top:24px;padding:18px 22px;background:var(--accent-bg);border:1px solid var(--accent-bd);border-radius:10px;font-size:14px;color:var(--ink2);line-height:1.7}
-.funnel-conclusion strong{color:var(--accent);font-weight:600}
-
-/* ── PROBLEM CARDS ── */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px}
-
-/* ── DECISIONS ── */
-.decisions{display:flex;flex-direction:column;gap:8px}
-.decision{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--card);transition:border-color 0.25s}
-.decision:hover{border-color:rgba(0,0,0,0.15)}
-.decision.open{border-color:rgba(0,0,0,0.18)}
-.d-header{display:flex;align-items:center;gap:20px;padding:28px 32px;cursor:pointer;user-select:none}
-.d-num{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink3);min-width:28px;font-weight:400}
-.d-title{flex:1;font-size:15px;font-weight:500;color:var(--ink);letter-spacing:-0.005em;line-height:1.4}
-.d-chip{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;font-weight:600;white-space:nowrap}
-.d-chip.exposure{background:rgba(59,130,246,0.08);color:rgb(59,130,246)}
-.d-chip.conversion{background:var(--accent-bg);color:var(--accent)}
-.d-toggle{
-  width:26px;height:26px;border-radius:50%;
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;flex-shrink:0;color:var(--ink3);
-  transition:transform 0.3s,border-color 0.3s,background 0.3s;
-}
-.decision.open .d-toggle{transform:rotate(45deg);border-color:var(--ink);background:var(--ink);color:white}
-.d-body{display:none;padding:0 32px 32px}
-.decision.open .d-body{display:block}
-.d-divider{height:1px;background:var(--border);margin-bottom:26px}
-
-/* ── RATIONALE ── */
-.rationale-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
-.r-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:22px}
-.r-box.chosen{background:var(--accent-bg);border-color:var(--accent-bd)}
-.r-box label{display:block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;font-weight:500}
-.r-box.chosen label{color:var(--accent)}
-.r-box p{font-size:14px;color:var(--ink2);line-height:1.75}
-.impact-pill{display:inline-block;margin-top:12px;padding:4px 11px;border-radius:20px;background:var(--accent-bg);color:var(--accent);font-size:11px;font-weight:600}
-
-/* ── BEFORE / AFTER ── */
-.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:12px;overflow:hidden;margin:18px 0;border:1px solid var(--border)}
-.ba-pane{background:var(--bg);padding:24px 26px}
-.ba-pane:last-child{background:rgba(255,45,85,0.03)}
-.ba-tag{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;display:flex;align-items:center;gap:7px;font-weight:500}
-.ba-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
-.ba-tag.after{color:var(--accent)}
-.ba-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.ba-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);line-height:1.5}
-.ba-list li::before{
-  content:attr(data-n);min-width:19px;height:19px;border-radius:50%;
-  background:rgba(0,0,0,0.06);display:flex;align-items:center;
-  justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;font-weight:600;color:var(--ink3)
-}
-.ba-list.after li::before{background:var(--accent-bg);color:var(--accent)}
-.ba-list li.struck{text-decoration:line-through;opacity:0.4}
-.d-note{font-size:14px;color:var(--ink2);line-height:1.8;margin-top:18px}
-.d-note strong{color:var(--ink);font-weight:600}
-
-/* ── IMG SLOT ── */
-.img-slot{
-  width:100%;aspect-ratio:16/8;
-  background:var(--bg2);border:1.5px dashed rgba(0,0,0,0.12);
-  border-radius:14px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:10px;color:var(--ink3);font-size:13px;margin:20px 0;
-}
-.img-slot svg{opacity:0.3}
-.img-slot span{font-size:11px;opacity:0.6;letter-spacing:0.06em}
-
-/* ── OUTCOME ── */
-.outcome-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:36px 0}
-.o-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;text-align:center;position:relative;overflow:hidden}
-.o-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent)}
-.o-num{font-family:'Instrument Serif',serif;font-size:44px;color:var(--ink);line-height:1.1;margin-bottom:8px;letter-spacing:-0.02em}
-.o-num .arrow{font-size:26px;color:var(--accent)}
-.o-label{font-size:12px;color:var(--ink3);line-height:1.5}
-
-.reflection{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:16px;padding:48px;border-left:3px solid var(--accent);
-}
-.reflection p{
-  font-family:'Instrument Serif',serif;
-  font-size:21px;font-weight:400;line-height:1.58;
-  color:var(--ink);max-width:680px;letter-spacing:-0.005em;
-}
-.reflection cite{display:block;margin-top:18px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);font-style:normal;font-weight:500}
-
-/* ── LEARNINGS ── */
-.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.l-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;transition:border-color 0.25s,box-shadow 0.25s}
-.l-card:hover{border-color:rgba(0,0,0,0.14);box-shadow:0 4px 24px rgba(0,0,0,0.04)}
-.l-num{font-family:'Instrument Serif',serif;font-size:30px;color:var(--border);line-height:1;margin-bottom:14px}
-.l-card h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--ink);letter-spacing:-0.005em}
-.l-card p{font-size:13px;color:var(--ink2);line-height:1.75}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--border);padding:44px 56px;display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
-footer p{font-size:13px;color:var(--ink3)}
-.back-top{font-size:13px;color:var(--ink3);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s}
-.back-top:hover{color:var(--ink)}
-
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease}
-.reveal.visible{opacity:1;transform:none}
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  nav{padding:16px 22px}
-  .hero{padding:100px 22px 56px}
-  .hero-meta{gap:24px}
-  .wrap{padding:56px 22px}
-  .paradox-grid,.two-col,.rationale-grid,.outcome-strip,.learn-grid,.ba-wrap{grid-template-columns:1fr}
-  footer{padding:32px 22px;flex-direction:column;gap:14px;text-align:center}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok 搜索激励项目 — 张卓伊</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/portfolio.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="https://zhuoyi.framer.website" class="nav-name">张卓伊</a>
-  <div class="nav-links">
-    <a href="https://zhuoyi.framer.website/projects">项目</a>
-    <a href="https://zhuoyi.framer.website/aboutme">关于我</a>
-  </div>
-</nav>
+  <div class="top-fade"></div>
 
-<!-- HERO -->
-<div class="hero" id="hero">
-  <div class="hero-eyebrow">TikTok · 搜索用户增长 · 产品经理实习 · 2025</div>
-  <h1 class="hero-title">
-    一个已验证的增长机制<br>
-    为什么在美国<em>失效了</em>——<br>
-    以及我如何找到真正的问题
-  </h1>
-  <div class="hero-meta">
-    <div class="meta-item"><label>角色</label><span>产品经理实习生</span></div>
-    <div class="meta-item"><label>时间</label><span>10天冲刺</span></div>
-    <div class="meta-item"><label>平台</label><span>iOS · Android</span></div>
-    <div class="meta-item"><label>市场</label><span>美国</span></div>
-    <div class="meta-item"><label>团队</label><span>1 PM · 1 DA · 1 CD · 2 Eng · 1 QA</span></div>
-  </div>
-  <div style="display:flex; gap:40px; margin-top:32px; padding-top:32px; border-top:1px solid var(--border); flex-wrap:wrap;">
-    <div>
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;font-weight:500;">曝光率</div>
-      <div style="display:flex;align-items:baseline;gap:8px;">
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink3);line-height:1;text-decoration:line-through;opacity:0.5;">14%</span>
-        <span style="font-size:18px;color:var(--ink3);opacity:0.4;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--accent);line-height:1;">67%</span>
-      </div>
-    </div>
-    <div style="width:1px;background:var(--border);align-self:stretch;"></div>
-    <div>
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;font-weight:500;">授权率</div>
-      <div style="display:flex;align-items:baseline;gap:8px;">
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink3);line-height:1;text-decoration:line-through;opacity:0.5;">49%</span>
-        <span style="font-size:18px;color:var(--ink3);opacity:0.4;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--accent);line-height:1;">60%</span>
-      </div>
-    </div>
-    <div style="width:1px;background:var(--border);align-self:stretch;"></div>
-    <div>
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;font-weight:500;">冲刺上线</div>
-      <div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink);line-height:1;">10 days</div>
-    </div>
-  </div>
-</div>
+  <nav class="nav">
+    <span class="nav-dot"></span>
+    <a href="https://zhuoyiz.framer.website">张卓伊</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-current">TikTok 搜索激励</span>
+  </nav>
 
-<hr class="s-divider">
+  <aside class="toc" id="toc">
+    <a href="https://zhuoyiz.framer.website/projects" class="toc-home">主页</a>
+    <a href="#overview" class="toc-link">概览</a>
+    <a href="#s01" class="toc-link">01 · 背景</a>
+    <a href="#s02" class="toc-link">02 · 诊断</a>
+    <a href="#s03" class="toc-link">03 · 决策</a>
+    <a href="#s04" class="toc-link">04 · 未上线方案</a>
+    <a href="#s05" class="toc-link">05 · 复盘</a>
+  </aside>
 
-<!-- 01 CONTEXT -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">01</span>
-    <h2 class="s-title">背景与发现</h2>
-  </div>
+  <main class="content">
 
-  <p class="lead reveal">搜索激励在日本已经验证成功。问题不在于机制本身是否合理——而是为什么美国复制后没能产生同样的效果。</p>
-  <p class="body-text reveal">在日本，增加搜索任务激励后，核心指标显著提升：整体手搜增长 <strong>+4.2%</strong>，新搜索用户增长 <strong>+9.3%</strong>，低活跃搜索用户增长 <strong>+14.3%</strong>。逻辑是成立的——通过奖励培养搜索习惯，用户在激励结束后仍会继续搜索。</p>
-  <p class="body-text reveal">美国第一期是小范围测试，仅限于已有的 TikTok Shop 用户。用户每天完成 6 次有效搜索可获得 $5 电商优惠券。2024 年 Q4 的数据结果出现了一个悖论。</p>
+    <!-- ── HERO ── -->
+    <section id="overview">
+      <div class="hero-thumb"></div>
 
-  <div class="paradox-grid reveal">
-    <div class="p-card win">
-      <span class="p-tag win-tag">✓ 有效</span>
-      <h3>电商表现</h3>
-      <p>优惠券带动了真实的购买行为。在已授权用户中，激励机制按预期发挥了作用。</p>
-      <div class="kpis">
-        <div><span class="kpi-num">+8%</span><span class="kpi-label">PayU / DAU</span></div>
-        <div><span class="kpi-num">+10%</span><span class="kpi-label">nOrder / DAU</span></div>
-      </div>
-    </div>
-    <div class="p-card fail">
-      <span class="p-tag fail-tag">✗ 未见效</span>
-      <h3>搜索核心指标</h3>
-      <p>尽管日本已有验证，美国手搜活跃度几乎没有提升。项目最初的核心目标——促进搜索行为增长——没有实现。</p>
-      <div class="kpis">
-        <div><span class="kpi-num" style="color:var(--ink3)">~0</span><span class="kpi-label">手搜活跃增长</span></div>
-        <div><span class="kpi-num red">0.2%</span><span class="kpi-label">授权率 / DAU</span></div>
-      </div>
-    </div>
-  </div>
-
-  <p class="body-text reveal">第二期将覆盖范围从已有 TikTok Shop 用户扩展至<strong>全量美国用户</strong>（约 7000 万 DAU，不含未成年及违规账户）。覆盖人群扩大了，更难回答的问题也随之浮现：受众已经到位，为什么参与率还是接近零？</p>
-
-  <div class="callout reveal">
-    <span class="callout-eyebrow">我如何定义问题</span>
-    <p>在提出任何解决方案之前，我推动团队先把完整的授权漏斗梳理清楚。团队的第一反应是优化 banner 设计——我的判断是：在决定做什么之前，我们需要先搞清楚<strong>用户究竟在哪里流失，以及为什么</strong>。这个问题框架决定了后续所有的决策方向。</p>
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 02 PROBLEM -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">02</span>
-    <h2 class="s-title">漏斗诊断</h2>
-  </div>
-
-  <p class="lead reveal">0.2% 不是一个设计问题，而是一个藏在数学公式里的产品问题。</p>
-  <p class="body-text reveal">我提出将授权漏斗拆解为两个独立的转化事件：曝光和授权。这是一个刻意的框架选择——它将「触达问题」和「摩擦问题」分开，使得优先级排序成为可能。数据证实曝光是更大的杠杆：如果不解决曝光问题，即使优化了转化率，86% 的用户仍然不会看到这个活动。</p>
-
-  <div class="funnel-box reveal">
-    <div class="funnel-eyebrow">授权漏斗 — 第一期基线数据</div>
-    <div style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
-
-      <!-- SVG Funnel -->
-      <div style="flex-shrink:0; width:240px;">
-        <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
-          <!-- Stage 1: 100% -->
-          <polygon points="10,0 230,0 210,60 30,60" fill="rgba(0,0,0,0.07)" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
-          <text x="120" y="35" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="#444">约 7000 万可覆盖用户</text>
-          <text x="120" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#888">100% DAU</text>
-          <!-- connector -->
-          <line x1="120" y1="60" x2="120" y2="72" stroke="rgba(0,0,0,0.1)" stroke-width="1.5" stroke-dasharray="3,2"/>
-          <!-- Stage 2: 14% -->
-          <polygon points="70,72 170,72 158,132 82,132" fill="rgba(255,45,85,0.18)" stroke="rgba(255,45,85,0.35)" stroke-width="1.5"/>
-          <text x="120" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#ff2d55">14%</text>
-          <text x="120" y="113" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#ff2d55">看到了活动</text>
-          <!-- connector -->
-          <line x1="120" y1="132" x2="120" y2="144" stroke="rgba(255,45,85,0.2)" stroke-width="1.5" stroke-dasharray="3,2"/>
-          <!-- Stage 3: ~7% of total -->
-          <polygon points="95,144 145,144 138,196 102,196" fill="rgba(255,45,85,0.35)" stroke="rgba(255,45,85,0.5)" stroke-width="1.5"/>
-          <text x="120" y="165" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#cc0033">0.2%</text>
-          <text x="120" y="181" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#cc0033">完成授权</text>
-        </svg>
-      </div>
-
-      <!-- Side annotations -->
-      <div style="flex:1; min-width:200px; display:flex; flex-direction:column; gap:0; padding-top:4px;">
-        <div style="padding:16px 0; border-bottom:1px solid var(--border);">
-          <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink3); margin-bottom:6px; font-weight:500;">可覆盖受众</div>
-          <div style="font-family:'Instrument Serif',serif; font-size:28px; color:var(--ink); line-height:1;">~70M</div>
-          <div style="font-size:13px; color:var(--ink3); margin-top:2px;">第二期扩量后美国 DAU</div>
+      <div class="hero-cols">
+        <div class="hero-left">
+          <h1>TikTok 搜索激励项目</h1>
+          <p class="ph" style="margin-top:16px;">一个已验证的增长机制在美国失效了——产品经理实习生 · 10 天冲刺 · 2025</p>
+          <p class="ph">US 金币激励策略优化 · 二期</p>
         </div>
-        <div style="padding:16px 0; border-bottom:1px solid var(--border);">
-          <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; font-weight:500;">瓶颈 1 — 曝光</div>
-          <div style="font-family:'Instrument Serif',serif; font-size:28px; color:var(--accent); line-height:1;" class="count-up" data-target="14">14%</div>
-          <div style="font-size:13px; color:var(--ink3); margin-top:2px;">T&amp;C 弹窗触发率<br><strong style="color:var(--ink);">86% 从未接触活动</strong></div>
-        </div>
-        <div style="padding:16px 0;">
-          <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; font-weight:500;">瓶颈 2 — 转化</div>
-          <div style="font-family:'Instrument Serif',serif; font-size:28px; color:var(--accent); line-height:1;">49%</div>
-          <div style="font-size:13px; color:var(--ink3); margin-top:2px;">of exposed users 完成授权<br>→ 实际参与率： <strong style="color:var(--accent);">0.2% of DAU</strong></div>
+        <div class="hero-right">
+          <div class="hero-tags">
+            <span class="hero-tag">Growth PM</span>
+            <span class="hero-tag">漏斗诊断</span>
+            <span class="hero-tag">搜索增长</span>
+          </div>
+          <div class="hero-date">2025 夏</div>
         </div>
       </div>
-    </div>
-    <div class="funnel-conclusion" style="margin-top:20px;">
-      当参与率只有 0.2% DAU，任何搜索指标都不可能移动——无论优惠券设计得多好。必须先解决<strong>曝光问题</strong>，再解决<strong>转化问题</strong>。
-    </div>
-  </div>
 
-  <div class="two-col reveal" style="margin-top:12px">
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">问题 1 — 曝光</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-0.005em">活动存在结构性天花板</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:0">T&amp;C 弹窗只在用户完成搜索后<em>返回</em>中间页时触发——只能捕捉已经在搜索的用户。随手打开搜索页面、或停留在结果页的用户完全看不到活动。触发逻辑本身就决定了曝光率的上限很低，和活动质量无关。</p>
-      <span style="font-family:'Instrument Serif',serif;font-size:40px;color:var(--accent);line-height:1;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);display:block">14%</span>
-      <span style="font-size:12px;color:var(--ink3);margin-top:4px;display:block">T&amp;C 弹窗触发率</span>
-    </div>
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">问题 2 — 转化</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-0.005em">授权路径需要绕一个弯</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:0">看到 banner 的用户无法直接授权。点击 CTA 后会跳转到单独的活动详情页——这个场景切换引入了犹豫和多余步骤。近一半用户在完成授权前就离开了。这 49% 的流失不是不感兴趣，而是可以挽回的摩擦成本。</p>
-      <span style="font-family:'Instrument Serif',serif;font-size:40px;color:var(--accent);line-height:1;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);display:block">49%</span>
-      <span style="font-size:12px;color:var(--ink3);margin-top:4px;display:block">曝光用户中的点击授权率</span>
-    </div>
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 03 DECISIONS -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">03</span>
-    <h2 class="s-title">产品决策</h2>
-  </div>
-  <p class="body-text reveal" style="margin-bottom:32px">三个方向，每个都对应漏斗中一个具体的缺口。我的工作是定义问题框架、推动团队对优先级达成共识，并参与每个方案的范围界定——与设计和工程团队密切协作验证可行性。</p>
-
-  <div class="decisions reveal">
-
-    <!-- D1 -->
-    <div class="decision open" onclick="toggle(this)">
-      <div class="d-header">
-        <span class="d-num">01</span>
-        <span class="d-title">识别并开辟新曝光场景 — 搜索结果页</span>
-        <span class="d-chip exposure">曝光</span>
-        <span class="d-toggle">+</span>
+      <div class="meta-grid">
+        <div class="meta-cell">
+          <span class="label">角色</span>
+          <h3>产品经理实习生</h3>
+        </div>
+        <div class="meta-cell">
+          <span class="label">团队</span>
+          <h3>1 PM · 1 DA · 1 CD · 2 Eng · 1 QA</h3>
+        </div>
+        <div class="meta-cell">
+          <span class="label">平台</span>
+          <h3>iOS · Android · 美国市场</h3>
+        </div>
       </div>
-      <div class="d-body">
-        <div class="d-divider"></div>
-        <div class="rationale-grid">
-          <div class="r-box">
-            <label>团队的默认假设</label>
-            <p>优化现有中间页 banner。团队默认认为更好的视觉设计能提升效果。</p>
+
+      <div class="img-ph" style="margin-top:56px;"></div>
+    </section>
+
+
+    <!-- ── 01 背景 ── -->
+    <section id="s01">
+      <div class="sec-label">01 · 背景与发现</div>
+      <h2>搜索激励机制在日本已经验证成功。问题不在于机制本身——而是为什么美国复制后没能产生同样的效果。</h2>
+
+      <p class="ph">在日本，增加搜索任务激励后核心指标显著提升：整体手搜增长 +4.2%，新搜索用户增长 +9.3%，低活跃搜索用户增长 +14.3%。</p>
+
+      <p class="ph" style="color:var(--ink);">美国第一期仅限 TikTok Shop 用户：完成 6 次日搜可获得 $5 优惠券。2024 Q4 数据出现了一个悖论。</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">有效 — 电商表现</span>
+          <p class="ph-sm">优惠券带动了真实购买行为，在已授权用户中按预期发挥作用。</p>
+          <p class="ph-sm" style="margin-top:8px;color:var(--ink);">+8% PayU/DAU · +10% nOrder/DAU</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">未见效 — 搜索核心指标</span>
+          <p class="ph-sm">手搜活跃增长接近零。促进搜索行为增长的核心目标没有实现。</p>
+          <p class="ph-sm" style="margin-top:8px;color:var(--ink);">~0 手搜活跃增长 · ~9% 可圈选用户中授权率</p>
+        </div>
+      </div>
+
+      <p class="ph" style="margin-top:32px;">第二期扩展至全量美国用户（约 7000 万 DAU）。受众已经到位——为什么参与率还是接近零？</p>
+
+      <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;margin-top:8px;">
+        <span class="label" style="display:block;margin-bottom:8px;">我如何定义问题</span>
+        <p class="ph-sm">在提出任何解决方案之前，我推动项目先梳理完整的授权漏斗。团队的第一反应是优化 banner——我的判断是：先搞清楚用户在哪里流失，以及为什么。</p>
+      </div>
+    </section>
+
+
+    <!-- ── 02 诊断 ── -->
+    <section id="s02">
+      <div class="sec-label">02 · 漏斗诊断</div>
+      <h2>一期被圈选用户中仅有约 9% 完成授权——这是一个触达问题，而不是转化问题。</h2>
+
+      <p class="ph">将授权漏斗拆解为两个独立事件：曝光和授权。数据确认曝光是更大的杠杆：不解决曝光，86% 的用户永远看不到活动。</p>
+
+      <div class="grid-2" style="margin-top:32px;">
+        <div>
+          <span class="label" style="display:block;margin-bottom:8px;">授权漏斗 — 当前状态</span>
+          <div class="img-ph"></div>
+        </div>
+        <div>
+          <span class="label" style="display:block;margin-bottom:8px;">授权漏斗 — 目标状态</span>
+          <div class="img-ph"></div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:8px;">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">问题 1 — 曝光</span>
+          <h3 style="margin-bottom:8px;">活动存在结构性天花板</h3>
+          <p class="ph-sm">T&amp;C 弹窗只在用户搜索后返回中间页时触发，首次进入或停留在结果页的用户完全错过。曝光天花板 14%，和活动质量无关。</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">问题 2 — 转化</span>
+          <h3 style="margin-bottom:8px;">授权路径需要绕一个弯</h3>
+          <p class="ph-sm">看到 banner 的用户无法直接授权——需要跳转详情页才能完成。这个场景切换引入了犹豫。49% 的流失不是不感兴趣，是可挽回的摩擦。</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 03 决策 ── -->
+    <section id="s03">
+      <div class="sec-label">03 · 产品决策</div>
+      <h2>三个方向，每个对应漏斗中一个具体的缺口。</h2>
+
+      <p class="ph" style="color:var(--ink-mid);">按漏斗位置排序：D01–D02 扩大触达。D03 降低授权摩擦。</p>
+
+      <div class="img-ph"></div>
+
+      <hr class="divider">
+
+      <div class="decision-block">
+        <span class="label">D01</span>
+        <h3>在搜索结果页新增活动挂件</h3>
+        <p class="ph" style="color:var(--ink-mid);">团队的默认假设：优化现有中间页 banner。</p>
+        <p class="ph">中间页不是表现差，而是结构性受限。在只能触达 14% 用户的场景内做优化，永远无法撬动总体指标。结果页的用户已完成搜索，是更大、更有意图的受众——新增约 2500 万被动搜索用户触点，同时不打断搜索流程。</p>
+        <img src="images/tiktok-search-incentive/result-page-widget.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
+      </div>
+
+      <hr class="divider">
+
+      <div class="decision-block">
+        <span class="label">D02</span>
+        <h3>扩展触发逻辑——从「仅返回」到「进入 + 返回」</h3>
+        <p class="ph" style="color:var(--ink-mid);">触发条件只绑定在「搜索后返回」，对首次进入形成盲区。</p>
+        <p class="ph">这是逻辑修正，不是设计改动。资格认定不要求用户之前搜索过，触发条件没有理由只绑定在「返回」——扩展后每次 session 曝光机会翻倍，近零工程成本。频率控制防止过度打扰：X 次无点击后退场 3 天。</p>
+        <p class="decision-tradeoff">更多曝光会增加骚扰感——频率控制是最低限度的约束，是校准，不是取消。</p>
+        <div class="img-ph"></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="decision-block">
+        <span class="label">D03</span>
+        <h3>授权从 4 步压缩到 1 步——整合进 T&amp;C 底部弹窗</h3>
+        <p class="ph" style="color:var(--ink-mid);">原流程：点击 banner → 跳转详情页 → 阅读 → 点击「立即加入」。4 步，完全打断搜索场景。</p>
+        <p class="ph">整合进 T&amp;C 底部弹窗：文案 + T&amp;C 链接 + 立即加入。无需离开搜索场景即可完成授权。「了解更多」保留，但不再是必经步骤。</p>
+
+        <div class="grid-2" style="margin-top:0;">
+          <div class="card">
+            <span class="label" style="display:block;margin-bottom:8px;">改前 — 4 步</span>
+            <p class="ph-sm">点击 banner → 跳转详情页 → 阅读落地页 → 点击「立即加入」</p>
           </div>
-          <div class="r-box chosen">
-            <label>我的判断 ✓</label>
-            <p>中间页不是表现差，而是结构性受限。我的判断是：在只能触达 14% 用户的场景内做优化，永远无法撬动总体指标。真正的机会在于找到未被利用的曝光场景——搜索结果页的用户已经完成了搜索，正处于最强的意图状态。</p>
-            <span class="impact-pill">新增约 2500 万被动搜索用户触点</span>
+          <div class="card">
+            <span class="label" style="display:block;margin-bottom:8px;">改后 — 1 步</span>
+            <p class="ph-sm">点击 banner → 底部弹窗（文案 + T&amp;C + 立即加入）→ 完成授权</p>
           </div>
         </div>
-        <p class="d-note">中间页只能捕捉正在输入的用户。结果页捕捉的是已经完成搜索的用户——行为模式不同，数量也远更多。在这里增加挂件，意味着活动能在用户最有参与意愿的时刻出现，同时不打断搜索流程本身。</p>
-<img src="images/tiktok-search-incentive/result-page-widget.png" style="width:100%;border-radius:14px;display:block;">
-      </div>
-    </div>
 
-    <!-- D2 -->
-    <div class="decision" onclick="toggle(this)">
-      <div class="d-header">
-        <span class="d-num">02</span>
-        <span class="d-title">重新定义触发逻辑 — 从「仅返回」扩展到「进入 + 返回」</span>
-        <span class="d-chip exposure">曝光</span>
-        <span class="d-toggle">+</span>
+        <img src="images/tiktok-search-incentive/bottom-sheet.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
       </div>
-      <div class="d-body">
-        <div class="d-divider"></div>
-        <div class="rationale-grid">
-          <div class="r-box">
-            <label>原有产品逻辑</label>
-            <p>触发条件绑定在一个特定动作上——从搜索返回——看起来合理，但对首次进入中间页的用户形成了结构性盲区。</p>
-          </div>
-          <div class="r-box chosen">
-            <label>Decision ✓</label>
-            <p>我提出了一个问题：既然资格认定不要求用户之前搜索过，为什么触发条件只绑定在「返回」上？扩展到进入 + 返回是一个逻辑修正，不是设计改动——而且几乎零工程成本就能翻倍每次 session 的曝光机会。</p>
-            <span class="impact-pill">每次 session 曝光机会翻倍</span>
-          </div>
+    </section>
+
+
+    <!-- ── 04 未上线方案 ── -->
+    <section id="s04">
+      <div class="sec-label">04 · 一个没有上线的方案</div>
+      <h2>针对用户人群划分在本次设计中不是加分项，而是更多的「打扰」。</h2>
+
+      <p class="ph">我识别出了一个额外的曝光机会：在电商搜索结果页顶部增加活动 banner，混排在结果流中。从逻辑上看很合理——电商意图用户正是 TikTok Shop 优惠券的目标受众。</p>
+
+      <p class="ph" style="color:var(--ink);">方案在跨职能评审中被否决。</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">原因 1 — 重复</span>
+          <h3 style="margin-bottom:8px;">用户已经能看到挂件了</h3>
+          <p class="ph-sm">D01 的结果页挂件已经覆盖了这批用户。增加顶部 banner 只是重复曝光——增加了干扰，却没有扩大覆盖面。</p>
         </div>
-        <div class="ba-wrap">
-          <div class="ba-pane">
-            <div class="ba-tag">改前</div>
-            <ul class="ba-list">
-              <li data-n="1">用户打开搜索（中间页）— 不显示 banner</li>
-              <li data-n="2">用户输入搜索词，浏览结果页</li>
-              <li data-n="3">用户返回中间页 → banner + 弹窗出现</li>
-            </ul>
-          </div>
-          <div class="ba-pane">
-            <div class="ba-tag after">改后</div>
-            <ul class="ba-list after">
-              <li data-n="1">用户打开搜索 → 进入中间页即显示 banner</li>
-              <li data-n="2">用户输入搜索词，浏览结果页</li>
-              <li data-n="3">用户返回中间页 → banner + 弹窗同样出现（保留原逻辑）</li>
-            </ul>
-          </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">原因 2 — 用户体验代价</span>
+          <h3 style="margin-bottom:8px;">打扰了高意图购物时刻</h3>
+          <p class="ph-sm">在电商搜索结果中插入活动打断了用户主动购买意图最强的时刻。转化损耗很可能超过授权率的提升收益。</p>
         </div>
-        <p class="d-note">为防止过度打扰：如果用户在 3 天内看到 banner X 次但零点击，banner 将退场 3 天后再重新出现。这样既保证符合条件的用户最终能接触到活动，又避免体验上显得过于骚扰。</p>
       </div>
-    </div>
 
-    <!-- D3 -->
-    <div class="decision" onclick="toggle(this)">
-      <div class="d-header">
-        <span class="d-num">03</span>
-        <span class="d-title">授权从 3 步压缩到 1 步 — 砍掉跳转活动详情页的绕路</span>
-        <span class="d-chip conversion">转化</span>
-        <span class="d-toggle">+</span>
+      <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;margin-top:8px;">
+        <span class="label" style="display:block;margin-bottom:8px;">我从这次经历中得到的</span>
+        <p class="ph-sm">好的产品判断不只是知道该做什么——还要识别出一个看似合理的想法，何时制造了比它所解决的问题更糟糕的权衡。曝光最大化有会复利累积的用户体验成本。</p>
       </div>
-      <div class="d-body">
-        <div class="d-divider"></div>
-        <div class="rationale-grid">
-          <div class="r-box">
-            <label>原有流程</label>
-            <p>点击 banner 后用户会跳转到单独的活动详情页。授权需要在那个页面阅读内容后点击「立即加入」——多步骤的绕路完全打断了搜索场景。</p>
-          </div>
-          <div class="r-box chosen">
-            <label>Decision ✓</label>
-            <p>将所有内容整合进 T&amp;C 底部弹窗：重写的文案、直接的「立即加入」按钮、以及内联的 T&amp;C 链接。用户无需离开搜索场景即可完成授权。「了解更多」保留给需要查看完整详情页的用户。</p>
-            <span class="impact-pill">1 步完成授权 — 无需跳转任何页面</span>
-          </div>
+    </section>
+
+
+    <!-- ── 05 复盘 ── -->
+    <section id="s05">
+      <div class="sec-label">05 · 结果与复盘</div>
+      <h2>曝光率 14% → 67%。授权率 49% → 60%。10 天冲刺上线。</h2>
+
+      <div class="grid-3">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">01</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">先诊断，再解决</h3>
+          <p class="ph-sm">这一个框架决策——把曝光和转化分开作为两个独立问题——决定了做什么、以什么顺序做。</p>
         </div>
-        <!-- BEFORE flow -->
-        <div style="margin:20px 0 8px;">
-          <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;font-weight:500;display:flex;align-items:center;gap:8px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--ink3);display:inline-block;flex-shrink:0;"></span>改前 — 3 步
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:8px;">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.06);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink3);">1</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">点击 banner</div>
-            </div>
-            <div style="color:rgba(255,45,85,0.3);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,45,85,0.1);border:1.5px solid var(--accent-bd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);">2</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">跳转活动详情页</div>
-            </div>
-            <div style="color:rgba(255,45,85,0.3);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,45,85,0.1);border:1.5px solid var(--accent-bd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);">3</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">阅读落地页内容</div>
-            </div>
-            <div style="color:rgba(255,45,85,0.3);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,45,85,0.1);border:1.5px solid var(--accent-bd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);">4</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">点击「立即加入」</div>
-            </div>
-            <div style="color:rgba(0,0,0,0.2);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgb(22,163,74);">✓</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">完成授权</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:var(--ink3);margin-top:10px;">T&C 链接只能从详情页访问，无法直接从 banner 授权。</div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">02</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">产品逻辑改动可以胜过设计改动</h3>
+          <p class="ph-sm">进入触发的修复是逻辑改动，不是设计改动。零视觉改动，曝光机会翻倍。杠杆最高的产品决策往往在屏幕上看不见。</p>
         </div>
-
-        <div style="border-top:1px dashed var(--border);margin:20px 0;"></div>
-
-        <!-- AFTER flow -->
-        <div style="margin-bottom:8px;">
-          <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:500;display:flex;align-items:center;gap:8px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>改后 — 1 步
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:0;">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.06);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink3);">1</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">点击 banner</div>
-            </div>
-            <div style="color:rgba(0,0,0,0.2);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:100px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">📋</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:96px;">底部弹窗：文案 + T&C 链接 + 立即加入</div>
-            </div>
-            <div style="color:rgba(0,0,0,0.2);font-size:16px;margin:8px 4px 0;flex-shrink:0;">→</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;flex-shrink:0;">
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgb(22,163,74);">✓</div>
-              <div style="font-size:11px;color:var(--ink2);text-align:center;line-height:1.3;max-width:76px;">完成授权</div>
-            </div>
-            <div style="margin-left:20px;display:flex;flex-direction:column;gap:4px;padding-top:4px;">
-              <div style="font-size:11px;text-decoration:line-through;opacity:0.3;color:var(--ink3);">活动详情页已移除</div>
-              <div style="font-size:11px;text-decoration:line-through;opacity:0.3;color:var(--ink3);">二次确认已移除</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:var(--accent);margin-top:10px;">「了解更多」仍然保留——但不再是授权的必经步骤。</div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">03</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">知道什么时候该放弃一个好想法</h3>
+          <p class="ph-sm">被否决的电商顶部 banner 逻辑上合理，但制造了更糟糕的权衡。识别这种权衡，是这个项目培养的核心产品能力。</p>
         </div>
-
-        <p class="d-note">文案重写聚焦三件事：<strong>你能得到什么</strong>（券面值，无门槛），<strong>你需要做什么</strong>（搜索一次，浏览 15 秒），以及<strong>你在同意什么</strong>（内联 T&amp;C 链接）。将 T&amp;C 链接直接放进底部弹窗，消除了「想参与但需要查看条款」用户的最后一个障碍。</p>
-<img src="images/tiktok-search-incentive/bottom-sheet.png" style="width:100%;border-radius:14px;display:block;">
       </div>
-    </div>
 
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 04b PRODUCT JUDGMENT -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">04</span>
-    <h2 class="s-title">一个没有上线的方案——以及为什么它同样重要</h2>
-  </div>
-
-  <p class="lead reveal">这个项目中我做的最有价值的产品判断，是知道什么时候该停止推进。</p>
-  <p class="body-text reveal">在方案范围界定阶段，我识别出了一个额外的曝光机会：在电商搜索结果页顶部增加一个活动 banner，混排在结果流中。从逻辑上看很合理——电商意图用户正是 TikTok Shop 优惠券的目标受众，而且结果页本身参与度就很高。</p>
-  <p class="body-text reveal">我将这个方案带入了跨职能评审会议。方案被否决，原因有两个：</p>
-
-  <div class="two-col reveal" style="margin-top: 8px;">
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">原因 1 — 重复</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-.005em">用户已经能看到挂件了</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8">结果页挂件（决策 01）已经对这些用户可见了。增加顶部 banner 只是重复曝光，没有带来新的触达——增加了干扰，却没有扩大覆盖面。</p>
-    </div>
-    <div class="card">
-      <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;font-weight:600">原因 2 — 用户体验代价</span>
-      <h3 style="font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;margin-bottom:12px;letter-spacing:-.005em">打扰了高意图购物时刻</h3>
-      <p style="font-size:14px;color:var(--ink2);line-height:1.8">在电商搜索结果中插入活动 banner，打断了用户正处于主动购买意图的时刻。这种打扰带来的转化损耗，很可能超过了授权率的提升收益。</p>
-    </div>
-  </div>
-
-  <div class="callout reveal" style="margin-top: 24px;">
-    <span class="callout-eyebrow">我从这次经历中得到的</span>
-    <p>好的产品判断不只是知道该做什么——还要识别出一个看似合理的想法，何时制造了比它所解决的问题更糟糕的权衡。这次否决让最终方案更聚焦、更有据可查。我更新了自己的思维模型：<strong>曝光最大化有会复利累积的用户体验成本</strong>，正确的问题不是「还能在哪里展示？」而是「在哪里展示能创造真正的价值？」</p>
-  </div>
-</div>
-
-<hr class="s-divider">
-
-<!-- 05 OUTCOME -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">05</span>
-    <h2 class="s-title">结果</h2>
-  </div>
-
-  <div class="outcome-strip reveal">
-    <div class="o-card">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;font-weight:500;">T&amp;C 曝光率</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">
-        <span style="font-family:'Instrument Serif',serif;font-size:36px;color:var(--ink3);opacity:0.45;text-decoration:line-through;">14%</span>
-        <span style="color:var(--ink3);opacity:0.35;font-size:16px;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:48px;color:var(--accent);line-height:1;">67%</span>
+      <div class="gap"></div>
+      <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;">
+        <p class="ph" style="font-style:italic;margin-bottom:6px;">「这个项目中最重要的决策，发生在任何解决方案提出之前——先梳理漏斗，抵制在诊断之前就着手重新设计的本能。」</p>
+        <span class="label">— 项目复盘</span>
       </div>
-    </div>
-    <div class="o-card">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;font-weight:500;">授权率</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">
-        <span style="font-family:'Instrument Serif',serif;font-size:36px;color:var(--ink3);opacity:0.45;text-decoration:line-through;">49%</span>
-        <span style="color:var(--ink3);opacity:0.35;font-size:16px;">→</span>
-        <span style="font-family:'Instrument Serif',serif;font-size:48px;color:var(--accent);line-height:1;">60%</span>
+    </section>
+
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <span class="label">© 2026 张卓伊</span>
+      <div class="footer-links">
+        <a href="mailto:zhuoyiz.design@gmail.com">邮件</a>
+        <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
+        <a href="https://zhuoyiz.framer.website/projects">← 项目列表</a>
       </div>
-    </div>
-    <div class="o-card">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;font-weight:500;">冲刺上线</div>
-      <div style="font-family:'Instrument Serif',serif;font-size:64px;color:var(--ink);line-height:1;">10<span style="font-size:28px;color:var(--ink3);margin-left:4px;">days</span></div>
-    </div>
-  </div>
+    </footer>
 
-  <div class="reflection reveal">
-    <p>「这个项目中最重要的决策，发生在任何解决方案提出之前——先梳理漏斗，抵制在诊断之前就着手重新设计的本能。正确地定义问题，让后续每一个决策都更有据可查。」</p>
-    <cite>— 项目复盘</cite>
-  </div>
-</div>
+  </main>
 
-<hr class="s-divider">
+  <script src="js/portfolio.js"></script>
 
-<!-- 06 LEARNINGS -->
-<div class="wrap">
-  <div class="s-head reveal">
-    <span class="s-num">06</span>
-    <h2 class="s-title">我的收获</h2>
-  </div>
-
-  <div class="learn-grid reveal">
-    <div class="l-card">
-      <div class="l-num">01</div>
-      <h3>先诊断，再解决</h3>
-      <p>团队的本能是改进 banner。我推动先梳理漏斗。这一个框架决策——把曝光和转化分开作为两个独立问题——决定了做什么、以什么顺序做。</p>
-    </div>
-    <div class="l-card">
-      <div class="l-num">02</div>
-      <h3>产品逻辑改动可以胜过设计改动</h3>
-      <p>进入触发的修复不是设计改动，而是逻辑改动。零视觉改动，曝光机会翻倍。杠杆最高的产品决策，往往在屏幕上看不见。</p>
-    </div>
-    <div class="l-card">
-      <div class="l-num">03</div>
-      <h3>知道什么时候该放弃一个好想法</h3>
-      <p>被否决的电商顶部 banner 逻辑上是合理的，但制造了比它所解决的问题更糟糕的权衡。学会识别「看似正确的想法却有着错误的代价」，是我在这个项目中培养的核心产品能力。</p>
-    </div>
-    <div class="l-card">
-      <div class="l-num">04</div>
-      <h3>指标只有在分母正确时才能移动</h3>
-      <p>0.2% 的授权率看起来像转化问题。实际上是覆盖问题。搞清楚分母——谁真正有资格参与、谁真正被触达——会彻底改变你读取产品指标的方式。</p>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <p>© 2025 张卓伊 · 用热爱和奶茶制作 🩵</p>
-  <a href="#" class="back-top">回到顶部 ↑</a>
-</footer>
-
-<script>
-  window.addEventListener('load', () => document.getElementById('hero').classList.add('loaded'));
-  function toggle(el) { el.classList.toggle('open'); }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 60);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(r => io.observe(r));
-
-  // Animate hero stats on load
-  function animateValue(el, start, end, suffix, duration) {
-    let startTime = null;
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(start + (end - start) * eased) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  // Subtle entrance animation for hero stats
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.querySelectorAll('.hero-stat-num').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(8px)';
-        el.style.transition = `opacity 0.5s ease ${i * 0.1 + 0.8}s, transform 0.5s ease ${i * 0.1 + 0.8}s`;
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'none';
-        }, 50);
-      });
-    }, 100);
-  });
-</script>
 </body>
 </html>
