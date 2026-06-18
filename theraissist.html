@@ -22,8 +22,8 @@
     <a href="https://zhuoyiz.framer.website/projects" class="toc-home">Home</a>
     <a href="#overview" class="toc-link">Overview</a>
     <a href="#s01" class="toc-link">01 · Context</a>
-    <a href="#s02" class="toc-link">02 · System Design</a>
-    <a href="#s03" class="toc-link">03 · Product</a>
+    <a href="#s02" class="toc-link">02 · Product</a>
+    <a href="#s03" class="toc-link">03 · System Design</a>
     <a href="#s04" class="toc-link">04 · Reflections</a>
   </aside>
 
@@ -64,125 +64,88 @@
         </div>
       </div>
 
-      <div class="img-ph" style="margin-top:56px;"></div>
+      <div style="margin-top:56px;position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;">
+        <iframe src="https://www.youtube.com/embed/ZPqXCAXlDzU" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
     </section>
 
 
     <!-- ── 01 CONTEXT ── -->
     <section id="s01">
       <div class="sec-label">01 · Context</div>
-      <h2>Art therapy homework happens between sessions — without a therapist. That's the whole problem.</h2>
+      <h2>Between sessions: clients are stuck, therapists are blind.</h2>
 
-      <p class="ph">Therapists assign art-making and reflection exercises for clients to complete alone at home. Without guidance, clients face a creative barrier. Without structure, their emotional data evaporates before the next session. And therapists have no way to tailor or track any of it remotely.</p>
+      <p class="ph" style="margin-top:24px;">Art therapy works best face-to-face — a therapist guides the art-making, prompts reflection, and reads emotional cues in the moment. But today, access to qualified art therapists is constrained by time and geography, making sustained in-person therapy rarely feasible. The gap gets filled with homework: art-making and reflection exercises clients complete alone between sessions. That's where the real problem starts.</p>
 
-      <p class="ph" style="color:var(--ink-mid);">The research question: can AI coordinate a therapeutic collaboration between two people who are never online at the same time?</p>
+      <img src="images/theraissist/background.png" alt="Background" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:40px;">
 
-      <div class="grid-3" style="margin-top:0;">
-        <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">CH1</span>
-          <p class="ph-sm">Clients lack guidance during art-making — creative barriers and low self-confidence lead to homework abandonment.</p>
-        </div>
-        <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">CH2</span>
-          <p class="ph-sm">Therapists can't tailor homework in a structured way, or provide between-session encouragement at scale.</p>
-        </div>
-        <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">CH3</span>
-          <p class="ph-sm">Homework data depends on clients' own recall. Emotional state at the time of creation is lost by the next session.</p>
-        </div>
-      </div>
+      <p class="ph" style="margin-top:40px;">Research question: can AI coordinate a therapeutic collaboration between two people who are never online at the same time?</p>
     </section>
 
 
-    <!-- ── 02 SYSTEM DESIGN ── -->
+    <!-- ── 02 PRODUCT ── -->
     <section id="s02">
-      <div class="sec-label">02 · System Design</div>
-      <h2>Five specialized agents. One therapeutic loop. No synchronous dependency.</h2>
-
-      <p class="ph" style="color:var(--ink-mid);">The core architectural decision: instead of a single general LLM, we designed five agents each owning one specific task. This makes behavior auditable, independently improvable, and safe to deploy in a clinical context.</p>
-
-      <div class="img-ph"></div>
-
-      <div class="gap"></div>
-      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">LLM Agent pipeline — GLM-4</h3>
-      <div class="grid-2" style="margin-top:12px;">
-        <div class="card">
-          <h3 style="font-size:16px;margin-bottom:8px;">Art-making Agent</h3>
-          <p class="ph-sm">Listens as clients verbally describe what they're drawing. Summarizes descriptions into structured text prompts passed to the image generation pipeline. Runs entirely client-side — no therapist involvement.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size:16px;margin-bottom:8px;">Conversation Agent</h3>
-          <p class="ph-sm">Guides the post-creation reflection phase using the therapist's pre-configured dialogue principles and example questions. The therapist's professional beliefs are embedded directly in the agent's prompt template.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size:16px;margin-bottom:8px;">Summary Agent × 2</h3>
-          <p class="ph-sm">Two separate agents condense art-making and discussion data into short session summaries for the therapist. Deliberately avoids interpretation — poses questions from a novice therapist's perspective to preserve the therapist's expert judgment.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size:16px;margin-bottom:8px;">Integration Agent</h3>
-          <p class="ph-sm">Synthesizes dialogue from both phases into three therapist-focused questions — entry points for the next in-session conversation. Turns 20 minutes of homework data into a usable pre-session brief.</p>
-        </div>
-      </div>
-
-      <div class="gap"></div>
-      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">AIGC pipeline — ControlNet + Stable Diffusion</h3>
-      <div class="findings" style="margin-top:12px;">
-        <div class="finding">Clients select semantic brushes (Human, Cloud, Ocean, Tree...) — each brush maps to a semantic concept, not an artistic style</div>
-        <div class="finding">Color-coded segments drawn by the client become a semantic segmentation map, combined with verbalized text prompts</div>
-        <div class="finding">ControlNet + Stable Diffusion v1.5 generates a photorealistic co-created artwork — client controls composition through language, not drawing skill</div>
-      </div>
-
-      <div class="gap"></div>
-      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">Memory module</h3>
-      <div class="findings" style="margin-top:12px;">
-        <div class="finding">Therapist's custom agent configurations persist across sessions — dialogue principles, task assignments, opening messages</div>
-        <div class="finding">Client interaction data (artwork, dialogue, color segment data) stored cross-session — emotional trend visible over time</div>
-      </div>
-
-      <div class="img-ph"></div>
-    </section>
-
-
-    <!-- ── 03 PRODUCT ── -->
-    <section id="s03">
-      <div class="sec-label">03 · Product</div>
+      <div class="sec-label">02 · Product</div>
       <h2>Two interfaces. Opposite cognitive modes. Connected through AI.</h2>
 
-      <!-- Client -->
-      <div class="gap"></div>
-      <h3>Client — Two-phase homework workflow</h3>
+      <!-- User Journey -->
+      <div class="img-ph" style="margin-top:40px;" data-label="user-journey.png — 用户旅程图"></div>
 
+      <hr style="border:none;border-top:1px solid rgba(0,0,0,0.07);margin:56px 0;">
+
+      <!-- Client -->
+      <h3>Client — Two-phase homework workflow</h3>
+      <p class="ph" style="margin-top:8px;color:var(--ink-mid);">Each homework session runs in two sequential phases. Clients complete both on their own — no therapist involvement required in real time.</p>
+
+      <div class="gap"></div>
+      <span class="label">Phase 1 · Art-making</span>
+      <p class="ph" style="margin-top:12px;">Clients draw on a canvas using semantic AI brushes — each brush maps to a concept (Human, Cloud, Tree, Ocean...) rather than an artistic style. While drawing, they describe what they're making by voice. The Art-making Agent converts those descriptions into structured prompts, and Stable Diffusion generates a co-created artwork in real time. The result is shaped by language, not drawing skill.</p>
       <div class="grid-2" style="margin-top:16px;">
         <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Phase 1 · Art-making</span>
-          <p class="ph-sm">Draw semantic shapes on the canvas, describe them by voice. Art-making Agent summarizes and generates a co-created image. Right panel shows the Stable Diffusion output in real time — client shapes the result through language, not artistic skill.</p>
+          <span class="label" style="display:block;margin-bottom:8px;">Semantic brushes</span>
+          <p class="ph-sm">Color-coded segments map to conceptual categories, not artistic styles — lowers the creative barrier to zero.</p>
         </div>
         <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Phase 2 · Discussion</span>
-          <p class="ph-sm">Conversation Agent guides multi-round reflection anchored to the finished artwork. Dialogue structure follows the therapist's pre-configured principles. All conversation data auto-syncs to the therapist's dashboard.</p>
+          <span class="label" style="display:block;margin-bottom:8px;">Voice → Image</span>
+          <p class="ph-sm">Art-making Agent converts speech to structured prompts. Stable Diffusion output updates in real time alongside the drawing canvas.</p>
         </div>
       </div>
 
-      <div class="img-ph"></div>
+      <div class="img-ph" style="margin-top:32px;" data-label="client-artmaking.png — 客户端画布截图"></div>
+
+      <div class="gap"></div>
+      <span class="label">Phase 2 · Discussion</span>
+      <p class="ph" style="margin-top:12px;">After the artwork is generated, the Conversation Agent guides a multi-round reflection grounded in what the client just created. It follows the therapist's pre-configured dialogue principles — asking structured questions that help clients verbalize emotions tied to the artwork. All conversation data syncs to the therapist's dashboard automatically.</p>
+      <div class="grid-2" style="margin-top:16px;">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Artwork-anchored reflection</span>
+          <p class="ph-sm">Questions are grounded in the client's specific artwork — not generic prompts. Reduces abstraction, increases emotional specificity.</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;">Therapist's voice embedded</span>
+          <p class="ph-sm">Dialogue principles written by the therapist are injected directly into the agent's prompt. The client experiences the therapist's style even when offline.</p>
+        </div>
+      </div>
 
       <hr style="border:none;border-top:1px solid rgba(0,0,0,0.07);margin:56px 0;">
 
       <!-- Therapist -->
       <h3>Therapist — Configure · Review · Adapt</h3>
-      <p class="ph" style="margin-top:8px;">The therapist-facing UI is essentially a no-code agent configuration interface. Therapists write dialogue principles and example questions that directly configure the Conversation Agent's prompt template — professional expertise embedded into AI behavior without code.</p>
+      <p class="ph" style="margin-top:8px;color:var(--ink-mid);">The therapist-facing dashboard is a no-code agent configuration interface. Therapists embed their clinical expertise directly into AI behavior — without writing a single line of code.</p>
 
-      <div class="grid-2" style="margin-top:16px;">
+      <div class="gap"></div>
+      <div class="grid-2" style="margin-top:0;">
         <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Agent Customization</span>
-          <p class="ph-sm">Create, reorder, and edit dialogue principles. Assign homework tasks. Write a personalized opening message. Changes apply to the next session immediately.</p>
+          <span class="label" style="display:block;margin-bottom:8px;">Tailor the agent</span>
+          <p class="ph-sm">Write and reorder dialogue principles, assign homework topics, and set a personalized opening message per client. Changes take effect in the next session immediately.</p>
         </div>
         <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">AI-compiled History</span>
-          <p class="ph-sm">Per-client overview with usage visualization. Full homework records: original drawing, co-created artwork, art-making process, conversation log, and AI assistant summary with therapist-facing questions.</p>
+          <span class="label" style="display:block;margin-bottom:8px;">Review homework history</span>
+          <p class="ph-sm">Per-client view with full homework records: original drawing, co-created artwork, conversation log, and AI-compiled summary with 3 suggested entry-point questions for the next in-session conversation.</p>
         </div>
       </div>
 
-      <div class="img-ph"></div>
+      <div class="img-ph" style="margin-top:32px;" data-label="therapist-dashboard.png — 治疗师端截图"></div>
 
       <div class="gap"></div>
       <h3>30-day field study</h3>
@@ -202,6 +165,48 @@
       </div>
 
       <div class="img-ph"></div>
+    </section>
+
+
+    <!-- ── 03 SYSTEM DESIGN ── -->
+    <section id="s03">
+      <div class="sec-label">03 · System Design</div>
+      <h2>Five specialized agents. One therapeutic loop. No synchronous dependency.</h2>
+
+      <p class="ph" style="color:var(--ink-mid);">The core architectural decision: instead of a single general LLM, we designed five agents each owning one specific task. This makes behavior auditable, independently improvable, and safe to deploy in a clinical context.</p>
+
+      <img src="images/theraissist/system architecture.png" alt="System Architecture" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
+
+      <div class="gap"></div>
+      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">LLM Agent pipeline — GLM-4</h3>
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Art-making Agent</h3>
+          <p class="ph-sm" style="margin-bottom:8px;">Converts voice descriptions into image generation prompts.</p>
+          <ul class="problem-list">
+            <li>Client-side only — no therapist involvement</li>
+            <li>Voice → text prompt → AIGC pipeline</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Conversation Agent</h3>
+          <p class="ph-sm" style="margin-bottom:8px;">Guides post-creation reflection anchored to the artwork.</p>
+          <ul class="problem-list">
+            <li>Therapist's principles embedded in prompt template</li>
+            <li>Personalised per therapist, not per session</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Summary Agent</h3>
+          <p class="ph-sm" style="margin-bottom:8px;">Condenses homework into a structured pre-session brief for the therapist.</p>
+          <ul class="problem-list">
+            <li>Covers both art-making & discussion phases</li>
+            <li>Poses questions — avoids interpretation</li>
+            <li>20 min of homework → 3 therapist entry-point questions</li>
+          </ul>
+        </div>
+      </div>
+
     </section>
 
 
