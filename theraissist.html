@@ -24,7 +24,8 @@
     <a href="#s01" class="toc-link">01 · Context</a>
     <a href="#s02" class="toc-link">02 · Product</a>
     <a href="#s03" class="toc-link">03 · System Design</a>
-    <a href="#s04" class="toc-link">04 · Reflections</a>
+    <a href="#s04" class="toc-link">04 · Field Study</a>
+    <a href="#s05" class="toc-link">05 · Reflections</a>
   </aside>
 
   <main class="content">
@@ -86,10 +87,10 @@
     <!-- ── 02 PRODUCT ── -->
     <section id="s02">
       <div class="sec-label">02 · Product</div>
-      <h2>Two interfaces. Opposite cognitive modes. Connected through AI.</h2>
+      <h2>Client creates. Therapist reviews. AI holds the thread.</h2>
 
       <!-- User Journey -->
-      <div class="img-ph" style="margin-top:40px;" data-label="user-journey.png — 用户旅程图"></div>
+      <img src="images/theraissist/overview.png" alt="User Journey" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:40px;">
 
       <hr style="border:none;border-top:1px solid rgba(0,0,0,0.07);margin:56px 0;">
 
@@ -111,7 +112,7 @@
         </div>
       </div>
 
-      <div class="img-ph" style="margin-top:32px;" data-label="client-artmaking.png — 客户端画布截图"></div>
+      <img src="images/theraissist/client.png" alt="Client art-making interface" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
 
       <div class="gap"></div>
       <span class="label">Phase 2 · Discussion</span>
@@ -127,6 +128,8 @@
         </div>
       </div>
 
+      <img src="images/theraissist/client-2.png" alt="Client discussion interface" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
+
       <hr style="border:none;border-top:1px solid rgba(0,0,0,0.07);margin:56px 0;">
 
       <!-- Therapist -->
@@ -134,37 +137,20 @@
       <p class="ph" style="margin-top:8px;color:var(--ink-mid);">The therapist-facing dashboard is a no-code agent configuration interface. Therapists embed their clinical expertise directly into AI behavior — without writing a single line of code.</p>
 
       <div class="gap"></div>
-      <div class="grid-2" style="margin-top:0;">
-        <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Tailor the agent</span>
-          <p class="ph-sm">Write and reorder dialogue principles, assign homework topics, and set a personalized opening message per client. Changes take effect in the next session immediately.</p>
-        </div>
-        <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Review homework history</span>
-          <p class="ph-sm">Per-client view with full homework records: original drawing, co-created artwork, conversation log, and AI-compiled summary with 3 suggested entry-point questions for the next in-session conversation.</p>
-        </div>
-      </div>
-
-      <div class="img-ph" style="margin-top:32px;" data-label="therapist-dashboard.png — 治疗师端截图"></div>
+      <span class="label">Review History</span>
+      <p class="ph" style="margin-top:12px;">Therapists get a bird's-eye view of all clients' activity, and can drill into any individual's full homework record — original drawing, co-created artwork, full conversation log, and AI-compiled summary with 3 suggested entry-point questions for the next in-person session.</p>
+      <img src="images/theraissist/therapist-1.png" alt="Therapist review history" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
 
       <div class="gap"></div>
-      <h3>30-day field study</h3>
-      <div class="grid-3" style="margin-top:16px;">
-        <div class="card">
-          <h3 style="font-size:16px;margin-bottom:4px;">354 sessions</h3>
-          <p class="ph-sm">24 clients over 30 days. 266 sessions completed both phases; 88 art-making only.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size:16px;margin-bottom:4px;">151 hours</h3>
-          <p class="ph-sm">66.4h art-making · 84.6h discussion. Average 14.75 sessions per client.</p>
-        </div>
-        <div class="card">
-          <h3 style="font-size:16px;margin-bottom:4px;">3,462 messages</h3>
-          <p class="ph-sm">772 during art-making · 2,690 during discussion phases. Evening peak usage confirmed async value.</p>
-        </div>
-      </div>
+      <span class="label">Dialogue Customization</span>
+      <p class="ph" style="margin-top:12px;">Therapists create, modify, and reorder dialogue principles and questions, shaping the flow of the AI agent in the Discussion Phase. This enables tailored conversations based on the therapist's clinical expertise and each client's specific needs.</p>
+      <img src="images/theraissist/therapist-2.png" alt="Dialogue customization" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
 
-      <div class="img-ph"></div>
+      <div class="gap"></div>
+      <span class="label">Session Customization</span>
+      <p class="ph" style="margin-top:12px;">Before each homework session, therapists set a personalized topic and opening message per client — giving the next session a specific direction based on what came up in the last in-person meeting.</p>
+      <img src="images/theraissist/therapist-3.png" alt="Session customization" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
+
     </section>
 
 
@@ -210,9 +196,41 @@
     </section>
 
 
-    <!-- ── 04 REFLECTIONS ── -->
+    <!-- ── 04 FIELD STUDY ── -->
     <section id="s04">
-      <div class="sec-label">04 · Reflections</div>
+      <div class="sec-label">04 · Field Study</div>
+      <h2>30 days. 24 clients. The hypotheses held.</h2>
+
+      <div class="gap"></div>
+      <span class="label">Async therapy works in the wild</span>
+      <p class="ph" style="margin-top:12px;">Usage peaked in the evenings — when no therapist was online. Clients initiated homework sessions independently, without prompting. This is the core assumption TherAIssist was built on: AI can hold the therapeutic thread between sessions. The data confirmed it.</p>
+      <img src="images/theraissist/field study.png" alt="Async therapy validation" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
+
+      <div class="gap"></div>
+      <span class="label">Real deployment, not a lab study</span>
+      <p class="ph" style="margin-top:12px;">354 sessions. 24 clients. 30 days. Average 14.75 sessions per client — sustained engagement, not novelty spikes. 77% completed both phases. The Discussion Phase generated 3.5× more messages than art-making (2,690 vs 772), showing the conversation agent was the core of the loop, not a secondary feature.</p>
+      <img src="images/theraissist/field study -2.png" alt="Field study results" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
+
+      <div class="grid-3" style="margin-top:40px;">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:4px;">14.75 avg sessions</h3>
+          <p class="ph-sm">Per client over 30 days — sustained engagement across the full study period.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:4px;">77% full completion</h3>
+          <p class="ph-sm">266 of 354 sessions completed both art-making and discussion phases.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:4px;">3.5× discussion</h3>
+          <p class="ph-sm">2,690 discussion messages vs 772 art-making. Evening peak confirmed async value.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 05 REFLECTIONS ── -->
+    <section id="s05">
+      <div class="sec-label">05 · Reflections</div>
       <h2>Three things this project changed about how I think about AI systems.</h2>
 
       <div class="grid-3">
