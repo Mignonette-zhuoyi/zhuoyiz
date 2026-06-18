@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Screenshot Search — Zhuoyi Zhang</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/portfolio.css">
+</head>
+<body>
+
+  <!-- TOP FADE -->
+  <div class="top-fade"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <span class="nav-dot"></span>
+    <a href="https://zhuoyiz.framer.website">Zhuoyi Zhang</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-current">TikTok Screenshot Search</span>
+  </nav>
+
+  <!-- LEFT TOC -->
+  <aside class="toc" id="toc">
+    <a href="https://zhuoyiz.framer.website/projects" class="toc-home">Home</a>
+    <a href="#overview" class="toc-link">Overview</a>
+    <a href="#s01" class="toc-link">01 · The Signal</a>
+    <a href="#s02" class="toc-link">02 · Constraints</a>
+    <a href="#s03" class="toc-link">03 · Solution</a>
+    <a href="#s04" class="toc-link">04 · Edge Cases</a>
+    <a href="#s05" class="toc-link">05 · Learnings</a>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- ── HERO ── -->
+    <section id="overview">
+      <img src="images/framer/logo TikTok Black.png" alt="TikTok Logo" class="hero-thumb" style="object-fit:contain;background:transparent;">
+
+      <div class="hero-cols">
+        <div class="hero-left">
+          <h1>TikTok Screenshot Search</h1>
+          <p class="ph" style="margin-top:16px;">Users screenshot content to identify items, find similar products, and save for later — three high-intent signals TikTok had no mechanism to capture.</p>
+          <p class="ph" style="margin-top:12px;">We embedded visual search directly into the video player: a lightweight overlay triggered on screenshot, letting users search without ever leaving the app.</p>
+        </div>
+        <div class="hero-right">
+          <div class="hero-tags">
+            <span class="hero-tag">Consumer</span>
+            <span class="hero-tag">Search</span>
+            <span class="hero-tag">5-Day Sprint</span>
+          </div>
+          <div class="hero-date">Aug 2025</div>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-cell">
+          <span class="label">My Role</span>
+          <h3>Product Manager</h3>
+        </div>
+<div class="meta-cell">
+          <span class="label">Platform</span>
+          <h3>iOS · Android</h3>
+        </div>
+      </div>
+
+      <img src="images/tiktok-screenshot-search/screenshot-search-thumbnail.png" alt="Screenshot Search Overview" style="width:100%;border-radius:12px;display:block;margin-top:56px;">
+    </section>
+
+
+    <!-- ── 01 THE SIGNAL ── -->
+    <section id="s01">
+      <div class="sec-label">01 · The Signal</div>
+      <h2>A screenshot is not just a saved frame — it's a high-confidence visual search intent.</h2>
+
+      <p class="ph">When users screenshot TikTok content, they're expressing one of three strong intents: <strong>identify</strong> ("what is this?"), <strong>find similar</strong> ("where can I buy?"), or <strong>save to act later</strong>. These intents are concentrated and high-conversion — but TikTok had no mechanism to capture them.</p>
+      <ul class="ph" style="margin-top:12px;padding-left:20px;line-height:1.7;">
+        <li>Over <strong>60% of system-level visual search requests</strong> (Circle to Search and equivalents) originate from social platforms. TikTok accounts for approximately 15% of that traffic.</li>
+        <li>Douyin's screenshot search path has been live for nearly two years, growing from 1.58M to 2.12M page views annually, with entry point share stable at 17%.</li>
+      </ul>
+
+    </section>
+
+
+    <!-- ── 02 CONSTRAINTS ── -->
+    <section id="s02">
+      <div class="sec-label">02 · Product Constraints</div>
+      <h2>Find an entry point that's lightweight and recognizable — without disrupting any existing interaction.</h2>
+
+      <p class="ph">The solution space was deliberately narrow. Four hard constraints shaped every design decision.</p>
+
+      <div class="grid-2" style="margin-top:32px;">
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;color:var(--ink);">Constraint 1</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">Feed hot zones are densely packed</h3>
+          <p class="ph-sm">The right rail carries likes, comments, shares, and product pins in some markets. The overlay must avoid all of these while not occluding content — the available space is extremely limited.</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;color:var(--ink);">Constraint 2</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">The overlay must also carry Share</h3>
+          <p class="ph-sm">Screenshot Search isn't a standalone feature. The overlay needs to integrate both "Find Similar" and "Share" into one container — which determined the layout logic and information hierarchy.</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;color:var(--ink);">Constraint 3</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">Screenshot region: 390×444, centered on screen midline</h3>
+          <p class="ph-sm">The capture region expands up and down from the horizontal center, ensuring the rectangular frame is always fully visible. This fixed size constrained overlay positioning and content boundary decisions.</p>
+        </div>
+        <div class="card">
+          <span class="label" style="display:block;margin-bottom:8px;color:var(--ink);">Constraint 4</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">Android cannot render background blur</h3>
+          <p class="ph-sm">iOS frosted glass doesn't translate to Android. The overlay needed a design that maintained readability and visual hierarchy without relying on blur — requiring separate treatments per platform.</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ── 03 SOLUTION ── -->
+    <section id="s03">
+      <div class="sec-label">03 · The Solution</div>
+      <h2>One lightweight overlay. Two actions. Triggered by a single screenshot.</h2>
+
+      <p class="ph">The core interaction: after a screenshot, the overlay appears within the captured region, presenting "Find Similar" and "Share." Find Similar triggers image recognition and routes to results. Share enters the existing share flow. The overlay is deliberately restrained — it doesn't compete for content focus or create decision overhead.</p>
+
+      <div class="gap"></div>
+      <h3 style="font-size:16px;color:var(--ink-mid);font-weight:400;">Design decisions</h3>
+
+      <div style="margin-top:16px;">
+        <div class="decision-block" style="display:flex;gap:32px;align-items:flex-start;">
+          <div style="flex:1;min-width:0;">
+            <span class="label">D01</span>
+            <h3>Overlay position: bottom-left of the capture region</h3>
+            <p class="ph" style="color:var(--ink-mid);">The right rail is occupied by high-frequency actions. Bottom-left is the only area that clears all hot zones while remaining within the screenshot frame.</p>
+            <p class="ph">Positions the overlay close to where users' thumbs naturally rest after a screenshot action, reducing reach distance for the most likely next tap.</p>
+          </div>
+          <img src="images/tiktok-screenshot-search/d01.png" alt="D01" style="width:220px;border-radius:8px;flex-shrink:0;">
+        </div>
+
+        <hr class="divider">
+
+        <div class="decision-block" style="display:flex;gap:32px;align-items:flex-start;">
+          <div style="flex:1;min-width:0;">
+            <span class="label">D02</span>
+            <h3>Find Similar as the primary action, Share as secondary</h3>
+            <p class="ph" style="color:var(--ink-mid);">Users who screenshot video content already have Share available through the standard UI — the new behavior is visual search.</p>
+            <p class="ph">Find Similar gets visual prominence; Share is present but subordinate. This hierarchy communicates that screenshot = search without requiring instruction.</p>
+          </div>
+          <img src="images/tiktok-screenshot-search/d02.png" alt="D02" style="width:220px;border-radius:8px;flex-shrink:0;">
+        </div>
+
+        <hr class="divider">
+
+        <div class="decision-block" style="display:flex;gap:32px;align-items:flex-start;">
+          <div style="flex:1;min-width:0;">
+            <span class="label">D03</span>
+            <h3>Opaque dark background for Android, frosted glass for iOS</h3>
+            <p class="ph" style="color:var(--ink-mid);">A single design can't work cross-platform: Android's rendering constraints block blur-based overlays.</p>
+            <p class="ph">Android receives a semi-opaque dark container with a thumbnail of the screenshot frame, maintaining scene context without blur. iOS uses the standard frosted glass treatment. Same UX architecture, different visual implementation.</p>
+          </div>
+          <img src="images/tiktok-screenshot-search/d03.png" alt="D03" style="width:220px;border-radius:8px;flex-shrink:0;">
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── 04 EDGE CASES ── -->
+    <section id="s04">
+      <div class="sec-label">04 · Edge Cases</div>
+      <h2>Good products don't just handle the main flow — edge cases define the product's quality.</h2>
+
+      <div class="grid-2" style="margin-top:32px;">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Text overflow → truncate, don't wrap</h3>
+          <p class="ph-sm">Some languages run long in fixed-width containers. The solution is ellipsis truncation — layout stability takes priority over text completeness, because the icon already communicates the function.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">First-time onboarding prompt</h3>
+          <p class="ph-sm">On first screenshot, a one-line guide appears: "Tap to explore similar results from your screenshot." Shown once only — informs without repeated interruption.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Frame boundary guarantee</h3>
+          <p class="ph-sm">The 390×444 region expands from the screen's horizontal midline. Regardless of when in the video the screenshot is taken, the rectangular frame is always fully visible — never clipped by top or bottom UI chrome.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">No-blur fallback maintains context</h3>
+          <p class="ph-sm">The Android thumbnail-based approach preserves the same scene grounding as the iOS blur. Users understand they're acting on the content they just captured — platform parity at the experience level, not the implementation level.</p>
+        </div>
+      </div>
+
+      <img src="images/tiktok-screenshot-search/edge.png" alt="Edge Cases" style="width:100%;border-radius:12px;display:block;margin-top:40px;">
+    </section>
+
+
+    <!-- ── 05 LEARNINGS ── -->
+    <section id="s05">
+      <div class="sec-label">05 · Learnings</div>
+      <h2>What a 5-day sprint taught me about finding opportunities in existing behavior.</h2>
+
+      <div class="grid-2" style="margin-top:32px;">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Find intent in behavior, not in feature requests</h3>
+          <p class="ph-sm">The screenshot wasn't a search request — it was a behavior signal. The PM opportunity was recognizing what the action meant, not building what users asked for. Intent lives upstream of articulated need.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Lightweight ≠ low effort. Restraint is an active choice.</h3>
+          <p class="ph-sm">The overlay is small. That took more decisions, not fewer — every pixel of position, every hierarchy call, every word in the onboarding prompt was a deliberate choice to not add more.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">Edge cases reveal product assumptions</h3>
+          <p class="ph-sm">The Android blur constraint forced us to find what the frosted glass was actually doing (creating scene context) and replicate the function, not the form. Edge cases are assumption audits.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px;">The tradeoffs in a 5-day sprint</h3>
+          <p class="ph-sm">The sprint format demands ruthless prioritization. We deferred personalized result ranking and cross-surface consistency work. Knowing what to leave out is as important as knowing what to build.</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <span class="label">© 2026 Zhuoyi Zhang</span>
+      <div class="footer-links">
+        <a href="mailto:zhuoyiz.design@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
+        <a href="https://zhuoyiz.framer.website/projects">← Projects</a>
+      </div>
+    </footer>
+
+  </main>
+
+<script src="js/portfolio.js"></script>
+
+</body>
+</html>
