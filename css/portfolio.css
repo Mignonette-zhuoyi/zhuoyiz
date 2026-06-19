@@ -215,6 +215,12 @@ h3 {
   border-radius: var(--r-md);
   padding: 24px;
 }
+.card .label {
+  transition: color var(--motion-state);
+}
+.card:hover .label {
+  color: var(--page-accent, var(--ink-mid));
+}
 
 /* ── HERO ── */
 #overview {

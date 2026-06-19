@@ -6,6 +6,7 @@
   <title>TikTok Search Incentive — Zhuoyi Zhang</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="css/portfolio.css">
+  <style>:root { --page-accent: #FE2C55; }</style>
 </head>
 <body>
 
@@ -32,13 +33,15 @@
 
     <!-- ── HERO ── -->
     <section id="overview">
-      <div class="hero-thumb"></div>
+      <div class="hero-thumb">
+        <img src="images/framer/logo TikTok Black.png" style="width:100%;height:100%;object-fit:contain;">
+      </div>
 
       <div class="hero-cols">
         <div class="hero-left">
           <h1>TikTok Search Incentive</h1>
-          <p class="ph" style="margin-top:16px;">A validated growth mechanic from Japan wasn't producing results in the US — Product Manager Intern · 10-day sprint · 2025</p>
-          <p class="ph">US coin incentive strategy · Phase 2</p>
+          <p class="ph" style="margin-top:16px;">TikTok's search incentive had already worked in Japan — but Phase 2 in the US had 70M eligible users and participation still near zero. The team's instinct was to redesign the banner. I pushed to map the full authorization funnel first.</p>
+          <p class="ph">Three decisions, 10 days: exposure 14% → 67%, authorization rate 49% → 60%.</p>
         </div>
         <div class="hero-right">
           <div class="hero-tags">
@@ -57,7 +60,7 @@
         </div>
         <div class="meta-cell">
           <span class="label">Team</span>
-          <h3>1 PM · 1 DA · 1 CD · 2 Eng · 1 QA</h3>
+          <h3>1 PM · 1 PD · 1 DA · 1 CD · 2 Eng · 1 QA</h3>
         </div>
         <div class="meta-cell">
           <span class="label">Platform</span>
@@ -65,7 +68,7 @@
         </div>
       </div>
 
-      <div class="img-ph" style="margin-top:56px;"></div>
+      <img src="images/tiktok-search-incentive/overview.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:56px;">
     </section>
 
 
@@ -80,22 +83,24 @@
 
       <div class="grid-2">
         <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Working — E-commerce impact</span>
-          <p class="ph-sm">The voucher drove real purchasing behavior among authorized users, exactly as designed.</p>
-          <p class="ph-sm" style="margin-top:8px;color:var(--ink);">+8% PayU/DAU · +10% nOrder/DAU</p>
+          <span class="label" style="display:block;margin-bottom:8px;">🟢 Working — E-commerce impact</span>
+          <p class="ph-sm" style="color:var(--ink);">+8% PayU/DAU</p>
+          <p class="ph-sm" style="margin-top:8px;">The voucher drove real purchasing behavior among authorized users, exactly as designed.</p>
         </div>
         <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Not moving — Core search growth</span>
-          <p class="ph-sm">Active search growth was ~0. The original goal — growing search behavior — was not being achieved.</p>
-          <p class="ph-sm" style="margin-top:8px;color:var(--ink);">~0 active search growth · ~9% auth rate among eligible users</p>
+          <span class="label" style="display:block;margin-bottom:8px;">🟠 Not moving — Search growth</span>
+          <p class="ph-sm" style="color:var(--ink);">~0 active search growth</p>
+          <p class="ph-sm" style="color:var(--ink);">9% auth rate among eligible users</p>
+          <p class="ph-sm" style="margin-top:8px;">The original goal — growing search behavior — was not being achieved.</p>
         </div>
       </div>
 
-      <p class="ph" style="margin-top:32px;">Phase 2 expanded eligibility to all US users (~70M DAU). The right audience was now in scope — so why was participation still near zero?</p>
+      <p class="ph" style="margin-top:32px;">Phase 2 was about to expand eligibility to all US users (~70M DAU) — but Phase 1 had shown near-zero participation.</p>
+      <p class="ph" style="color:var(--ink);">Scaling the audience wouldn't fix what was already broken. What needed to change before we opened it up?</p>
 
       <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;margin-top:8px;">
-        <span class="label" style="display:block;margin-bottom:8px;">How I framed the problem</span>
-        <p class="ph-sm">Before proposing any solution, I pushed to map the full authorization funnel first. The team's instinct was to improve the banner — my argument was: understand where users are dropping, and why, before deciding what to build.</p>
+        <span class="label" style="display:block;margin-bottom:8px;">Challenge</span>
+        <p class="ph-sm">The hardest part wasn't technical — it was diagnostic. Was the problem weak incentives, wrong touchpoint placement, or users simply not motivated to search? Any of these could explain near-zero participation. With limited resources, a wrong call would cost an entire iteration cycle.</p>
       </div>
     </section>
 
@@ -107,27 +112,23 @@
 
       <p class="ph">I framed the funnel as two independent events: exposure and authorization. Data confirmed exposure was the bigger lever — without fixing it, 86% of users would never see the campaign.</p>
 
-      <div class="grid-2" style="margin-top:32px;">
-        <div>
-          <span class="label" style="display:block;margin-bottom:8px;">Authorization funnel — current state</span>
-          <div class="img-ph"></div>
-        </div>
-        <div>
-          <span class="label" style="display:block;margin-bottom:8px;">Authorization funnel — target state</span>
-          <div class="img-ph"></div>
-        </div>
-      </div>
+      <img src="images/tiktok-search-incentive/current solution.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:32px;">
 
-      <div class="grid-2" style="margin-top:8px;">
-        <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Problem 1 — Exposure</span>
-          <h3 style="margin-bottom:8px;">The campaign had a structural ceiling</h3>
-          <p class="ph-sm">The T&amp;C pop-up only triggered when users returned to the search middle page after searching — missing everyone who entered fresh or stayed on the results page. 14% exposure rate, regardless of campaign quality.</p>
+      <div class="grid-2" style="margin-top:32px;align-items:start;">
+        <div>
+          <img src="images/tiktok-search-incentive/funnel.png" style="width:100%;border-radius:var(--r-lg);display:block;">
         </div>
-        <div class="card">
-          <span class="label" style="display:block;margin-bottom:8px;">Problem 2 — Conversion</span>
-          <h3 style="margin-bottom:8px;">Authorization required a detour</h3>
-          <p class="ph-sm">Users who saw the banner couldn't authorize directly — they had to navigate to a separate detail page. That context switch introduced hesitation. 49% dropped — not disinterest, but recoverable friction.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="card">
+            <span class="label" style="display:block;margin-bottom:8px;">Problem 1 — Exposure</span>
+            <h3 style="margin-bottom:8px;">The campaign had a structural ceiling</h3>
+            <p class="ph-sm">The T&amp;C pop-up only triggered when users returned to the search middle page after searching — missing everyone who entered fresh or stayed on the results page. 14% exposure rate, regardless of campaign quality.</p>
+          </div>
+          <div class="card">
+            <span class="label" style="display:block;margin-bottom:8px;">Problem 2 — Conversion</span>
+            <h3 style="margin-bottom:8px;">Authorization required a detour</h3>
+            <p class="ph-sm">Users who saw the banner couldn't authorize directly — they had to navigate to a separate detail page. That context switch introduced hesitation. 49% dropped — not disinterest, but recoverable friction.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -136,45 +137,146 @@
     <!-- ── 03 DECISIONS ── -->
     <section id="s03">
       <div class="sec-label">03 · Decisions</div>
-      <h2>Three initiatives, each mapped to a specific gap in the funnel.</h2>
+      <h2>Two decisions, each mapped to a specific gap in the funnel.</h2>
 
-      <p class="ph" style="color:var(--ink-mid);">Ordered by funnel position: D01–D02 fixed reach. D03 removed authorization friction.</p>
+      <p class="ph" style="color:var(--ink-mid);">Both are P0. D01 attacked exposure — expanding which users see the campaign and when. D02 attacked conversion — removing the steps between intent and authorization.</p>
 
-      <div class="img-ph"></div>
+      <div style="margin-top:32px;">
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:0;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,0.07);margin-bottom:24px;">
+          <span class="label">Core metric</span>
+          <span class="label">Initiatives</span>
+        </div>
 
-      <hr class="divider">
+        <!-- Exposure group -->
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:24px;padding-bottom:32px;border-bottom:1px solid rgba(0,0,0,0.07);">
+          <div style="display:flex;align-items:center;">
+            <div style="background:var(--card);border-radius:var(--r-sm);padding:14px 16px;text-align:center;width:100%;">
+              <span style="font-size:16px;font-weight:500;color:var(--ink);">Pop-up Exposure UV</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:20px;border-left:2px solid rgba(0,0,0,0.07);padding-left:24px;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+                <span style="background:#C0392B;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;">P0</span>
+                <span style="font-size:16px;font-weight:500;color:var(--ink);">Expand touchpoints — reach users in high-intent search surfaces</span>
+              </div>
+              <p class="ph-sm" style="padding-left:36px;">Not limited to the search middle page — add campaign exposure wherever users show search intent</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+                <span style="background:#E67E22;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;">P1</span>
+                <span style="font-size:16px;font-weight:500;color:var(--ink);">Optimize exposure timing</span>
+              </div>
+              <p class="ph-sm" style="padding-left:36px;">Surface during active search and post-view search to increase perceived reach</p>
+              <p class="ph-sm" style="padding-left:36px;margin-top:4px;">Limit intrusiveness with widget interaction and frequency cap</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+                <span style="background:#95B60F;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;">P2</span>
+                <span style="font-size:16px;font-weight:500;color:var(--ink);">Micro-animation to increase campaign visibility</span>
+              </div>
+              <p class="ph-sm" style="padding-left:36px;">Unified KV branding with restrained motion to reinforce campaign progress</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="decision-block">
-        <span class="label">D01</span>
-        <h3>Add a campaign widget to the search results page</h3>
-        <p class="ph" style="color:var(--ink-mid);">Default team assumption: optimize the existing middle-page banner.</p>
-        <p class="ph">The middle page wasn't underperforming — it was structurally limited. Optimizing within a surface reaching 14% of users would never move the aggregate metric. The results page captures users who have already searched — a larger, higher-intent audience. New touchpoint for ~25M passive search users without interrupting the search flow.</p>
-        <img src="images/tiktok-search-incentive/result-page-widget.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
+        <!-- Authorization group -->
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:24px;padding-top:24px;padding-bottom:32px;">
+          <div style="display:flex;align-items:center;">
+            <div style="background:var(--card);border-radius:var(--r-sm);padding:14px 16px;text-align:center;width:100%;">
+              <span style="font-size:16px;font-weight:500;color:var(--ink);">Authorization Rate</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:20px;border-left:2px solid rgba(0,0,0,0.07);padding-left:24px;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+                <span style="background:#C0392B;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;">P0</span>
+                <span style="font-size:16px;font-weight:500;color:var(--ink);">Shorten the authorization path</span>
+              </div>
+              <p class="ph-sm" style="padding-left:36px;">Remove unnecessary intermediate pages and re-confirmations</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+                <span style="background:#E67E22;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;">P1</span>
+                <span style="font-size:16px;font-weight:500;color:var(--ink);">Add dismissible controls to reduce psychological resistance</span>
+              </div>
+              <p class="ph-sm" style="padding-left:36px;">Clearly state scope and reversibility (task-only / dismissible anytime)</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:baseline;gap:10px;">
+                <span style="background:#E67E22;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;">P1</span>
+                <span style="font-size:16px;font-weight:500;color:var(--ink);">Copy — lead with value proposition to reduce decision cost <span style="font-weight:400;color:var(--ink-mid);">(CD)</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <hr class="divider">
 
       <div class="decision-block">
-        <span class="label">D02</span>
-        <h3>Expand trigger logic — entry + return, not return-only</h3>
-        <p class="ph" style="color:var(--ink-mid);">The trigger was tied to returning from search — intuitive, but creating a blind spot for first-entry users.</p>
-        <p class="ph">This was a logic fix, not a design change. Eligibility wasn't conditional on having searched before, so the trigger shouldn't be. Expanding to entry + return doubled exposure opportunities per session at near-zero engineering cost. Frequency cap prevents overexposure: step back for 3 days after X impressions with no clicks.</p>
-        <p class="decision-tradeoff">More exposure per session risks feeling intrusive — the frequency cap is the minimum viable constraint, calibrated not eliminated.</p>
-        <div class="img-ph"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+          <span class="label" style="display:inline;margin-bottom:0;">D01</span>
+          <span style="background:#C0392B;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;">P0</span>
+          <span style="font-size:12px;color:var(--ink-mid);background:rgba(0,0,0,0.06);border-radius:9999px;padding:2px 10px;letter-spacing:0.12px;">Exposure</span>
+        </div>
+        <img src="images/tiktok-search-incentive/D1.png" style="width:15%;display:block;margin-bottom:16px;">
+        <h3>Expand exposure reach — a new surface and a smarter trigger</h3>
+        <p class="ph" style="color:var(--ink-mid);">86% of eligible users never saw the campaign. The middle-page banner wasn't underperforming — it was structurally limited. Two moves to fix this.</p>
+
+        <span class="label" style="display:block;margin-top:32px;margin-bottom:8px;">Trigger fix — show on entry, not just return</span>
+        <p class="ph">The existing banner only fired when users navigated back from search — a logic constraint, not a product decision. Eligibility wasn't conditional on having searched before, so the trigger shouldn't be. Expanding to entry + return doubled exposure opportunities per session at near-zero engineering cost.</p>
+        <p class="decision-tradeoff">More exposure per session risks feeling intrusive — frequency cap (step back 3 days after X impressions with no clicks) is the minimum viable constraint.</p>
+
+        <img src="images/tiktok-search-incentive/D1-1.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
+
+        <span class="label" style="display:block;margin-top:32px;margin-bottom:8px;">New touchpoint — search results page widget</span>
+        <p class="ph">Optimizing within a surface reaching 14% of users would never move the aggregate metric. The results page captures users who have already searched — a larger, higher-intent audience. New touchpoint for ~25M passive search users without interrupting the search flow.</p>
+        <img src="images/tiktok-search-incentive/D1-2.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
+
+        <details style="margin-top:32px;background:var(--card);border-radius:var(--r-md);overflow:hidden;">
+          <summary style="padding:16px 20px;font-size:16px;color:var(--ink-mid);letter-spacing:0.12px;cursor:pointer;">Dismissal logic — AB test spec</summary>
+          <div style="padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+            <div>
+              <img src="images/tiktok-search-incentive/banner.png" style="width:30%;display:block;margin-bottom:10px;">
+              <span class="label" style="display:block;margin-bottom:10px;color:var(--ink);">Banner</span>
+              <p class="ph-sm">X impressions within 3 days with 0 clicks → suppress for 3 days, then reappear. (Configurable)</p>
+            </div>
+            <div>
+              <img src="images/tiktok-search-incentive/widget.png" style="width:7.5%;display:block;margin-bottom:10px;">
+              <span class="label" style="display:block;margin-bottom:10px;color:var(--ink);">Widget — active task</span>
+              <ul style="list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:6px;">
+                <li class="ph-sm">Manual close → suppress 1 day, then reappear (configurable)</li>
+                <li class="ph-sm">3 consecutive closes → permanently suppressed</li>
+                <li class="ph-sm">Closing the widget blocks further progress on the search task</li>
+              </ul>
+              <span class="label" style="display:block;margin-bottom:10px;color:var(--ink);">Widget — task completed</span>
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
+                <li class="ph-sm">Manual close → suppress 1 day, then reappear (configurable)</li>
+                <li class="ph-sm">3 consecutive closes → permanently suppressed</li>
+              </ul>
+            </div>
+          </div>
+        </details>
       </div>
 
       <hr class="divider">
 
       <div class="decision-block">
-        <span class="label">D03</span>
-        <h3>Consolidate authorization into the T&amp;C bottom sheet — 4 steps to 1</h3>
-        <p class="ph" style="color:var(--ink-mid);">Original flow: tap banner → navigate to detail page → read landing page → tap "Join now." Four steps, breaking search context entirely.</p>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+          <span class="label" style="display:inline;margin-bottom:0;">D02</span>
+          <span style="background:#C0392B;color:white;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;">P0</span>
+          <span style="font-size:12px;color:var(--ink-mid);background:rgba(0,0,0,0.06);border-radius:9999px;padding:2px 10px;letter-spacing:0.12px;">Authorization Rate</span>
+        </div>
+        <img src="images/tiktok-search-incentive/D2.png" style="width:15%;display:block;margin-bottom:16px;">
+        <h3>Consolidate authorization into the T&amp;C bottom sheet — 3 steps to 1</h3>
+        <p class="ph" style="color:var(--ink-mid);">Original flow: tap banner → navigate to detail page → tap "Join now." Three steps, breaking search context entirely.</p>
         <p class="ph">Consolidate into the T&amp;C bottom sheet: rewritten copy, inline T&amp;C link, and a direct "Join now" button. Users authorize without leaving search. "Learn more" stays — but is no longer required.</p>
 
         <div class="grid-2" style="margin-top:0;">
           <div class="card">
-            <span class="label" style="display:block;margin-bottom:8px;">Before — 4 steps</span>
-            <p class="ph-sm">Tap banner → navigate to detail page → read landing page → tap "Join now"</p>
+            <span class="label" style="display:block;margin-bottom:8px;">Before — 3 steps</span>
+            <p class="ph-sm">Tap banner → navigate to detail page → tap "Join now"</p>
           </div>
           <div class="card">
             <span class="label" style="display:block;margin-bottom:8px;">After — 1 step</span>
@@ -182,7 +284,8 @@
           </div>
         </div>
 
-        <img src="images/tiktok-search-incentive/bottom-sheet.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
+        <img src="images/tiktok-search-incentive/D02.png" style="width:100%;border-radius:var(--r-lg);display:block;margin-top:24px;">
+        <p class="decision-tradeoff" style="margin-top:24px;">Other P1 and P2 initiatives — copy rewrite, dismissal controls, and micro-animation — were also shipped as part of this project, but are not detailed here.</p>
       </div>
     </section>
 
@@ -211,7 +314,7 @@
 
       <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;margin-top:8px;">
         <span class="label" style="display:block;margin-bottom:8px;">What I took from this</span>
-        <p class="ph-sm">Good product judgment isn't only knowing what to build — it's recognizing when a logically sound idea creates a worse trade-off than the problem it solves. Exposure maximization has a user-experience cost that compounds.</p>
+        <p class="ph-sm">Good product judgment isn't only knowing what to build — it's knowing when to kill a valid idea before it ships. Coverage gains that cannibalize high-intent moments aren't growth; they're noise that erodes long-term trust in the product.</p>
       </div>
     </section>
 
@@ -219,31 +322,26 @@
     <!-- ── 05 REFLECTIONS ── -->
     <section id="s05">
       <div class="sec-label">05 · Outcome &amp; Reflections</div>
-      <h2>Exposure rate 14% → 67%. Authorization rate 49% → 60%. Shipped in 10 days.</h2>
+      <h2><span style="color:#FE2C55;">Targets met.</span> Exposure rate 14% → 67%. Authorization rate 49% → 60%.</h2>
 
       <div class="grid-3">
         <div class="card">
           <span class="label" style="display:block;margin-bottom:8px;">01</span>
-          <h3 style="font-size:16px;margin-bottom:8px;">Diagnose before you design</h3>
-          <p class="ph-sm">Separating exposure from conversion as two distinct, measurable problems determined what got built and in what order.</p>
+          <h3 style="font-size:16px;margin-bottom:8px;">Define the problem before scoping solutions</h3>
+          <p class="ph-sm">Breaking the brief into two separate metrics — exposure rate and authorization rate — clarified priorities, sequenced the roadmap, and prevented the team from over-engineering solutions for the wrong bottleneck.</p>
         </div>
         <div class="card">
           <span class="label" style="display:block;margin-bottom:8px;">02</span>
-          <h3 style="font-size:16px;margin-bottom:8px;">Logic changes can outperform design changes</h3>
-          <p class="ph-sm">The entry-trigger fix was a logic change, not a redesign. Zero UI cost, double the exposure opportunities. The highest-leverage decisions are often invisible on screen.</p>
+          <h3 style="font-size:16px;margin-bottom:8px;">The highest-leverage changes are often not features</h3>
+          <p class="ph-sm">The entry-trigger fix required no additional resources and doubled per-session exposure. Recognizing it as a logic gap — not a product gap — is the kind of judgment that unlocks headroom fast.</p>
         </div>
         <div class="card">
           <span class="label" style="display:block;margin-bottom:8px;">03</span>
-          <h3 style="font-size:16px;margin-bottom:8px;">Know when to kill a good idea</h3>
-          <p class="ph-sm">The rejected e-commerce banner was logically sound but made a worse trade-off. Recognizing that is a core PM skill I developed on this project.</p>
+          <h3 style="font-size:16px;margin-bottom:8px;">Scope control is also a PM responsibility</h3>
+          <p class="ph-sm">The rejected e-commerce banner was logically valid but created a net-negative trade-off. Bringing that argument to cross-functional review — and making the case to not ship — was as important as the decisions that did ship.</p>
         </div>
       </div>
 
-      <div class="gap"></div>
-      <div class="card" style="border-left:3px solid rgba(0,0,0,0.12);border-radius:0 var(--r-md) var(--r-md) 0;background:transparent;padding-left:20px;">
-        <p class="ph" style="font-style:italic;margin-bottom:6px;">"The most important decision happened before any solution was proposed — the decision to map the funnel first, and resist the instinct to redesign before diagnosing."</p>
-        <span class="label">— Project retrospective</span>
-      </div>
     </section>
 
 
