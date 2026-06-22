@@ -1,0 +1,76 @@
+{
+  "source": "https://www.calebwu.ca/Metalab",
+  "tokens": {
+    "spacing": {
+      "scale": [8, 12, 16, 80, 128],
+      "base_unit": 8,
+      "notes": "80px is a visual estimate for inter-section gaps; 128px is button horizontal padding (Axis); DOM reports 0px on semantic elements — spacing lives in Tailwind utility classes on wrappers"
+    },
+    "typography": {
+      "families": ["SF Pro Display"],
+      "scale": [
+        { "role": "heading", "size": "20.8px", "weight": "500", "lineHeight": "29.12px", "family": "SF Pro Display" },
+        { "role": "body", "size": "17.6px", "weight": "400", "lineHeight": "26.4px", "family": "SF Pro Display" },
+        { "role": "label", "size": "16px", "weight": "400", "lineHeight": "22.4px", "letterSpacing": "0.12px", "family": "SF Pro Display" }
+      ]
+    },
+    "colors": [
+      { "role": "background-page", "value": "#FFFFFF" },
+      { "role": "background-gutter", "value": "#F8F8F8" },
+      { "role": "text-primary", "value": "#171717" },
+      { "role": "text-secondary", "value": "#808080" },
+      { "role": "text-tertiary", "value": "#58534D" },
+      { "role": "accent-punctuation", "value": "#F54900" }
+    ],
+    "radius": ["8px", "12px", "16px", "9999px"],
+    "shadows": [],
+    "image_ratios": [
+      { "usage": "full-width feature", "ratio": "16:9" },
+      { "usage": "carousel strip", "ratio": "10.3:1" },
+      { "usage": "split-pair landscape", "ratio": "1.64:1" },
+      { "usage": "split-pair square", "ratio": "1:1" }
+    ],
+    "grid": {
+      "max_width": "735px",
+      "columns": 1,
+      "gutter": "~352px flanking gutters at #F8F8F8",
+      "notes": "No CSS grid detected; layout is single-column within 735px container centered in 1440px viewport"
+    },
+    "motion": {
+      "layout_easing": "cubic-bezier(0.62, 0.61, 0.02, 1)",
+      "layout_duration": "0.7s",
+      "color_easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "color_duration": "0.3s"
+    }
+  },
+  "taste": [
+    {
+      "name": "The Reader's Column",
+      "trigger": "When designing case study pages for a 1440px viewport where most portfolio sites stretch content to 900–1100px",
+      "decision": "Chose a 735px column (51% of viewport) centered in #F8F8F8 gutters over a wider content area that would fill more of the canvas",
+      "reason": "Because a narrow column forces vertical reading motion — the eye moves down a page like turning pages, not left-right like scanning a spreadsheet. The gutters read as document margins, not empty space.",
+      "evidence": ["containerWidth: 736px / 734px system across both pages", "Viewport 1440px", "#F8F8F8 dominant gutter background confirmed in backgroundColors", "17.6px body text with no ch-unit max-width — the column itself controls line length"]
+    },
+    {
+      "name": "Flat Surfaces",
+      "trigger": "When creating visual separation between content blocks — images, text sections, metadata column — where the standard tool is box-shadow to lift elements",
+      "decision": "Chose zero box-shadows everywhere over card shadows, section lift, or any depth signal",
+      "reason": "Because shadows imply altitude — some things float above the page, others sit on it. Removing all shadow makes everything co-planar: text, images, and metadata exist on the same surface, so hierarchy can only come from whitespace and reading order, not from UI layering.",
+      "evidence": ["shadows: [] confirmed on both pages [system]", "Screenshot confirms no perceivable depth between image containers and white background", "No nested shadow components anywhere"]
+    },
+    {
+      "name": "Authority Without Scale",
+      "trigger": "When establishing hierarchy between a project title, description body, and metadata labels",
+      "decision": "Chose a 5px total type size range (16px–20.8px, weights 400–500 only) over a dramatic headline scale (48px+ h1, bold weight contrasts) used by most design portfolios",
+      "reason": "Because a compressed scale forces the reader to parse hierarchy through position and reading order rather than scanning for the biggest thing. When there is no giant headline, the images carry the emotional weight — the text becomes a guide, not the spectacle.",
+      "evidence": ["Sizes: 20.8px / 17.6px / 16px. Ratio 20.8÷16 = 1.3×", "Weights: 400 and 500 only — no 700 or 900 anywhere", "h2 at 20.8px/500 is the largest text on the page"]
+    },
+    {
+      "name": "The Orange Dot as Punctuation",
+      "trigger": "When choosing where to deploy the one vivid brand color (#F54900) across a portfolio with interactive links, navigation, and CTAs",
+      "decision": "Chose to restrict #F54900 to a single breadcrumb dot per page over using it on hover states, link colors, section accents, or buttons",
+      "reason": "Because a color used in twelve places becomes ambient wallpaper — the eye stops reading it as a signal. Used once per page, it becomes a landmark: there is exactly one orange thing, and it always means home. The color earns its meaning through scarcity.",
+      "evidence": ["Screenshot: #F54900 visible only in breadcrumb dot, one per page", "accentCandidates: ['rgb(23,23,23)'] — no orange on any interactive element", "Confirmed [system] across both Metalab and Axis pages"]
+    }
+  ]
+}

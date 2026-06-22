@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Zhuoyi Zhang</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <style>
+    /* Remove section dividers — about page uses whitespace + inline rules */
+    main.content section + section { border-top: none; }
+
+    #intro { padding-top: 26vh; padding-bottom: 80px; }
+
+    .about-name {
+      font-size: 20.8px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .about-subtitle {
+      font-size: 16px;
+      color: var(--ink-mid);
+      letter-spacing: 0.12px;
+      margin-bottom: 48px;
+    }
+    .about-bio p {
+      font-size: 17.6px;
+      color: var(--ink);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .about-bio p:last-child { margin-bottom: 0; }
+
+    /* Section header: label + full-width rule */
+    .sec-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
+    .sec-header-label {
+      font-size: 16px;
+      color: var(--ink-mid);
+      letter-spacing: 0.12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .sec-header-rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(0,0,0,0.09);
+    }
+
+    /* Rows */
+    .rows { margin-top: 4px; }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .row:last-child { border-bottom: none; }
+    .row-left {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+    .row-name {
+      font-size: 17.6px;
+      color: var(--ink);
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+    .row-role {
+      font-size: 16px;
+      color: var(--ink-mid);
+      letter-spacing: 0.12px;
+    }
+    .row-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .row-year {
+      font-size: 17.6px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .row-badge {
+      font-size: 13px;
+      color: var(--ink-mid);
+      background: rgba(0,0,0,0.06);
+      border-radius: 9999px;
+      padding: 3px 10px;
+      letter-spacing: 0.12px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color var(--motion-state);
+    }
+    .row-badge:hover { color: var(--ink); }
+
+    /* Contact */
+    .contact-line {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .contact-line a {
+      font-size: 17.6px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color var(--motion-state);
+    }
+    .contact-line a:hover { color: var(--ink-mid); }
+    .contact-sep {
+      font-size: 17.6px;
+      color: var(--ink-mid);
+      margin: 0 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-fade"></div>
+
+  <nav class="nav">
+    <span class="nav-dot"></span>
+    <a href="https://zhuoyiz.framer.website">Zhuoyi Zhang</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-current">About</span>
+  </nav>
+
+  <aside class="toc" id="toc">
+    <a href="https://zhuoyiz.framer.website/projects" class="toc-home">Home</a>
+    <a href="#research"   class="toc-link">Research</a>
+    <a href="#experience" class="toc-link">Experience</a>
+    <a href="#education"  class="toc-link">Education</a>
+    <a href="#contact"    class="toc-link">Contact</a>
+  </aside>
+
+  <main class="content">
+
+    <!-- ── INTRO ── -->
+    <section id="intro">
+      <h1 class="about-name">Hi, I'm Zhuoyi.</h1>
+      <p class="about-subtitle">AI Product Manager · Graduating June 2026</p>
+
+      <div class="about-bio">
+        <p>I'm Zhuoyi — researcher by training, PM by instinct, engineer when nobody else will.</p>
+        <p>ACM papers, TikTok internship, UW M.S. Always chasing the problem that just became possible to solve.</p>
+      </div>
+    </section>
+
+    <!-- ── RESEARCH ── -->
+    <section id="research">
+      <div class="sec-header">
+        <span class="sec-header-label">Research</span>
+        <div class="sec-header-rule"></div>
+      </div>
+      <div class="rows">
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">TherAIssist</span>
+            <span class="row-role">Art Therapy AI Agent · UWaterloo × UW · Product Lead</span>
+          </div>
+          <div class="row-right">
+            <a href="https://doi.org/10.1145/3749497" target="_blank" class="row-badge">ACM UbiComp 2025 ↗</a>
+            <span class="row-year">2023–2025</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">DOLLama</span>
+            <span class="row-role">Anti-Bullying AI System · SUSTech · Product Lead</span>
+          </div>
+          <div class="row-right">
+            <span class="row-badge">ACM CHI 2026</span>
+            <span class="row-year">2025</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">LLM Recommendation</span>
+            <span class="row-role">Conversational Rec System · UW HAI Lab · PM & Dev</span>
+          </div>
+          <div class="row-right">
+            <a href="https://dl.acm.org/doi/10.1145/3613904.3642933" target="_blank" class="row-badge">ACM CHI 2024 ↗</a>
+            <span class="row-year">2025</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── EXPERIENCE ── -->
+    <section id="experience">
+      <div class="sec-header">
+        <span class="sec-header-label">Experience</span>
+        <div class="sec-header-rule"></div>
+      </div>
+      <div class="rows">
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">ByteDance · TikTok Search</span>
+            <span class="row-role">Growth PM Intern</span>
+          </div>
+          <div class="row-right">
+            <span class="row-year">2025</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">Optimizely</span>
+            <span class="row-role">PM Intern</span>
+          </div>
+          <div class="row-right">
+            <span class="row-year">2025</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">MatchUS</span>
+            <span class="row-role">Co-founder · PM</span>
+          </div>
+          <div class="row-right">
+            <span class="row-year">2023</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">NetEase</span>
+            <span class="row-role">Game Experience Design Intern</span>
+          </div>
+          <div class="row-right">
+            <span class="row-year">2023</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── EDUCATION ── -->
+    <section id="education">
+      <div class="sec-header">
+        <span class="sec-header-label">Education</span>
+        <div class="sec-header-rule"></div>
+      </div>
+      <div class="rows">
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">University of Washington</span>
+            <span class="row-role">M.S. Human-Centered Design & Engineering</span>
+          </div>
+          <div class="row-right">
+            <span class="row-year">2024–2026</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <span class="row-name">Zhejiang University</span>
+            <span class="row-role">B.S. Landscape Architecture · minor Industrial Design · GPA 3.9</span>
+          </div>
+          <div class="row-right">
+            <span class="row-year">2019–2023</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CONTACT ── -->
+    <section id="contact">
+      <div class="sec-header">
+        <span class="sec-header-label">Contact</span>
+        <div class="sec-header-rule"></div>
+      </div>
+      <div class="contact-line">
+        <a href="mailto:zhuoyiz.design@gmail.com">zhuoyiz.design@gmail.com</a>
+        <span class="contact-sep">·</span>
+        <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
+        <span class="contact-sep">·</span>
+        <a href="https://zhuoyiz.framer.website" target="_blank">zhuoyiz.framer.website</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/portfolio.js"></script>
+</body>
+</html>
