@@ -33,6 +33,29 @@
     }
     .about-bio p:last-child { margin-bottom: 0; }
 
+    /* Intro: text + photo side by side */
+    .intro-cols {
+      display: flex;
+      align-items: flex-start;
+      gap: 48px;
+    }
+    .intro-text { flex: 1; min-width: 0; }
+    .intro-photo {
+      flex-shrink: 0;
+      width: 200px;
+    }
+    .intro-photo img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: var(--r-lg);
+      display: block;
+    }
+    @media (max-width: 600px) {
+      .intro-cols { flex-direction: column-reverse; gap: 32px; }
+      .intro-photo { width: 120px; }
+    }
+
     /* Section header: label + full-width rule */
     .sec-header {
       display: flex;
@@ -152,12 +175,18 @@
 
     <!-- ── INTRO ── -->
     <section id="intro">
-      <h1 class="about-name">Hi, I'm Zhuoyi.</h1>
-      <p class="about-subtitle">AI Product Manager · Graduating June 2026</p>
-
-      <div class="about-bio">
-        <p>I'm Zhuoyi — researcher by training, PM by instinct, engineer when nobody else will.</p>
-        <p>ACM papers, TikTok internship, UW M.S. Always chasing the problem that just became possible to solve.</p>
+      <div class="intro-cols">
+        <div class="intro-text">
+          <h1 class="about-name">Hi, I'm Zhuoyi.</h1>
+          <p class="about-subtitle">AI Product Manager · Graduating June 2026</p>
+          <div class="about-bio">
+            <p>I'm Zhuoyi — researcher by training, PM by instinct, engineer when nobody else will.</p>
+            <p>ACM papers, TikTok internship, UW M.S. Always chasing the problem that just became possible to solve.</p>
+          </div>
+        </div>
+        <div class="intro-photo">
+          <img src="images/framer/selfie.JPG" alt="Zhuoyi Zhang">
+        </div>
       </div>
     </section>
 
