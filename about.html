@@ -40,9 +40,9 @@
     }
     .intro-photo img {
       width: 100%;
-      height: 280px;
+      height: 400px;
       object-fit: cover;
-      object-position: center top;
+      object-position: center 40%;
       border-radius: var(--r-lg);
       display: block;
     }
@@ -141,6 +141,25 @@
       color: var(--ink-mid);
       margin: 0 14px;
     }
+    .contact-cv {
+      margin-top: 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+    }
+    .cv-label {
+      font-size: 16px;
+      color: var(--ink-mid);
+      letter-spacing: 0.12px;
+    }
+    .cv-link {
+      font-size: 16px;
+      color: var(--ink-mid);
+      text-decoration: none;
+      letter-spacing: 0.12px;
+      transition: color var(--motion-state);
+    }
+    .cv-link:hover { color: var(--ink); }
   </style>
 </head>
 <body>
@@ -172,8 +191,15 @@
       <h1 class="about-name">Hi, I'm Zhuoyi.</h1>
       <p class="about-subtitle">AI Product Manager · Graduating June 2026</p>
       <div class="about-bio">
-        <p>I'm Zhuoyi — researcher by training, PM by instinct, engineer when nobody else will.</p>
+        <p>I'm Zhuoyi — researcher by training, product thinker by practice, engineer when nobody else will.</p>
         <p>ACM papers, TikTok internship, UW M.S. Always chasing the problem that just became possible to solve.</p>
+      </div>
+      <div class="contact-cv">
+        <span class="cv-label">Preview CV</span>
+        <span class="contact-sep">—</span>
+        <a href="cv/zhuoyi-zhang-cv-en.pdf" target="_blank" class="cv-link">EN</a>
+        <span class="contact-sep">·</span>
+        <a href="cv/zhuoyi-zhang-cv-cn.pdf" target="_blank" class="cv-link">CN</a>
       </div>
     </section>
 
@@ -313,13 +339,25 @@
         <a href="mailto:zhuoyiz.design@gmail.com">zhuoyiz.design@gmail.com</a>
         <span class="contact-sep">·</span>
         <a href="https://www.linkedin.com/in/zhuoyiz" target="_blank">LinkedIn</a>
-        <span class="contact-sep">·</span>
-        <a href="https://zhuoyiz.framer.website" target="_blank">zhuoyiz.framer.website</a>
       </div>
     </section>
 
   </main>
 
   <script src="js/portfolio.js"></script>
+  <script>
+    // Contact is a short section at page bottom — override with a wider observation zone
+    const contactEl = document.getElementById('contact');
+    if (contactEl) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+            document.querySelector('.toc-link[href="#contact"]').classList.add('active');
+          }
+        });
+      }, { rootMargin: '-5% 0px -15% 0px', threshold: 0.05 }).observe(contactEl);
+    }
+  </script>
 </body>
 </html>
